@@ -4,6 +4,8 @@ A Mac OS X 10.6 "Snow Leopard" layer for the web, built on top of
 [aqua.css](https://github.com/ahzs645/aqua.css). It adds the Finder-style window
 chrome and a set of common web patterns, all drawn in glossy Aqua.
 
+**[Live demo](https://chrismoritz.github.io/snowleopard.css/)**
+
 > Status: early draft. The layout has been tested in a simulated DOM but not yet
 > reviewed visually in a browser.
 
@@ -45,7 +47,11 @@ For Graphite, add `theme-graphite` to the same element.
 
 ## Demos
 
-Build the self-contained demo pages, then open them in a browser:
+View the demos online at <https://chrismoritz.github.io/snowleopard.css/>:
+[Finder](https://chrismoritz.github.io/snowleopard.css/demo/finder.html) and
+[web patterns](https://chrismoritz.github.io/snowleopard.css/demo/web-patterns.html).
+
+To build the pages locally and open them in a browser:
 
 ```sh
 python3 scripts/build.py
@@ -59,7 +65,7 @@ open demo/web-patterns.html
 | --- | --- |
 | `src/snow.css` | The stylesheet. |
 | `demo/src/*.template.html` | Demo page sources. |
-| `demo/*.html` | Built, self-contained demos (generated). |
+| `demo/*.html`, `index.html` | Built, self-contained demos and the GitHub Pages landing page (generated). |
 | `vendor/aqua.css` | Pinned copy of aqua.css, used only to build the demos. |
 | `scripts/build.py` | Inlines the CSS into the demo templates. |
 
