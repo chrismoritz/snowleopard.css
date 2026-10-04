@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  demos:
+    name: Demos are up to date
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Rebuild the demo pages
+        run: python3 scripts/build.py
+      - name: Fail if the built pages differ from what is committed
+        run: git diff --exit-code -- demo index.html
+
+  snow-ui:
+    name: snow-ui
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Check that theme tokens match src/snow.css
+        run: npm run check:tokens
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Build the gallery
+        run: npm run build:gallery
+      - name: Build the registry
+        run: npm run registry:build
