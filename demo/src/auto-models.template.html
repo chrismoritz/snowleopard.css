@@ -9,56 +9,54 @@
 <style>/*SNOW_CSS*/</style>
 <style>/*include:auto.shared.css*/</style>
 <style>
-.page-head { padding: 34px 0 26px; background: radial-gradient(ellipse 70% 120% at 80% 0%, rgba(95, 130, 190, .25), transparent 70%), linear-gradient(#10121a, #0b0c10); border-bottom: 1px solid var(--line); }
+.page-head { padding: 34px 0 26px; background: radial-gradient(ellipse 70% 120% at 82% 0%, rgba(120, 160, 220, .3), transparent 70%), linear-gradient(#fff, #eceef2); border-bottom: 1px solid var(--line); }
 .page-head h1 { margin: 6px 0 6px; font-size: 40px; font-weight: 300; }
-.page-head p { margin: 0; max-width: 62ch; color: #aab0bb; }
-.crumbs { margin: 0; font-size: 12px; color: #8b92a0; }
-.crumbs a { color: #aab0bb; }
+.page-head p { margin: 0; max-width: 62ch; color: var(--muted); }
+.crumbs { margin: 0; font-size: 12px; color: var(--faint); }
 
 /* Filters */
-.filters { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-bottom: 22px; padding: 12px 14px; background: linear-gradient(#1b1e26, #12141a); border: 1px solid var(--line); border-radius: 8px; }
-.filters label { font-size: 12px; color: #cfd4dc; margin-right: 6px; }
+.filters { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-bottom: 22px; padding: 12px 14px; background: linear-gradient(#fff, #eceef2); border: 1px solid #b5b9c1; border-radius: 8px; box-shadow: inset 0 1px 0 #fff, 0 1px 3px rgba(0, 0, 0, .12); }
+.filters label { font-size: 12px; color: #3a3f4a; margin-right: 6px; }
 .filters .grow { flex: 1; }
-.filters .count { font-size: 12px; color: #aab0bb; }
+.filters .count { font-size: 12px; color: var(--muted); }
 
 /* Cards */
 .model { padding: 0 0 16px; overflow: hidden; }
-.model[aria-current="true"] { border-color: var(--snow-sel-1); box-shadow: 0 0 0 2px var(--snow-sel-2), 0 4px 14px rgba(0, 0, 0, .4); }
-.model .art { display: block; padding: 16px 16px 4px; background: radial-gradient(ellipse 80% 90% at 50% 100%, rgba(120, 150, 210, .28), transparent 70%), linear-gradient(#20242e, #14161c); border-bottom: 1px solid var(--line); }
-.model .art .car { filter: drop-shadow(0 8px 8px rgba(0, 0, 0, .55)); }
+.model[aria-current="true"] { border-color: var(--snow-sel-edge); box-shadow: 0 0 0 3px var(--snow-sel-1), 0 1px 3px rgba(0, 0, 0, .2); }
+.model .art { display: block; padding: 16px 16px 4px; background: radial-gradient(ellipse 80% 90% at 50% 100%, rgba(120, 150, 210, .25), transparent 70%), linear-gradient(#fafbfc, #e3e6eb); border-bottom: 1px solid var(--line); }
+.model .art .car { filter: drop-shadow(0 7px 6px rgba(0, 0, 0, .3)); }
 .model .body { display: flex; flex-direction: column; gap: 8px; padding: 0 18px; }
 .model .top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
 .model .top h3 { font-size: 22px; font-weight: 300; }
 .model .btns { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
-.model .btns label { display: inline-flex; align-items: center; gap: 6px; margin-left: auto; font-size: 12px; color: #cfd4dc; }
-.empty { padding: 40px 20px; text-align: center; color: #aab0bb; background: linear-gradient(#1b1e26, #12141a); border: 1px dashed var(--line); border-radius: 8px; }
+.model .btns label { display: inline-flex; align-items: center; gap: 6px; margin-left: auto; font-size: 12px; color: #3a3f4a; }
+.empty { padding: 40px 20px; text-align: center; color: var(--muted); background: linear-gradient(#fff, #eceef2); border: 1px dashed #9a9ea6; border-radius: 8px; }
 .empty[hidden] { display: none; }
 
 /* Spotlight */
 .spot { display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; align-items: center; }
-.spot .scene { padding: 20px 20px 36px; border: 1px solid var(--line); border-radius: 8px; background: radial-gradient(ellipse 80% 70% at 50% 100%, rgba(120, 150, 210, .3), transparent 70%), linear-gradient(#20242e, #101218); }
+.spot .scene { padding: 20px 20px 36px; border: 1px solid #b5b9c1; border-radius: 8px; background: radial-gradient(ellipse 80% 70% at 50% 100%, rgba(120, 150, 210, .3), transparent 70%), linear-gradient(#fbfcfd, #dfe3e9); box-shadow: inset 0 1px 0 #fff, 0 1px 3px rgba(0, 0, 0, .15); }
 .spot h2 { margin: 0 0 4px; font-size: 40px; font-weight: 300; }
-.spot .lead { color: #aab0bb; margin-bottom: 14px; }
+.spot .lead { color: var(--muted); margin-bottom: 14px; }
 .spot .ctl { display: flex; flex-direction: column; gap: 14px; }
-.spot .ctl label.t { display: block; margin-bottom: 6px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
 .swatches { display: flex; flex-wrap: wrap; gap: 8px; }
-.swatches button { min-width: 0; width: 28px; height: 28px; padding: 0; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .3); box-shadow: inset 0 2px 3px rgba(255, 255, 255, .5), 0 1px 3px rgba(0, 0, 0, .6); }
-.swatches button[aria-checked="true"] { border-color: #fff; box-shadow: 0 0 0 2px var(--snow-sel-2), inset 0 2px 3px rgba(255, 255, 255, .5); }
+.swatches button { min-width: 0; width: 28px; height: 28px; padding: 0; border-radius: 50%; border: 2px solid rgba(0, 0, 0, .3); box-shadow: inset 0 2px 3px rgba(255, 255, 255, .5), 0 1px 3px rgba(0, 0, 0, .35); }
+.swatches button[aria-checked="true"] { border-color: #fff; box-shadow: 0 0 0 2px var(--snow-sel-2), 0 1px 3px rgba(0, 0, 0, .4); }
 .pricebox { display: flex; align-items: baseline; gap: 10px; }
 .pricebox b { font-size: 30px; font-weight: 300; }
-.pricebox span { font-size: 12px; color: #8b92a0; }
+.pricebox span { font-size: 12px; color: var(--faint); }
 .feat { margin: 0; padding: 0; list-style: none; }
-.feat li { position: relative; padding: 3px 0 3px 22px; color: #cfd4dc; font-size: 13px; }
-.feat li::before { content: "✓"; position: absolute; left: 0; color: #7cc77c; font-weight: 700; }
+.feat li { position: relative; padding: 3px 0 3px 22px; color: #3a3f4a; font-size: 13px; }
+.feat li::before { content: "✓"; position: absolute; left: 0; color: #2a8a28; font-weight: 700; }
 .specs { margin-top: 22px; }
 .specs .tablewrap { max-height: none; }
 .specs td:first-child { font-weight: 700; }
 
 /* Compare tray + dialog */
-.tray { position: fixed; z-index: 70; left: 12px; right: 12px; bottom: 12px; max-width: 760px; margin-inline: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 10px 14px; background: linear-gradient(#2a2f3a, #14161c); border: 1px solid #000; border-radius: 8px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 8px 24px rgba(0, 0, 0, .6); }
+.tray { position: fixed; z-index: 70; left: 12px; right: 12px; bottom: 12px; max-width: 760px; margin-inline: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 10px 14px; background: linear-gradient(var(--snow-chrome-top), var(--snow-chrome-mid) 55%, var(--snow-chrome-bot)); border: 1px solid var(--snow-chrome-line); border-radius: 8px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 8px 24px rgba(0, 0, 0, .35); }
 .tray[hidden] { display: none; }
 .tray .chips { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; font-size: 13px; }
-.tray .chip { display: inline-flex; align-items: center; gap: 6px; padding: 2px 4px 2px 10px; border-radius: 12px; background: rgba(255, 255, 255, .1); border: 1px solid var(--line); }
+.tray .chip { display: inline-flex; align-items: center; gap: 6px; padding: 2px 4px 2px 10px; border-radius: 12px; background: rgba(255, 255, 255, .6); border: 1px solid rgba(0, 0, 0, .25); }
 .tray .chip button { min-width: 0; width: 18px; height: 18px; padding: 0; border-radius: 50%; font-size: 12px; line-height: 1; }
 .cmp-win { width: min(900px, calc(100vw - 24px)); max-height: calc(100vh - 40px); display: flex; flex-direction: column; color: #000; }
 .cmp-win .window-body { padding: 14px; overflow: auto; background: #ececec; }
@@ -68,7 +66,6 @@
 
 /* Data table */
 .tablewrap th[data-k] { cursor: default; }
-.tablewrap .tag-ev, .tablewrap .tag-phev, .tablewrap .tag-gas { font-weight: 400; }
 
 @media (max-width: 860px) { .spot { grid-template-columns: 1fr; } .page-head h1 { font-size: 32px; } .spot h2 { font-size: 32px; } }
 </style>
@@ -120,7 +117,7 @@
           </div>
         </div>
         <div class="specs">
-          <h3 style="margin:0 0 10px;font-size:15px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:#aab0bb">Specifications</h3>
+          <h3 style="margin:0 0 10px;font-size:15px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:#5a606c">Specifications</h3>
           <div class="tablewrap"><table class="aqua-table" id="sp-table"><caption class="sr-only">Specifications for the selected trim</caption><tbody></tbody></table></div>
         </div>
       </div>

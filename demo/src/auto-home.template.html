@@ -10,22 +10,21 @@
 <style>/*include:auto.shared.css*/</style>
 <style>
 /* Hero */
-.hero { position: relative; overflow: hidden; padding: 56px 0 24px; background: radial-gradient(ellipse 80% 70% at 70% 80%, rgba(95, 130, 190, .35), transparent 70%), radial-gradient(ellipse 60% 50% at 10% 0%, rgba(201, 179, 122, .14), transparent 70%), linear-gradient(#0b0c10, #151822 70%, #0b0c10); }
+.hero { position: relative; overflow: hidden; padding: 56px 0 24px; background: radial-gradient(ellipse 80% 70% at 72% 85%, rgba(120, 160, 220, .35), transparent 70%), radial-gradient(ellipse 60% 50% at 8% 0%, rgba(201, 179, 122, .28), transparent 70%), linear-gradient(#fff, #e9ecf1 75%, #f3f4f6); border-bottom: 1px solid var(--line); }
 .hero .wrap { display: grid; grid-template-columns: 1fr 1.25fr; gap: 28px; align-items: center; }
 .hero h1 { margin: 0 0 12px; font-size: 52px; font-weight: 300; line-height: 1.08; letter-spacing: -.005em; }
-.hero .lede { max-width: 42ch; margin-bottom: 22px; font-size: 16px; color: #b9bfca; }
+.hero .lede { max-width: 42ch; margin-bottom: 22px; font-size: 16px; color: #4a505c; }
 .hero .stage-car { padding-bottom: 36px; }
 .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 30px; border-top: 1px solid var(--line); }
 .stats div { padding: 14px 0 0; }
 .stats b { display: block; font-size: 26px; font-weight: 300; }
-.stats span { font-size: 12px; color: #8b92a0; }
-.dots { display: flex; gap: 8px; }
+.stats span { font-size: 12px; color: var(--faint); }
 
 /* Lineup */
 .lineup-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 26px; }
 .model { padding: 0 0 16px; overflow: hidden; }
-.model .art { display: block; padding: 18px 18px 6px; background: radial-gradient(ellipse 80% 90% at 50% 100%, rgba(120, 150, 210, .28), transparent 70%), linear-gradient(#20242e, #14161c); border-bottom: 1px solid var(--line); }
-.model .art .car { filter: drop-shadow(0 8px 8px rgba(0, 0, 0, .55)); }
+.model .art { display: block; padding: 18px 18px 6px; background: radial-gradient(ellipse 80% 90% at 50% 100%, rgba(120, 150, 210, .25), transparent 70%), linear-gradient(#fafbfc, #e3e6eb); border-bottom: 1px solid var(--line); }
+.model .art .car { filter: drop-shadow(0 7px 6px rgba(0, 0, 0, .3)); }
 .model .body { display: flex; flex-direction: column; gap: 8px; padding: 0 18px; }
 .model .top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
 .model .top h3 { font-size: 22px; font-weight: 300; }
@@ -37,12 +36,12 @@
 .planner { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
 .planner .out { display: flex; flex-direction: column; gap: 14px; }
 .big { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.big div { padding: 12px; text-align: center; background: #0f1116; border: 1px solid var(--line); border-radius: 6px; }
+.big div { padding: 12px; text-align: center; background: #fff; border: 1px solid #b5b9c1; border-radius: 6px; box-shadow: inset 0 1px 3px rgba(0, 0, 0, .12); }
 .big b { display: block; font-size: 26px; font-weight: 300; }
-.big span { font-size: 11px; color: #8b92a0; }
+.big span { font-size: 11px; color: var(--faint); }
 .planner .field { display: flex; flex-direction: column; gap: 6px; }
-.planner label { font-size: 12px; color: #cfd4dc; }
-.planner output { font-size: 20px; font-weight: 300; }
+.planner label { font-size: 12px; color: #3a3f4a; }
+.planner output { font-size: 20px; font-weight: 300; color: var(--text); }
 .planner input[type=range] { width: 100%; }
 
 /* Tabs */
@@ -53,37 +52,37 @@
 .tech .tile { margin: 0; }
 
 /* Stats band */
-.band { padding: 44px 0; background: linear-gradient(#2a2f3a, #14161c); border-block: 1px solid #000; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15); }
+.band { padding: 44px 0; color: #fff; text-shadow: 0 1px 3px rgba(0, 0, 0, .45); background: linear-gradient(var(--snow-sel-1), var(--snow-sel-2)); border-block: 1px solid var(--snow-sel-edge); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .45); }
 .band .wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; text-align: center; }
 .band b { display: block; font-size: 38px; font-weight: 300; line-height: 1.1; }
-.band span { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #aab0bb; }
+.band span { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; opacity: .92; }
 
 /* Form and dealers */
 .two { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
-.dark-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 22px; background: linear-gradient(#1b1e26, #12141a); border: 1px solid var(--line); border-radius: 8px; }
-.dark-form .full { grid-column: 1 / -1; }
-.dark-form fieldset { margin: 0; padding: 0; border: 0; }
-.dark-form legend { padding: 0; margin-bottom: 4px; font-size: 12px; color: #cfd4dc; }
-.dark-form .opts { display: flex; flex-wrap: wrap; gap: 14px; }
-.dark-form .opts label { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; }
+.form-card { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 22px; background: linear-gradient(#fff, #f1f3f6); border: 1px solid #b5b9c1; border-radius: 8px; box-shadow: inset 0 1px 0 #fff, 0 1px 3px rgba(0, 0, 0, .15); }
+.form-card .full { grid-column: 1 / -1; }
+.form-card fieldset { margin: 0; padding: 0; border: 0; }
+.form-card legend { padding: 0; margin-bottom: 4px; font-size: 12px; color: #3a3f4a; }
+.form-card .opts { display: flex; flex-wrap: wrap; gap: 14px; }
+.form-card .opts label { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; }
 .dealers { display: flex; flex-direction: column; gap: 10px; }
-.dealer { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: linear-gradient(#1b1e26, #12141a); border: 1px solid var(--line); border-radius: 8px; }
+.dealer { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: linear-gradient(#fff, #f1f3f6); border: 1px solid #b5b9c1; border-radius: 8px; box-shadow: 0 1px 2px rgba(0, 0, 0, .12); }
 .dealer .pin { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; font-weight: 700; color: #fff; background: linear-gradient(var(--snow-sel-1), var(--snow-sel-2)); border: 1px solid var(--snow-sel-edge); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6); }
 .dealer b { display: block; font-weight: 400; }
-.dealer small { color: #8b92a0; }
-.dealer .mi { margin-left: auto; font-size: 12px; color: #aab0bb; white-space: nowrap; }
+.dealer small { color: var(--faint); }
+.dealer .mi { margin-left: auto; font-size: 12px; color: var(--muted); white-space: nowrap; }
 
 /* CTA */
-.cta { padding: 64px 0; text-align: center; background: radial-gradient(ellipse 70% 120% at 50% 130%, rgba(201, 179, 122, .3), transparent 70%), linear-gradient(#10121a, #0b0c10); border-top: 1px solid var(--line); }
+.cta { padding: 64px 0; text-align: center; background: radial-gradient(ellipse 70% 120% at 50% 130%, rgba(201, 179, 122, .4), transparent 70%), linear-gradient(#fff, #e9ecf1); border-top: 1px solid var(--line); }
 .cta h2 { margin-bottom: 8px; font-size: 34px; font-weight: 300; }
-.cta p { margin: 0 auto 20px; max-width: 52ch; color: #b9bfca; }
+.cta p { margin: 0 auto 20px; max-width: 52ch; color: var(--muted); }
 .cta .row { justify-content: center; }
 
 @media (max-width: 860px) {
   .hero { padding-top: 32px; }
   .hero .wrap, .planner, .two { grid-template-columns: 1fr; }
   .hero h1 { font-size: 38px; }
-  .dark-form { grid-template-columns: 1fr; }
+  .form-card { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -141,7 +140,7 @@
             <h3 id="pl-title">Aria</h3>
             <div class="big"><div><b id="pl-stops">0</b><span id="pl-stops-l">Charging stops</span></div><div><b id="pl-time">0 h 0 m</b><span>Stopped time</span></div><div><b id="pl-arr">80%</b><span>Battery on arrival</span></div></div>
             <div class="progress-bar" role="progressbar" aria-label="Battery on arrival" aria-valuemin="0" aria-valuemax="100" id="pl-bar" style="width:100%"><div class="progress-bar-fill" id="pl-fill" style="width:80%"></div></div>
-            <p id="pl-sum" role="status" style="margin:0;color:#b9bfca"></p>
+            <p id="pl-sum" role="status" style="margin:0;color:#4a505c"></p>
           </div>
         </div>
       </div>
@@ -216,13 +215,13 @@
       <div class="wrap two">
         <div>
           <p class="eyebrow">Test drive</p><h2 id="drive-t" style="font-size:32px;font-weight:300;margin-bottom:10px">Experience it in person</h2>
-          <p style="color:#aab0bb;max-width:44ch">Choose a model and a time. A product specialist brings the car to you, or meets you at a nearby Halcyon studio.</p>
-          <div class="field" style="margin-top:14px;max-width:320px" id="dealers"><label for="dz" style="font-size:12px;color:#cfd4dc">Find a dealer near you</label>
+          <p style="color:#5a606c;max-width:44ch">Choose a model and a time. A product specialist brings the car to you, or meets you at a nearby Halcyon studio.</p>
+          <div class="field" style="margin-top:14px;max-width:320px" id="dealers"><label for="dz" style="font-size:12px;color:#3a3f4a">Find a dealer near you</label>
             <div class="row" style="flex-wrap:nowrap"><input type="text" id="dz" inputmode="numeric" maxlength="5" placeholder="ZIP code" aria-describedby="dz-m" style="flex:1"><button type="button" id="dz-go">Search</button></div>
             <div class="snow-msg err" id="dz-m" hidden></div></div>
           <ul class="dealers" id="dealers-list" style="list-style:none;margin:16px 0 0;padding:0" aria-live="polite"></ul>
         </div>
-        <form class="dark-form" id="td" novalidate aria-label="Schedule a test drive">
+        <form class="form-card" id="td" novalidate aria-label="Schedule a test drive">
           <div class="field"><label for="td-name">Name</label><input type="text" id="td-name" autocomplete="name" aria-describedby="td-name-m"><div class="snow-msg err" id="td-name-m" hidden></div></div>
           <div class="field"><label for="td-mail">Email</label><input type="email" id="td-mail" autocomplete="email" aria-describedby="td-mail-m"><div class="snow-msg err" id="td-mail-m" hidden></div></div>
           <div class="field"><label for="td-zip">ZIP code</label><input type="text" id="td-zip" inputmode="numeric" maxlength="5" autocomplete="postal-code" aria-describedby="td-zip-m"><div class="snow-msg err" id="td-zip-m" hidden></div></div>
@@ -258,11 +257,11 @@
   var hero = H.byId('aria'), heroPaint = hero.paint;
   function drawHero() { $('#hero-car').innerHTML = H.carSvg(hero, heroPaint, 'hero-svg'); }
   $('#hero-paints').innerHTML = H.PAINTS.map(function (p) {
-    return '<button type="button" role="radio" aria-checked="' + (p[1] === heroPaint) + '" aria-label="' + esc(p[0]) + '" title="' + esc(p[0]) + '" data-c="' + p[1] + '" style="min-width:0;width:26px;height:26px;padding:0;border-radius:50%;background:' + p[1] + ';border:2px solid ' + (p[1] === heroPaint ? '#fff' : 'rgba(255,255,255,.3)') + '"></button>';
+    return '<button type="button" role="radio" aria-checked="' + (p[1] === heroPaint) + '" aria-label="' + esc(p[0]) + '" title="' + esc(p[0]) + '" data-c="' + p[1] + '" style="min-width:0;width:26px;height:26px;padding:0;border-radius:50%;background:' + p[1] + ';border:2px solid ' + (p[1] === heroPaint ? '#fff' : 'rgba(0,0,0,.3)') + '"></button>';
   }).join('');
   $('#hero-paints').addEventListener('click', function (e) {
     var b = e.target.closest('[data-c]'); if (!b) return; heroPaint = b.getAttribute('data-c');
-    $$('#hero-paints button').forEach(function (x) { var on = x === b; x.setAttribute('aria-checked', on); x.style.borderColor = on ? '#fff' : 'rgba(255,255,255,.3)'; });
+    $$('#hero-paints button').forEach(function (x) { var on = x === b; x.setAttribute('aria-checked', on); x.style.borderColor = on ? '#fff' : 'rgba(0,0,0,.3)'; x.style.boxShadow = on ? '0 0 0 2px var(--snow-sel-2)' : '0 1px 3px rgba(0,0,0,.35)'; });
     drawHero();
   });
   drawHero();
