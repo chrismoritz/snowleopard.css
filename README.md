@@ -18,6 +18,10 @@ chrome and a set of common web patterns, all drawn in glossy Aqua.
 - **Forms:** validation states, ON/OFF switch, stepper, token field, date picker, file drop zone.
 - **Feedback:** HUD toasts, alert dialog, sheet, tooltip, popover, inline banners.
 - **Content:** cards, accordion, sortable data table, empty state, avatars, badges, labels.
+- **Overlays and menus:** command palette, context menu, checkable menus, hover card, combobox, drawer.
+- **Inputs:** toggle groups, rating, one-time code, text counter, plan cards, price range.
+- **Data:** stat tiles, bar chart, timeline, skeleton loading, inspector, tree view.
+- **Layout and flow:** assistant stepper, split view, carousel, typography.
 - **Appearances:** Blue (default) and Graphite, through CSS variables.
 
 ## Usage
@@ -47,9 +51,12 @@ For Graphite, add `theme-graphite` to the same element.
 
 ## Demos
 
-View the demos online at <https://chrismoritz.github.io/snowleopard.css/>:
-[Finder](https://chrismoritz.github.io/snowleopard.css/demo/finder.html) and
-[web patterns](https://chrismoritz.github.io/snowleopard.css/demo/web-patterns.html).
+The [live demo](https://chrismoritz.github.io/snowleopard.css/) opens on **Web patterns** (40 patterns across
+navigation, forms, feedback, content, overlays, inputs, data, and layout) with a switch to the **Finder simulator**.
+You can also open them on their own:
+[web patterns](https://chrismoritz.github.io/snowleopard.css/demo/web-patterns.html),
+[Finder](https://chrismoritz.github.io/snowleopard.css/demo/finder.html), or deep-link to the Finder tab with
+[`#finder`](https://chrismoritz.github.io/snowleopard.css/#finder).
 
 To build the pages locally and open them in a browser:
 
@@ -71,7 +78,7 @@ gallery. The plain CSS above doesn't depend on any of this.
 | --- | --- |
 | `src/snow.css` | The stylesheet. |
 | `demo/src/*.template.html` | Demo page sources. |
-| `demo/*.html`, `index.html` | Built, self-contained demos and the GitHub Pages landing page (generated). |
+| `demo/*.html`, `index.html` | Built, self-contained demos and the GitHub Pages page that switches between them (generated). |
 | `vendor/aqua.css` | Pinned copy of aqua.css, used only to build the demos. |
 | `scripts/build.py` | Inlines the CSS into the demo templates. |
 

@@ -784,6 +784,194 @@
   .col-preview { flex: 1 0 150px; padding: 12px 8px; }
   .col-preview .big { width: 64px; height: 64px; }
 }
+
+/* ---------- More web patterns ---------- */
+
+/* Command palette (Spotlight) */
+.snow-cmd { overflow: hidden; background: #fff; border: 1px solid #8f8f8f; border-radius: 6px; box-shadow: 0 6px 18px rgba(0, 0, 0, .3); }
+.snow-cmd-input { display: flex; align-items: center; gap: 8px; padding: 0 10px; background: linear-gradient(#fafafa, #ececec); border-bottom: 1px solid #c4c4c4; }
+.snow .snow-cmd-input input { flex: 1; min-width: 0; height: 34px; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; font-size: 15px; outline: none; }
+.snow-cmd-list { position: relative; max-height: 176px; margin: 0; padding: 0; overflow: auto; list-style: none; }
+.snow-cmd-list .grp { padding: 1px 10px; font-size: 11px; font-weight: 700; color: var(--snow-source-head); background: var(--snow-source-bg); border-block: 1px solid var(--snow-source-edge); }
+.snow-cmd-list [role="option"] { display: flex; justify-content: space-between; gap: 12px; padding: 4px 10px; cursor: default; }
+.snow-cmd-list [role="option"][aria-selected="true"] { color: #fff; background: linear-gradient(var(--snow-sel-1), var(--snow-sel-2)); }
+.snow-cmd-list kbd { font: inherit; opacity: .65; }
+.snow-cmd-empty { padding: 14px; text-align: center; color: var(--snow-ink-soft); }
+
+/* Context menu and checkable menu items */
+.snow-ctxarea { display: grid; place-items: center; height: 84px; color: var(--snow-ink-soft); background: #f7f7f7; border: 1px dashed #9a9a9a; border-radius: 4px; user-select: none; }
+.snow-ctxarea:focus-visible { outline: 2px solid var(--snow-sel-1); outline-offset: 1px; }
+.snow-menu.ctx { position: fixed; top: 0; left: 0; border-radius: 5px; }
+.snow .snow-menu [role="menuitemcheckbox"], .snow .snow-menu [role="menuitemradio"] {
+  position: relative; display: flex; justify-content: space-between; gap: 18px; width: 100%; height: 21px; min-width: 0; padding: 0 18px 0 22px; margin: 0;
+  border: 0; border-radius: 0; background: none; box-shadow: none; font: inherit; font-size: 13px; color: #000; text-align: left; cursor: default;
+}
+.snow .snow-menu [role="menuitemcheckbox"]:hover, .snow .snow-menu [role="menuitemcheckbox"]:focus-visible,
+.snow .snow-menu [role="menuitemradio"]:hover, .snow .snow-menu [role="menuitemradio"]:focus-visible { background: linear-gradient(#5d92d8, #2a62bf); color: #fff; outline: none; }
+.snow-menu [aria-checked="true"]::before { content: "✓"; position: absolute; left: 7px; }
+.snow-menu [role="menuitemradio"][aria-checked="true"]::before { content: "●"; font-size: 8px; left: 9px; top: 6px; }
+
+/* Hover card */
+.snow-hover { position: relative; display: inline-block; }
+.snow-hover > a { color: #0b5fc4; text-decoration: none; border-bottom: 1px dotted currentColor; }
+.snow-hovercard {
+  position: absolute; z-index: 20; left: 0; top: calc(100% + 8px); width: 230px; padding: 10px 12px; font-size: 12px; line-height: 1.4;
+  background: #fff; border: 1px solid rgba(0, 0, 0, .4); border-radius: 6px; box-shadow: 0 6px 16px rgba(0, 0, 0, .35);
+  opacity: 0; visibility: hidden; transform: translateY(-3px); transition: opacity .12s, transform .12s, visibility 0s linear .12s;
+}
+.snow-hover:hover .snow-hovercard, .snow-hover:focus-within .snow-hovercard { opacity: 1; visibility: visible; transform: none; transition-delay: .15s; }
+.snow-hovercard .top { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.snow-hovercard small { display: block; color: var(--snow-ink-soft); }
+
+/* Combobox */
+.snow-combo { position: relative; max-width: 260px; }
+.snow .snow-combo input { width: 100%; }
+.snow-combo ul {
+  position: absolute; z-index: 20; left: 0; right: 0; top: calc(100% + 3px); max-height: 150px; margin: 0; padding: 3px 0; overflow: auto; list-style: none;
+  background: #fff; border: 1px solid rgba(0, 0, 0, .4); border-radius: 5px; box-shadow: 0 6px 16px rgba(0, 0, 0, .35);
+}
+.snow-combo ul[hidden] { display: none; }
+.snow-combo li { padding: 3px 10px; cursor: default; }
+.snow-combo li[aria-selected="true"] { color: #fff; background: linear-gradient(var(--snow-sel-1), var(--snow-sel-2)); }
+
+/* Drawer */
+.snow-drawerwrap { position: relative; height: 170px; overflow: hidden; background: #f4f4f4; border: 1px solid #b6b6b6; border-radius: 4px; }
+.snow-drawerwrap > .page { padding: 12px; font-size: 12px; color: #444; }
+.snow-drawer {
+  position: absolute; top: 0; right: 0; bottom: 0; width: min(210px, 80%); display: flex; flex-direction: column; gap: 8px; padding: 12px;
+  background: linear-gradient(#f9f9f9, #e4e4e4); border-left: 1px solid #8f8f8f; box-shadow: -4px 0 12px rgba(0, 0, 0, .25);
+  transform: translateX(105%); visibility: hidden; transition: transform .2s ease-out, visibility 0s linear .2s;
+}
+.snow-drawerwrap[data-open] .snow-drawer { transform: none; visibility: visible; transition: transform .2s ease-out; }
+.snow-drawer h4 { margin: 0; font-size: 13px; }
+.snow-drawer p { margin: 0; font-size: 12px; line-height: 1.4; }
+.snow-drawer .btns { margin-top: auto; display: flex; justify-content: flex-end; gap: 8px; }
+
+/* Rating */
+.snow-rating { display: inline-flex; gap: 2px; }
+.snow .snow-rating button { min-width: 0; width: 24px; height: 24px; padding: 0; border: 0; background: none; box-shadow: none; font-size: 21px; line-height: 1; color: #bdbdbd; text-shadow: 0 1px 0 #fff; cursor: default; }
+.snow .snow-rating button.on { color: #f2b21c; text-shadow: 0 1px 1px rgba(150, 90, 0, .55); }
+.snow .snow-rating button:focus-visible { outline: 2px solid var(--snow-sel-1); outline-offset: 1px; border-radius: 3px; }
+
+/* One-time code */
+.snow-otp { display: inline-flex; gap: 6px; }
+.snow .snow-otp input { width: 32px; height: 38px; padding: 0; text-align: center; font-size: 18px; }
+
+/* Text counter */
+.snow-count { align-self: flex-end; font-size: 11px; color: var(--snow-ink-soft); }
+.snow-count.over { color: #b4231a; font-weight: 700; }
+
+/* Plan cards */
+.snow-plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(120px, 100%), 1fr)); gap: 8px; }
+.snow-plan { position: relative; display: block; cursor: default; }
+.snow .snow-plan input[type="radio"] { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; }
+.snow-plan .box { display: block; padding: 8px 10px; font-size: 12px; background: #fff; border: 1px solid #a3a3a3; border-radius: 6px; box-shadow: 0 1px 2px rgba(0, 0, 0, .2); }
+.snow-plan .box b { display: block; font-size: 13px; }
+.snow-plan .box em { display: block; margin-top: 2px; font-style: normal; color: var(--snow-ink-soft); }
+.snow-plan input:checked + .box { border-color: var(--snow-sel-edge); box-shadow: 0 0 0 3px var(--snow-sel-1), 0 1px 2px rgba(0, 0, 0, .2); }
+.snow-plan input:focus-visible + .box { outline: 2px solid #1d4a8c; outline-offset: 2px; }
+
+/* Stat tiles */
+.snow-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(120px, 100%), 1fr)); gap: 8px; }
+.snow-stat { padding: 9px 11px; background: linear-gradient(#fff, #f1f1f1); border: 1px solid #a3a3a3; border-radius: 6px; box-shadow: 0 1px 2px rgba(0, 0, 0, .2); }
+.snow-stat small { display: block; font-size: 11px; color: var(--snow-ink-soft); }
+.snow-stat b { display: block; font-size: 20px; line-height: 1.25; }
+.snow-stat .up { font-size: 11px; color: #2a8a28; }
+.snow-stat .down { font-size: 11px; color: #b4231a; }
+.snow-stat svg { display: block; width: 100%; height: 22px; margin-top: 4px; }
+
+/* Timeline */
+.snow-timeline { margin: 0; padding: 0; list-style: none; }
+.snow-timeline li { position: relative; padding: 0 0 12px 22px; font-size: 12px; line-height: 1.4; }
+.snow-timeline li::before { content: ""; position: absolute; left: 4px; top: 5px; bottom: -5px; width: 2px; background: #c1c1c1; }
+.snow-timeline li:last-child::before { display: none; }
+.snow-timeline li::after { content: ""; position: absolute; left: 0; top: 3px; width: 10px; height: 10px; border-radius: 50%; border: 1px solid var(--snow-sel-edge); background: radial-gradient(circle at 50% 30%, #fff, var(--snow-sel-1) 55%, var(--snow-sel-2)); }
+.snow-timeline time { display: block; color: var(--snow-ink-soft); font-size: 11px; }
+
+/* Skeleton */
+.snow-skel { display: flex; flex-direction: column; gap: 8px; }
+.snow-skel i { display: block; height: 11px; border-radius: 6px; background: linear-gradient(90deg, #d8d8d8 25%, #ececec 45%, #d8d8d8 65%); background-size: 220% 100%; animation: snow-shimmer 1.3s linear infinite; }
+.snow-skel i.av { width: 34px; height: 34px; border-radius: 50%; }
+.snow-skel .head { display: flex; align-items: center; gap: 10px; }
+.snow-skel .head div { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+@keyframes snow-shimmer { from { background-position: 120% 0; } to { background-position: -100% 0; } }
+
+/* Inspector (Get Info) */
+.snow-dl { margin: 0; font-size: 12px; background: #fff; border: 1px solid #a3a3a3; border-radius: 4px; }
+.snow-dl details > summary { padding: 3px 8px; font-weight: 700; color: var(--snow-source-head); background: var(--snow-source-bg); border-bottom: 1px solid var(--snow-source-edge); cursor: default; }
+.snow-dl dl { display: grid; grid-template-columns: minmax(70px, auto) 1fr; gap: 3px 10px; margin: 0; padding: 6px 8px; }
+.snow-dl dt { text-align: right; color: var(--snow-ink-soft); }
+.snow-dl dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+
+/* Tree view */
+.snow-tree, .snow-tree ul { margin: 0; padding: 0; list-style: none; }
+.snow-tree { padding: 3px 0; font-size: 12px; background: #fff; border: 1px solid #a3a3a3; border-radius: 4px; }
+.snow-tree [role="treeitem"] { outline: none; }
+.snow-tree .row { display: flex; align-items: center; gap: 4px; padding: 1px 6px 1px calc(6px + var(--lv, 0) * 14px); cursor: default; }
+.snow-tree .tw { flex: none; width: 10px; font-size: 8px; color: #555; text-align: center; }
+.snow-tree svg { flex: none; width: 15px; height: 15px; }
+.snow-tree [role="treeitem"]:focus-visible > .row, .snow-tree .row.sel { color: #fff; background: linear-gradient(var(--snow-sel-1), var(--snow-sel-2)); }
+.snow-tree .row.sel .tw { color: #fff; }
+
+/* Bar chart */
+.snow-chart { display: flex; align-items: flex-end; gap: 8px; height: 130px; padding: 6px 8px 0; background: repeating-linear-gradient(#fff 0 25px, #ececec 25px 26px); border: 1px solid #a3a3a3; border-radius: 4px; }
+.snow-chart .bar { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; font-size: 11px; color: #444; }
+.snow-chart .bar i { display: block; width: 100%; max-width: 34px; height: var(--h); border: 1px solid var(--snow-sel-edge); border-bottom: 0; border-radius: 3px 3px 0 0; background: linear-gradient(90deg, rgba(255, 255, 255, .45), transparent 45%), linear-gradient(var(--snow-sel-1), var(--snow-sel-2)); }
+.snow-chart .bar span { padding: 3px 0; }
+.snow-chart .bar:hover i, .snow-chart .bar:focus-visible i { filter: brightness(1.12); }
+.snow-chart .bar:focus-visible { outline: 2px solid var(--snow-sel-1); outline-offset: 2px; }
+
+/* Assistant (stepper) */
+.snow-steps { display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.snow-steps li { flex: 1; display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--snow-ink-soft); }
+.snow-steps li::before {
+  content: counter(step); counter-increment: step; flex: none; display: grid; place-items: center; width: 20px; height: 20px; font-weight: 700; color: #555;
+  background: linear-gradient(#fff, #d8d8d8); border: 1px solid #8b8b8b; border-radius: 50%;
+}
+.snow-steps { counter-reset: step; }
+.snow-steps li[aria-current="step"] { color: #000; font-weight: 700; }
+.snow-steps li[aria-current="step"]::before, .snow-steps li.done::before { color: #fff; background: linear-gradient(var(--snow-sel-1), var(--snow-sel-2)); border-color: var(--snow-sel-edge); }
+.snow-steps li.done::before { content: "✓"; }
+.snow-assistant { min-height: 74px; padding: 10px 12px; font-size: 12px; line-height: 1.45; background: #fff; border: 1px solid #a3a3a3; border-radius: 4px; }
+.snow-assistant h4 { margin: 0 0 4px; font-size: 13px; }
+
+/* Split view */
+.snow-split { display: flex; height: 140px; overflow: hidden; background: #fff; border: 1px solid #8f8f8f; border-radius: 4px; }
+.snow-split > .pane { min-width: 40px; padding: 8px 10px; overflow: auto; font-size: 12px; line-height: 1.4; }
+.snow-split > .pane:first-child { flex: 0 0 var(--split, 40%); background: var(--snow-source-bg); }
+.snow-split > .pane:last-child { flex: 1; }
+.snow-split > [role="separator"] { flex: none; width: 7px; cursor: col-resize; background: linear-gradient(90deg, #e9e9e9, #c9c9c9); border-inline: 1px solid #9a9a9a; touch-action: none; }
+.snow-split > [role="separator"]:focus-visible, .snow-split > [role="separator"].drag { background: linear-gradient(90deg, var(--snow-sel-1), var(--snow-sel-2)); outline: none; }
+
+/* Carousel */
+.snow-carousel { position: relative; }
+.snow-carousel .track { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.snow-carousel .track::-webkit-scrollbar { display: none; }
+.snow-carousel .slide { flex: 0 0 100%; scroll-snap-align: center; display: grid; place-items: center; height: 110px; font-size: 15px; font-weight: 700; color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, .5); border: 1px solid rgba(0, 0, 0, .35); border-radius: 6px; background: linear-gradient(var(--a, #7fb6f0), var(--b, #2c6cc4)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6); }
+.snow-carousel .nav { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 8px; }
+.snow .snow-carousel .dots button { min-width: 0; width: 9px; height: 9px; padding: 0; margin: 0 3px; border-radius: 50%; border: 1px solid #777; background: #fff; box-shadow: none; }
+.snow .snow-carousel .dots button[aria-current="true"] { background: linear-gradient(var(--snow-sel-1), var(--snow-sel-2)); border-color: var(--snow-sel-edge); }
+
+/* Typography */
+.snow-prose { font-size: 13px; line-height: 1.55; }
+.snow-prose h4 { margin: 0 0 4px; font-size: 15px; }
+.snow-prose p { margin: 0 0 8px; }
+.snow-prose blockquote { margin: 0 0 8px; padding: 2px 12px; color: #444; border-left: 3px solid var(--snow-sel-1); }
+.snow-prose ul { margin: 0 0 8px; padding-left: 20px; }
+.snow-prose code, .snow-prose kbd { padding: 0 4px; font: 12px Menlo, Monaco, Consolas, "DejaVu Sans Mono", monospace; background: #fff; border: 1px solid #b4b4b4; border-radius: 3px; }
+.snow-prose kbd { background: linear-gradient(#fff, #e2e2e2); box-shadow: 0 1px 0 rgba(0, 0, 0, .25); }
+.snow-prose pre { margin: 0; padding: 7px 9px; overflow-x: auto; font: 12px/1.45 Menlo, Monaco, Consolas, "DejaVu Sans Mono", monospace; background: #fff; border: 1px solid #a9a9a9; box-shadow: inset 0 1px 2px rgba(0, 0, 0, .25); border-radius: 2px; }
+
+@media (max-width: 480px) {
+  .snow-dock { gap: 2px; padding-inline: 10px; }
+  .dock-item { width: calc(33px * var(--s)); height: calc(33px * var(--s)); }
+  .dock-sep { margin-inline: 2px; }
+  .snow-steps li span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .snow-skel i { animation: none; }
+  .snow-drawer, .snow-hovercard { transition: none; }
+}
 </style>
 <style>
 :root { box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
@@ -852,7 +1040,7 @@ body { margin: 0; min-height: 100%; background: #070b24; }
     <ul>
       <li><span class="menu-title menu-apple" aria-label="snow.css"><svg viewBox="0 0 24 24"><use href="#i-snow"/></svg></span></li>
       <li class="active"><span class="menu-title">Gallery</span>
-        <ul class="menu-dropdown"><li>About snow.css</li><li class="separator"></li><li data-go="nav">Navigation</li><li data-go="forms">Forms</li><li data-go="feedback">Feedback</li><li data-go="content">Content</li></ul></li>
+        <ul class="menu-dropdown"><li>About snow.css</li><li class="separator"></li><li data-go="nav">Navigation</li><li data-go="forms">Forms</li><li data-go="feedback">Feedback</li><li data-go="content">Content</li><li class="separator"></li><li data-go="overlays">Overlays and menus</li><li data-go="inputs">Inputs</li><li data-go="data">Data</li><li data-go="layout">Layout and flow</li></ul></li>
       <li><span class="menu-title">Appearance</span>
         <ul class="menu-dropdown"><li id="m-blue">Blue</li><li id="m-graphite">Graphite</li></ul></li>
       <li><span class="menu-title">Window</span>
@@ -1117,6 +1305,276 @@ body { margin: 0; min-height: 100%; background: #070b24; }
 
       </div>
     </section>
+
+    <!-- ===================== OVERLAYS AND MENUS ===================== -->
+    <section class="window" id="overlays" aria-labelledby="ovl-t">
+      <div class="snow-chrome"><div class="title-bar">
+        <div class="title-bar-controls"><button aria-label="Close"></button><button aria-label="Minimize"></button><button aria-label="Zoom"></button></div>
+        <div class="title-bar-text" id="ovl-t">Overlays and menus</div></div></div>
+      <div class="window-body pad">
+
+        <div class="snow-cols">
+          <div class="snow-group">
+            <h3>Command palette</h3>
+            <p class="note">Type to filter. Use the arrow keys and Return.</p>
+            <div class="snow-cmd">
+              <div class="snow-cmd-input">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#6a6a6a" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="6.5" cy="6.5" r="4.5"/><path d="m10 10 4 4"/></svg>
+                <input type="text" id="cmd-q" placeholder="Spotlight Search" role="combobox" aria-expanded="true" aria-controls="cmd-list" aria-autocomplete="list" aria-label="Search commands" autocomplete="off">
+              </div>
+              <ul class="snow-cmd-list" id="cmd-list" role="listbox" aria-label="Commands"></ul>
+              <div class="snow-cmd-empty" id="cmd-empty" hidden>No results found.</div>
+            </div>
+            <p class="page-note" id="cmd-note" role="status">Nothing run yet.</p>
+          </div>
+
+          <div class="snow-group">
+            <h3>Context menu</h3>
+            <p class="note">Right-click the box, or focus it and press Shift+F10.</p>
+            <div class="snow-ctxarea" id="ctxarea" tabindex="0" aria-haspopup="menu">Right-click here</div>
+            <ul class="snow-menu ctx" id="ctxmenu" role="menu" aria-label="Item actions">
+              <li role="none"><button role="menuitem">Open <kbd>⌘O</kbd></button></li>
+              <li role="none"><button role="menuitem">Rename</button></li>
+              <li role="none"><button role="menuitem">Duplicate <kbd>⌘D</kbd></button></li>
+              <li class="sep" role="separator"></li>
+              <li role="none"><button role="menuitem">Move to Trash <kbd>⌘⌫</kbd></button></li>
+            </ul>
+            <p class="page-note" id="ctx-note" role="status">No action yet.</p>
+          </div>
+        </div>
+
+        <div class="snow-cols">
+          <div class="snow-group">
+            <h3>Menu with checkmarks</h3>
+            <div class="snow-row">
+              <div class="snow-dropdown">
+                <button id="view-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="view-menu">View ▾</button>
+                <ul class="snow-menu" id="view-menu" role="menu" aria-labelledby="view-btn">
+                  <li role="none"><button role="menuitemcheckbox" aria-checked="true">Show path bar</button></li>
+                  <li role="none"><button role="menuitemcheckbox" aria-checked="true">Show status bar</button></li>
+                  <li role="none"><button role="menuitemcheckbox" aria-checked="false">Show preview</button></li>
+                  <li class="sep" role="separator"></li>
+                  <li role="none"><button role="menuitemradio" aria-checked="true">as Icons</button></li>
+                  <li role="none"><button role="menuitemradio" aria-checked="false">as List</button></li>
+                </ul>
+              </div>
+              <span class="page-note" id="view-note" role="status">Path bar, status bar, icons</span>
+            </div>
+            <div style="height:130px" id="viewspace" hidden></div>
+          </div>
+
+          <div class="snow-group">
+            <h3>Hover card</h3>
+            <p class="note">Hover or focus the name.</p>
+            <p style="margin:0;font-size:13px">Reviewed by
+              <span class="snow-hover"><a href="#" id="hover-a">@ada</a>
+                <span class="snow-hovercard" role="tooltip" id="hover-card">
+                  <span class="top"><span class="snow-avatar">AL</span><span><b>Ada Lovelace</b><small>Engineering, joined 2019</small></span></span>
+                  Writes the analytical engine notes and reviews every release.
+                </span>
+              </span>
+            </p>
+            <div style="height:80px"></div>
+          </div>
+        </div>
+
+        <div class="snow-cols">
+          <div class="snow-group">
+            <h3>Combobox</h3>
+            <label for="combo-in">Country</label>
+            <div class="snow-combo">
+              <input type="text" id="combo-in" role="combobox" aria-expanded="false" aria-controls="combo-list" aria-autocomplete="list" placeholder="Start typing" autocomplete="off">
+              <ul id="combo-list" role="listbox" hidden></ul>
+            </div>
+            <div style="height:120px" id="combospace" hidden></div>
+          </div>
+
+          <div class="snow-group">
+            <h3>Drawer</h3>
+            <div class="snow-drawerwrap" id="drawerwrap">
+              <div class="page"><button id="drawer-open" aria-expanded="false" aria-controls="drawer">Show details</button><p>The drawer slides in over the page and traps no one: Escape or Done closes it.</p></div>
+              <aside class="snow-drawer" id="drawer" aria-label="Order details">
+                <h4>Order 4821</h4><p>Two items, shipped Friday. Arrives in 3 to 5 business days.</p>
+                <div class="btns"><button id="drawer-close" class="default">Done</button></div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== INPUTS ===================== -->
+    <section class="window" id="inputs" aria-labelledby="inp-t">
+      <div class="snow-chrome"><div class="title-bar">
+        <div class="title-bar-controls"><button aria-label="Close"></button><button aria-label="Minimize"></button><button aria-label="Zoom"></button></div>
+        <div class="title-bar-text" id="inp-t">Inputs</div></div></div>
+      <div class="window-body pad">
+
+        <div class="snow-cols">
+          <div class="snow-group">
+            <h3>Toggle groups</h3>
+            <div class="snow-seg" id="fmt" role="group" aria-label="Text style">
+              <button aria-pressed="true"><b>B</b></button><button aria-pressed="false"><i>I</i></button><button aria-pressed="false"><u>U</u></button>
+            </div>
+            <div class="snow-seg" id="align" role="radiogroup" aria-label="Alignment">
+              <button role="radio" aria-checked="true" aria-pressed="true">Left</button><button role="radio" aria-checked="false" aria-pressed="false">Center</button><button role="radio" aria-checked="false" aria-pressed="false">Right</button>
+            </div>
+          </div>
+
+          <div class="snow-group">
+            <h3>Rating</h3>
+            <div class="snow-rating" id="rating" role="radiogroup" aria-label="Rating"></div>
+            <span class="page-note" id="rating-note" role="status">No rating yet.</span>
+          </div>
+        </div>
+
+        <div class="snow-cols">
+          <div class="snow-group">
+            <h3>One-time code</h3>
+            <div class="snow-otp" id="otp" role="group" aria-label="Six-digit code"></div>
+            <span class="page-note" id="otp-note" role="status">Paste a code or type one digit per box.</span>
+          </div>
+
+          <div class="snow-group">
+            <h3>Text with counter</h3>
+            <label for="bio" class="sr-only">Short bio</label>
+            <textarea id="bio" rows="3" style="width:100%" aria-describedby="bio-n" placeholder="Tell us about yourself"></textarea>
+            <span class="snow-count" id="bio-n">0 / 80</span>
+          </div>
+        </div>
+
+        <div class="snow-cols">
+          <div class="snow-group">
+            <h3>Plan cards</h3>
+            <div class="snow-plans" role="radiogroup" aria-label="Plan">
+              <label class="snow-plan"><input type="radio" name="plan2" value="starter"><span class="box"><b>Starter</b>$0<em>1 project</em></span></label>
+              <label class="snow-plan"><input type="radio" name="plan2" value="studio" checked><span class="box"><b>Studio</b>$12<em>20 projects</em></span></label>
+              <label class="snow-plan"><input type="radio" name="plan2" value="team"><span class="box"><b>Team</b>$48<em>Unlimited</em></span></label>
+            </div>
+          </div>
+
+          <div class="snow-group">
+            <h3>Price range</h3>
+            <div class="snow-row"><label for="pmin" style="width:30px">Min</label><input type="range" id="pmin" min="0" max="500" step="10" value="50" style="width:140px"></div>
+            <div class="snow-row"><label for="pmax" style="width:30px">Max</label><input type="range" id="pmax" min="0" max="500" step="10" value="300" style="width:140px"></div>
+            <output class="page-note" id="prange" for="pmin pmax">$50 to $300</output>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== DATA ===================== -->
+    <section class="window" id="data" aria-labelledby="dat-t">
+      <div class="snow-chrome"><div class="title-bar">
+        <div class="title-bar-controls"><button aria-label="Close"></button><button aria-label="Minimize"></button><button aria-label="Zoom"></button></div>
+        <div class="title-bar-text" id="dat-t">Data</div></div></div>
+      <div class="window-body pad">
+
+        <div class="snow-group">
+          <h3>Stat tiles</h3>
+          <div class="snow-stats">
+            <div class="snow-stat"><small>Visitors</small><b>12,480</b><span class="up">▲ 12% this week</span>
+              <svg viewBox="0 0 100 22" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,18 15,15 30,16 45,10 60,12 75,6 100,3" fill="none" stroke="#3877c8" stroke-width="2"/></svg></div>
+            <div class="snow-stat"><small>Orders</small><b>861</b><span class="up">▲ 4%</span>
+              <svg viewBox="0 0 100 22" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,14 20,16 40,9 60,12 80,7 100,5" fill="none" stroke="#3877c8" stroke-width="2"/></svg></div>
+            <div class="snow-stat"><small>Refunds</small><b>23</b><span class="down">▼ 9%</span>
+              <svg viewBox="0 0 100 22" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,5 25,8 45,6 65,14 85,12 100,18" fill="none" stroke="#c4372b" stroke-width="2"/></svg></div>
+          </div>
+        </div>
+
+        <div class="snow-cols">
+          <div class="snow-group">
+            <h3>Bar chart</h3>
+            <div class="snow-chart" id="chart" role="img" aria-label="Orders per weekday: Mon 40, Tue 62, Wed 55, Thu 80, Fri 96, Sat 48, Sun 30"></div>
+          </div>
+
+          <div class="snow-group">
+            <h3>Timeline</h3>
+            <ol class="snow-timeline">
+              <li><b>Order placed</b><time datetime="2026-10-01">Oct 1, 9:12 AM</time></li>
+              <li><b>Payment confirmed</b><time datetime="2026-10-01">Oct 1, 9:14 AM</time></li>
+              <li><b>Shipped</b><time datetime="2026-10-02">Oct 2, 4:40 PM</time></li>
+              <li><b>Out for delivery</b><time datetime="2026-10-04">Oct 4, 7:55 AM</time></li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="snow-cols">
+          <div class="snow-group">
+            <h3>Skeleton loading</h3>
+            <div id="skel-box" aria-live="polite">
+              <div class="snow-skel" aria-label="Loading"><div class="head"><i class="av"></i><div><i style="width:55%"></i><i style="width:35%"></i></div></div><i style="width:100%"></i><i style="width:90%"></i><i style="width:60%"></i></div>
+            </div>
+            <div class="snow-row"><button id="skel-toggle">Show content</button></div>
+          </div>
+
+          <div class="snow-group">
+            <h3>Inspector</h3>
+            <div class="snow-dl">
+              <details open><summary>General</summary><dl><dt>Kind</dt><dd>PDF document</dd><dt>Size</dt><dd>2.4 MB</dd><dt>Where</dt><dd>Macintosh HD ▸ Documents</dd></dl></details>
+              <details><summary>More info</summary><dl><dt>Created</dt><dd>Oct 1, 2026</dd><dt>Modified</dt><dd>Oct 3, 2026</dd></dl></details>
+            </div>
+          </div>
+        </div>
+
+        <div class="snow-group">
+          <h3>Tree view</h3>
+          <ul class="snow-tree" id="tree" role="tree" aria-label="Project files"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== LAYOUT AND FLOW ===================== -->
+    <section class="window" id="layout" aria-labelledby="lay-t">
+      <div class="snow-chrome"><div class="title-bar">
+        <div class="title-bar-controls"><button aria-label="Close"></button><button aria-label="Minimize"></button><button aria-label="Zoom"></button></div>
+        <div class="title-bar-text" id="lay-t">Layout and flow</div></div></div>
+      <div class="window-body pad">
+
+        <div class="snow-group">
+          <h3>Assistant (stepper)</h3>
+          <ol class="snow-steps" id="steps" aria-label="Setup steps"></ol>
+          <div class="snow-assistant" id="step-body" aria-live="polite"></div>
+          <div class="snow-row" style="justify-content:flex-end"><button id="step-back">Back</button><button id="step-next" class="default">Continue</button></div>
+        </div>
+
+        <div class="snow-cols">
+          <div class="snow-group">
+            <h3>Split view</h3>
+            <p class="note">Drag the divider, or focus it and use the arrow keys.</p>
+            <div class="snow-split" id="split">
+              <div class="pane">Inbox<br>Drafts<br>Sent<br>Archive</div>
+              <div id="split-bar" role="separator" aria-orientation="vertical" aria-label="Resize sidebar" aria-valuemin="15" aria-valuemax="70" aria-valuenow="40" tabindex="0"></div>
+              <div class="pane">Select a mailbox to see its messages. The two panes share the space.</div>
+            </div>
+          </div>
+
+          <div class="snow-group">
+            <h3>Carousel</h3>
+            <div class="snow-carousel" id="carousel" role="region" aria-roledescription="carousel" aria-label="Featured wallpapers">
+              <div class="track" id="car-track">
+                <div class="slide" role="group" aria-label="1 of 4">Aurora</div>
+                <div class="slide" role="group" aria-label="2 of 4" style="--a:#f1b27c;--b:#c46a22">Sunset</div>
+                <div class="slide" role="group" aria-label="3 of 4" style="--a:#9fd49a;--b:#3b8d3a">Meadow</div>
+                <div class="slide" role="group" aria-label="4 of 4" style="--a:#b27ae0;--b:#6c3aa0">Nebula</div>
+              </div>
+              <div class="nav"><button id="car-prev" aria-label="Previous slide">‹</button><div class="dots" id="car-dots"></div><button id="car-next" aria-label="Next slide">›</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="snow-group">
+          <h3>Typography</h3>
+          <div class="snow-prose">
+            <h4>Release notes</h4>
+            <p>Version 2.1 adds <b>keyboard shortcuts</b> and fixes a rare crash. Press <kbd>⌘</kbd> <kbd>K</kbd> to search, or call <code>snow.open()</code> from your script.</p>
+            <blockquote>Design is not just what it looks like. It’s how it works.</blockquote>
+            <ul><li>Faster window resizing</li><li>New Graphite appearance</li><li>Better VoiceOver labels</li></ul>
+            <pre>.snow { --snow-sel-1: #6fa6e0; }</pre>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- Alert dialog -->
@@ -1133,6 +1591,10 @@ body { margin: 0; min-height: 100%; background: #070b24; }
     <button class="dock-item" data-go="forms" data-tip="Forms"><span class="tile" style="background:linear-gradient(#fff,#d9dde3)"><svg viewBox="0 0 24 24" fill="none" stroke="#2f66b5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 7 2 2 3-4M13 7h7M4 16l2 2 3-4M13 16h7"/></svg></span><span class="tip">Forms</span></button>
     <button class="dock-item" data-go="feedback" data-tip="Feedback"><span class="tile" style="background:linear-gradient(#ffe98a,#f0a818)"><svg viewBox="0 0 24 24" fill="none" stroke="#6a4600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.500 2h-15zM10 21h4"/></svg></span><span class="tip">Feedback</span></button>
     <button class="dock-item" data-go="content" data-tip="Content"><span class="tile" style="background:linear-gradient(#8fc6f6,#2f78c9)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><rect x="3.500" y="3.500" width="7" height="7"/><rect x="13.500" y="3.500" width="7" height="7"/><rect x="3.500" y="13.500" width="7" height="7"/><rect x="13.500" y="13.500" width="7" height="7"/></svg></span><span class="tip">Content</span></button>
+    <button class="dock-item" data-go="overlays" data-tip="Overlays and menus"><span class="tile" style="background:linear-gradient(#bff0e4,#2fa58a)"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g stroke="#fff"><rect x="3.5" y="4" width="17" height="6" rx="1.5"/><path d="M6 14h12M6 18h8"/></g></svg></span><span class="tip">Overlays and menus</span></button>
+    <button class="dock-item" data-go="inputs" data-tip="Inputs"><span class="tile" style="background:linear-gradient(#ffd7a8,#e07a1f)"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g stroke="#fff"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M8 10.5v3"/></g></svg></span><span class="tip">Inputs</span></button>
+    <button class="dock-item" data-go="data" data-tip="Data"><span class="tile" style="background:linear-gradient(#e2c9f5,#8a4fc2)"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g stroke="#fff"><path d="M5 20V12M12 20V5M19 20V9"/></g></svg></span><span class="tip">Data</span></button>
+    <button class="dock-item" data-go="layout" data-tip="Layout and flow"><span class="tile" style="background:linear-gradient(#f9c8d0,#d1475f)"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g stroke="#fff"><rect x="3.5" y="4" width="17" height="16" rx="1.5"/><path d="M10 4v16"/></g></svg></span><span class="tip">Layout and flow</span></button>
   </div>
 </div>
 
@@ -1433,6 +1895,289 @@ body { margin: 0; min-height: 100%; background: #070b24; }
   $('#tq').addEventListener('input', function (e) { tq = e.target.value.trim().toLowerCase(); drawTable(); });
   $('#tclear').addEventListener('click', function () { $('#tq').value = ''; tq = ''; drawTable(); $('#tq').focus(); });
   drawTable();
+
+  /* ---------- Overlays and menus ---------- */
+  // Keep an option visible inside its own list without scrolling the page.
+  function keepVisible(list, el) {
+    var top = el.offsetTop, bot = top + el.offsetHeight;
+    if (top < list.scrollTop) list.scrollTop = top; else if (bot > list.scrollTop + list.clientHeight) list.scrollTop = bot - list.clientHeight;
+  }
+  // Command palette
+  var CMDS = [
+    ['Applications', [['Finder', '⌘1'], ['Mail', '⌘2'], ['Safari', '⌘3'], ['Calendar', '']]],
+    ['Documents', [['Quarterly Report.pdf', ''], ['Trip Notes.txt', ''], ['Budget 2027.xls', '']]],
+    ['System Preferences', [['Appearance', ''], ['Dock', ''], ['Keyboard', '']]]
+  ];
+  var cmdQ = $('#cmd-q'), cmdList = $('#cmd-list'), cmdSel = 0;
+  function cmdItems() { return $$('[role=option]', cmdList); }
+  function drawCmd() {
+    var q = cmdQ.value.trim().toLowerCase(), h = '', n = 0;
+    CMDS.forEach(function (g) {
+      var hits = g[1].filter(function (c) { return !q || c[0].toLowerCase().indexOf(q) > -1; });
+      if (!hits.length) return;
+      h += '<li class="grp" role="presentation">' + esc(g[0]) + '</li>';
+      hits.forEach(function (c) { h += '<li role="option" id="cmd-o' + (n++) + '" aria-selected="false" data-n="' + esc(c[0]) + '"><span>' + esc(c[0]) + '</span>' + (c[1] ? '<kbd>' + c[1] + '</kbd>' : '') + '</li>'; });
+    });
+    cmdList.innerHTML = h; $('#cmd-empty').hidden = n > 0; cmdList.hidden = !n;
+    cmdSel = 0; markCmd();
+  }
+  function markCmd() {
+    var it = cmdItems(); it.forEach(function (o, i) { o.setAttribute('aria-selected', i === cmdSel); });
+    if (it[cmdSel]) { cmdQ.setAttribute('aria-activedescendant', it[cmdSel].id); keepVisible(cmdList, it[cmdSel]); } else cmdQ.removeAttribute('aria-activedescendant');
+  }
+  function runCmd(o) { if (o) $('#cmd-note').textContent = 'Ran: ' + o.getAttribute('data-n'); }
+  cmdQ.addEventListener('input', drawCmd);
+  cmdQ.addEventListener('keydown', function (e) {
+    var it = cmdItems(); if (!it.length) return;
+    if (e.key === 'ArrowDown') { e.preventDefault(); cmdSel = (cmdSel + 1) % it.length; markCmd(); }
+    if (e.key === 'ArrowUp') { e.preventDefault(); cmdSel = (cmdSel - 1 + it.length) % it.length; markCmd(); }
+    if (e.key === 'Enter') { e.preventDefault(); runCmd(it[cmdSel]); }
+  });
+  cmdList.addEventListener('mousemove', function (e) { var o = e.target.closest('[role=option]'); if (o) { var i = cmdItems().indexOf(o); if (i !== cmdSel) { cmdSel = i; markCmd(); } } });
+  cmdList.addEventListener('click', function (e) { runCmd(e.target.closest('[role=option]')); });
+  drawCmd();
+
+  // Context menu
+  var ctx = $('#ctxmenu'), ctxArea = $('#ctxarea'), ctxY = 0;
+  function ctxOpen(x, y) {
+    ctxY = window.scrollY; ctx.setAttribute('data-open', ''); ctx.style.left = '0px'; ctx.style.top = '0px';
+    var w = ctx.offsetWidth, h = ctx.offsetHeight;
+    ctx.style.left = Math.max(4, Math.min(x, window.innerWidth - w - 4)) + 'px'; ctx.style.top = Math.max(4, Math.min(y, window.innerHeight - h - 4)) + 'px';
+    $('[role=menuitem]', ctx).focus();
+  }
+  function ctxClose(refocus) { if (ctx.hasAttribute('data-open')) { ctx.removeAttribute('data-open'); if (refocus) ctxArea.focus(); } }
+  ctxArea.addEventListener('contextmenu', function (e) { e.preventDefault(); ctxOpen(e.clientX, e.clientY); });
+  ctxArea.addEventListener('keydown', function (e) { if ((e.key === 'F10' && e.shiftKey) || e.key === 'ContextMenu') { e.preventDefault(); var r = ctxArea.getBoundingClientRect(); ctxOpen(r.left + 20, r.top + 20); } });
+  ctx.addEventListener('keydown', function (e) {
+    var items = $$('[role=menuitem]', ctx), i = items.indexOf(document.activeElement);
+    if (e.key === 'ArrowDown') { e.preventDefault(); items[(i + 1) % items.length].focus(); }
+    if (e.key === 'ArrowUp') { e.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
+    if (e.key === 'Escape') { e.preventDefault(); ctxClose(true); }
+    if (e.key === 'Tab') ctxClose(false);
+  });
+  ctx.addEventListener('click', function (e) { var it = e.target.closest('[role=menuitem]'); if (it) { $('#ctx-note').textContent = 'Chose: ' + it.firstChild.textContent.trim(); ctxClose(true); } });
+  document.addEventListener('click', function (e) { if (!e.target.closest('#ctxmenu')) ctxClose(false); });
+  window.addEventListener('scroll', function () { if (Math.abs(window.scrollY - ctxY) > 8) ctxClose(false); }, { passive: true });
+
+  // Menu with checkmarks
+  var vBtn = $('#view-btn'), vMenu = $('#view-menu'), vSpace = $('#viewspace');
+  function setView(open) {
+    vMenu.toggleAttribute('data-open', open); vBtn.setAttribute('aria-expanded', open); vSpace.hidden = !open;
+    if (open) { var f = $('[role^=menuitem]', vMenu); if (f) f.focus(); }
+  }
+  function viewNote() {
+    var on = $$('[role=menuitemcheckbox][aria-checked=true],[role=menuitemradio][aria-checked=true]', vMenu).map(function (b) { return b.textContent.replace(/^Show /, '').toLowerCase(); });
+    $('#view-note').textContent = on.length ? on.join(', ') : 'Nothing checked';
+  }
+  vBtn.addEventListener('click', function () { setView(!vMenu.hasAttribute('data-open')); });
+  vMenu.addEventListener('click', function (e) {
+    var b = e.target.closest('[role^=menuitem]'); if (!b) return;
+    if (b.getAttribute('role') === 'menuitemradio') $$('[role=menuitemradio]', vMenu).forEach(function (r) { r.setAttribute('aria-checked', r === b); });
+    else b.setAttribute('aria-checked', b.getAttribute('aria-checked') !== 'true');
+    viewNote(); setView(false); vBtn.focus();
+  });
+  vMenu.addEventListener('keydown', function (e) {
+    var items = $$('[role^=menuitem]', vMenu), i = items.indexOf(document.activeElement);
+    if (e.key === 'ArrowDown') { e.preventDefault(); items[(i + 1) % items.length].focus(); }
+    if (e.key === 'ArrowUp') { e.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
+    if (e.key === 'Escape') { setView(false); vBtn.focus(); }
+  });
+  document.addEventListener('click', function (e) { if (!e.target.closest('#view-btn, #view-menu')) setView(false); });
+  viewNote();
+
+  // Hover card: described by the card, dismissed with Escape
+  $('#hover-a').setAttribute('aria-describedby', 'hover-card');
+  $('#hover-a').addEventListener('click', function (e) { e.preventDefault(); });
+  $('#hover-a').addEventListener('keydown', function (e) { if (e.key === 'Escape') this.blur(); });
+
+  // Combobox
+  var COUNTRIES = ['Argentina', 'Australia', 'Austria', 'Belgium', 'Brazil', 'Canada', 'Chile', 'Denmark', 'Finland', 'France', 'Germany', 'India', 'Ireland', 'Italy', 'Japan', 'Mexico', 'Norway', 'Portugal', 'Spain', 'Sweden', 'United Kingdom', 'United States'];
+  var cIn = $('#combo-in'), cList = $('#combo-list'), cSel = -1;
+  function cOpen(o) { cList.hidden = !o; $('#combospace').hidden = !o; cIn.setAttribute('aria-expanded', o); if (!o) { cSel = -1; cIn.removeAttribute('aria-activedescendant'); } }
+  function drawCombo() {
+    var q = cIn.value.trim().toLowerCase(), hits = COUNTRIES.filter(function (c) { return !q || c.toLowerCase().indexOf(q) > -1; });
+    cList.innerHTML = hits.map(function (c, i) { return '<li role="option" id="co' + i + '" aria-selected="false">' + esc(c) + '</li>'; }).join('') || '<li role="option" aria-disabled="true" style="color:#777">No matches</li>';
+    cSel = hits.length ? 0 : -1; markCombo(); cOpen(true);
+  }
+  function markCombo() { $$('[role=option]', cList).forEach(function (o, i) { o.setAttribute('aria-selected', i === cSel); }); var o = $$('[role=option]', cList)[cSel]; if (o) { cIn.setAttribute('aria-activedescendant', o.id); keepVisible(cList, o); } }
+  function cPick(o) { if (o && !o.hasAttribute('aria-disabled')) { cIn.value = o.textContent; cOpen(false); } }
+  cIn.addEventListener('input', drawCombo);
+  cIn.addEventListener('focus', function () { if (cList.hidden) drawCombo(); });
+  cIn.addEventListener('keydown', function (e) {
+    var n = $$('[role=option]', cList).length;
+    if (e.key === 'ArrowDown') { e.preventDefault(); if (cList.hidden) drawCombo(); else { cSel = (cSel + 1) % n; markCombo(); } }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); if (!cList.hidden) { cSel = (cSel - 1 + n) % n; markCombo(); } }
+    else if (e.key === 'Enter' && !cList.hidden) { e.preventDefault(); cPick($$('[role=option]', cList)[cSel]); }
+    else if (e.key === 'Escape') cOpen(false);
+  });
+  cList.addEventListener('mousedown', function (e) { e.preventDefault(); cPick(e.target.closest('[role=option]')); });
+  document.addEventListener('click', function (e) { if (!e.target.closest('.snow-combo')) cOpen(false); });
+
+  // Drawer
+  var dw = $('#drawerwrap'), dOpenBtn = $('#drawer-open');
+  function drawer(o) { dw.toggleAttribute('data-open', o); dOpenBtn.setAttribute('aria-expanded', o); if (o) setTimeout(function () { $('#drawer-close').focus(); }, reduce ? 0 : 210); else dOpenBtn.focus(); }
+  dOpenBtn.addEventListener('click', function () { drawer(true); });
+  $('#drawer-close').addEventListener('click', function () { drawer(false); });
+  $('#drawer').addEventListener('keydown', function (e) { if (e.key === 'Escape') drawer(false); });
+
+  /* ---------- Inputs ---------- */
+  $$('#fmt button').forEach(function (b) { b.addEventListener('click', function () { b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true'); }); });
+  var alignBtns = $$('#align button');
+  function setAlign(b, focus) { alignBtns.forEach(function (x) { var on = x === b; x.setAttribute('aria-checked', on); x.setAttribute('aria-pressed', on); x.tabIndex = on ? 0 : -1; }); if (focus) b.focus(); }
+  alignBtns.forEach(function (b, i) {
+    b.addEventListener('click', function () { setAlign(b); });
+    b.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); setAlign(alignBtns[(i + 1) % 3], true); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); setAlign(alignBtns[(i + 2) % 3], true); }
+    });
+  });
+  setAlign(alignBtns[0]);
+
+  // Rating
+  var rating = $('#rating'), stars = 0;
+  rating.innerHTML = [1, 2, 3, 4, 5].map(function (n) { return '<button type="button" role="radio" aria-checked="false" aria-label="' + n + (n === 1 ? ' star' : ' stars') + '" data-n="' + n + '">★</button>'; }).join('');
+  var starBtns = $$('button', rating);
+  function drawStars(hover) { var v = hover || stars; starBtns.forEach(function (b, i) { b.classList.toggle('on', i < v); b.setAttribute('aria-checked', i + 1 === stars); b.tabIndex = (stars ? i + 1 === stars : i === 0) ? 0 : -1; }); }
+  function setStars(n, focus) { stars = n; drawStars(); $('#rating-note').textContent = n ? 'You rated this ' + n + ' out of 5.' : 'No rating yet.'; if (focus) starBtns[n - 1].focus(); }
+  starBtns.forEach(function (b, i) {
+    b.addEventListener('click', function () { setStars(stars === i + 1 ? 0 : i + 1); });
+    b.addEventListener('mouseenter', function () { drawStars(i + 1); });
+    b.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { e.preventDefault(); setStars(Math.min(5, i + 2), true); }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { e.preventDefault(); setStars(Math.max(1, i), true); }
+    });
+  });
+  rating.addEventListener('mouseleave', function () { drawStars(); });
+  drawStars();
+
+  // One-time code
+  var otp = $('#otp');
+  otp.innerHTML = [1, 2, 3, 4, 5, 6].map(function (n) { return '<input type="text" inputmode="numeric" maxlength="1" autocomplete="' + (n === 1 ? 'one-time-code' : 'off') + '" aria-label="Digit ' + n + '">'; }).join('');
+  var otpIn = $$('input', otp);
+  function otpDone() { var v = otpIn.map(function (i) { return i.value; }).join(''); $('#otp-note').textContent = v.length === 6 ? 'Code entered: ' + v + ' (demo only)' : 'Paste a code or type one digit per box.'; }
+  otpIn.forEach(function (inp, i) {
+    inp.addEventListener('input', function () { inp.value = inp.value.replace(/\D/g, '').slice(0, 1); if (inp.value && otpIn[i + 1]) otpIn[i + 1].focus(); otpDone(); });
+    inp.addEventListener('keydown', function (e) {
+      if (e.key === 'Backspace' && !inp.value && otpIn[i - 1]) { otpIn[i - 1].focus(); otpIn[i - 1].value = ''; otpDone(); }
+      if (e.key === 'ArrowLeft' && otpIn[i - 1]) otpIn[i - 1].focus();
+      if (e.key === 'ArrowRight' && otpIn[i + 1]) otpIn[i + 1].focus();
+    });
+    inp.addEventListener('paste', function (e) {
+      var t = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '').slice(0, 6); if (!t) return; e.preventDefault();
+      t.split('').forEach(function (c, k) { if (otpIn[i + k]) otpIn[i + k].value = c; }); (otpIn[Math.min(5, i + t.length)] || inp).focus(); otpDone();
+    });
+    inp.addEventListener('focus', function () { inp.select(); });
+  });
+
+  // Text counter
+  var bio = $('#bio'), bioN = $('#bio-n'), BIO_MAX = 80;
+  bio.addEventListener('input', function () { var n = bio.value.length; bioN.textContent = n + ' / ' + BIO_MAX + (n > BIO_MAX ? ' (' + (n - BIO_MAX) + ' too many)' : ''); bioN.classList.toggle('over', n > BIO_MAX); bio.setAttribute('aria-invalid', n > BIO_MAX); });
+
+  // Price range
+  var pmin = $('#pmin'), pmax = $('#pmax');
+  function drawRange(src) {
+    var a = +pmin.value, b = +pmax.value;
+    if (a > b) { if (src === pmin) { pmax.value = a; b = a; } else { pmin.value = b; a = b; } }
+    $('#prange').textContent = '$' + a + ' to $' + b;
+  }
+  pmin.addEventListener('input', function () { drawRange(pmin); }); pmax.addEventListener('input', function () { drawRange(pmax); });
+
+  /* ---------- Data ---------- */
+  var DAYS = [['Mon', 40], ['Tue', 62], ['Wed', 55], ['Thu', 80], ['Fri', 96], ['Sat', 48], ['Sun', 30]];
+  $('#chart').innerHTML = DAYS.map(function (d) { return '<div class="bar" title="' + d[0] + ': ' + d[1] + ' orders"><i style="--h:' + Math.round(d[1] / 96 * 82) + '%"></i><span>' + d[0] + '</span></div>'; }).join('');
+
+  var skelOn = true, skelHtml = $('#skel-box').innerHTML;
+  $('#skel-toggle').addEventListener('click', function () {
+    skelOn = !skelOn;
+    $('#skel-box').innerHTML = skelOn ? skelHtml : '<div class="snow-person" style="padding:0"><span class="snow-avatar">AL</span><div><b>Ada Lovelace</b><small>Engineering</small></div></div><p style="margin:8px 0 0;font-size:12px;line-height:1.45">Notes on the analytical engine, including the first published algorithm intended for a machine.</p>';
+    this.textContent = skelOn ? 'Show content' : 'Show loading';
+  });
+
+  // Tree view
+  var TREE = [
+    { n: 'Projects', open: true, c: [
+      { n: 'Atlas', open: true, c: [{ n: 'index.html' }, { n: 'style.css' }, { n: 'app.js' }] },
+      { n: 'Billing', c: [{ n: 'invoice.pdf' }, { n: 'rates.xls' }] }
+    ] },
+    { n: 'Documents', c: [{ n: 'Quarterly Report.pdf' }, { n: 'Trip Notes.txt' }] },
+    { n: 'Pictures' }
+  ];
+  var treeSel = 'Atlas', treeEl = $('#tree');
+  function treeHtml(list, lv) {
+    return list.map(function (x) {
+      var kid = !!x.c, ico = kid ? 'i-folder' : 'i-doc';
+      return '<li role="treeitem" aria-level="' + lv + '" aria-selected="' + (x.n === treeSel) + '"' + (kid ? ' aria-expanded="' + !!x.open + '"' : '') + ' data-n="' + esc(x.n) + '" tabindex="-1"><div class="row' + (x.n === treeSel ? ' sel' : '') + '" style="--lv:' + (lv - 1) + '"><span class="tw" aria-hidden="true">' + (kid ? (x.open ? '▼' : '▶') : '') + '</span><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#' + ico + '"/></svg>' + esc(x.n) + '</div>' + (kid && x.open ? '<ul role="group">' + treeHtml(x.c, lv + 1) + '</ul>' : '') + '</li>';
+    }).join('');
+  }
+  function treeFind(list, n) { for (var i = 0; i < list.length; i++) { if (list[i].n === n) return list[i]; if (list[i].c) { var r = treeFind(list[i].c, n); if (r) return r; } } }
+  function drawTree(focusN) {
+    treeEl.innerHTML = treeHtml(TREE, 1);
+    var items = $$('[role=treeitem]', treeEl), f = (focusN && items.filter(function (i) { return i.getAttribute('data-n') === focusN; })[0]) || items.filter(function (i) { return i.getAttribute('aria-selected') === 'true'; })[0] || items[0];
+    items.forEach(function (i) { i.tabIndex = i === f ? 0 : -1; }); if (focusN) f.focus();
+  }
+  function treeVisible() { return $$('[role=treeitem]', treeEl); }
+  treeEl.addEventListener('click', function (e) {
+    var li = e.target.closest('[role=treeitem]'); if (!li) return; var n = li.getAttribute('data-n'), node = treeFind(TREE, n);
+    treeSel = n; if (node.c && e.target.closest('.tw')) node.open = !node.open; drawTree(n);
+  });
+  treeEl.addEventListener('keydown', function (e) {
+    var li = e.target.closest('[role=treeitem]'); if (!li || e.target !== li) return;
+    var items = treeVisible(), i = items.indexOf(li), n = li.getAttribute('data-n'), node = treeFind(TREE, n);
+    if (e.key === 'ArrowDown' && items[i + 1]) { e.preventDefault(); items[i].tabIndex = -1; items[i + 1].tabIndex = 0; items[i + 1].focus(); }
+    else if (e.key === 'ArrowUp' && items[i - 1]) { e.preventDefault(); items[i].tabIndex = -1; items[i - 1].tabIndex = 0; items[i - 1].focus(); }
+    else if (e.key === 'ArrowRight' && node.c) { e.preventDefault(); if (!node.open) { node.open = true; drawTree(n); } else if (items[i + 1]) { items[i + 1].tabIndex = 0; li.tabIndex = -1; items[i + 1].focus(); } }
+    else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      if (node.c && node.open) { node.open = false; drawTree(n); }
+      else { var par = li.parentNode.closest('[role=treeitem]'); if (par) { li.tabIndex = -1; par.tabIndex = 0; par.focus(); } }
+    } else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); treeSel = n; drawTree(n); }
+  });
+  drawTree();
+
+  /* ---------- Layout and flow ---------- */
+  // Assistant
+  var STEPS = [
+    ['Welcome', 'Welcome to Northwind', 'This assistant helps you set up your account in a few steps.'],
+    ['Account', 'Create your account', 'Choose a name and an email address for sign-in.'],
+    ['Preferences', 'Pick your preferences', 'Choose a language, an appearance, and how often to hear from us.'],
+    ['Finish', 'All set', 'Your account is ready. Click Done to start using Northwind.']
+  ], step = 0;
+  function drawSteps() {
+    $('#steps').innerHTML = STEPS.map(function (s, i) { return '<li' + (i === step ? ' aria-current="step"' : '') + (i < step ? ' class="done"' : '') + '><span>' + esc(s[0]) + '</span></li>'; }).join('');
+    $('#step-body').innerHTML = '<h4>' + esc(STEPS[step][1]) + '</h4>' + esc(STEPS[step][2]);
+    $('#step-back').disabled = step === 0; $('#step-next').textContent = step === STEPS.length - 1 ? 'Done' : 'Continue';
+  }
+  $('#step-back').addEventListener('click', function () { if (step > 0) { step--; drawSteps(); } });
+  $('#step-next').addEventListener('click', function () { if (step < STEPS.length - 1) step++; else { toast('success', 'Setup complete', 'Your account is ready.'); step = 0; } drawSteps(); });
+  drawSteps();
+
+  // Split view
+  var split = $('#split'), splitBar = $('#split-bar'), splitPct = 40;
+  function setSplit(p) { splitPct = Math.max(15, Math.min(70, p)); split.style.setProperty('--split', splitPct + '%'); splitBar.setAttribute('aria-valuenow', Math.round(splitPct)); }
+  splitBar.addEventListener('pointerdown', function (e) {
+    splitBar.setPointerCapture(e.pointerId); splitBar.classList.add('drag');
+    function mv(ev) { var r = split.getBoundingClientRect(); setSplit((ev.clientX - r.left) / r.width * 100); }
+    function up() { splitBar.classList.remove('drag'); splitBar.removeEventListener('pointermove', mv); splitBar.removeEventListener('pointerup', up); splitBar.removeEventListener('pointercancel', up); }
+    splitBar.addEventListener('pointermove', mv); splitBar.addEventListener('pointerup', up); splitBar.addEventListener('pointercancel', up);
+  });
+  splitBar.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); setSplit(splitPct - 5); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); setSplit(splitPct + 5); }
+    if (e.key === 'Home') { e.preventDefault(); setSplit(15); }
+    if (e.key === 'End') { e.preventDefault(); setSplit(70); }
+  });
+  setSplit(40);
+
+  // Carousel
+  var track = $('#car-track'), slides = $$('.slide', track), dotsEl = $('#car-dots'), carI = 0;
+  dotsEl.innerHTML = slides.map(function (s, i) { return '<button type="button" aria-label="Go to slide ' + (i + 1) + '" data-i="' + i + '"></button>'; }).join('');
+  function carDraw() { $$('button', dotsEl).forEach(function (b, i) { b.setAttribute('aria-current', i === carI); }); $('#car-prev').disabled = carI === 0; $('#car-next').disabled = carI === slides.length - 1; }
+  function carGo(i) { carI = Math.max(0, Math.min(slides.length - 1, i)); track.scrollTo({ left: slides[carI].offsetLeft - track.offsetLeft, behavior: reduce ? 'auto' : 'smooth' }); carDraw(); }
+  $('#car-prev').addEventListener('click', function () { carGo(carI - 1); });
+  $('#car-next').addEventListener('click', function () { carGo(carI + 1); });
+  dotsEl.addEventListener('click', function (e) { var b = e.target.closest('[data-i]'); if (b) carGo(+b.getAttribute('data-i')); });
+  track.addEventListener('scroll', function () { var i = Math.round(track.scrollLeft / (slides[0].offsetWidth + 10)); if (i !== carI) { carI = i; carDraw(); } }, { passive: true });
+  carDraw();
 })();
 </script>
 </body>

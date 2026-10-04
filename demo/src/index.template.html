@@ -4,137 +4,68 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>snow.css: Mac OS X 10.6 for the web</title>
-<meta name="description" content="A Mac OS X 10.6 Snow Leopard layer for aqua.css. Live preview of the windows, controls, and patterns.">
+<meta name="description" content="A Mac OS X 10.6 Snow Leopard layer for aqua.css. Browse the web patterns, or switch to the Finder simulator.">
 <style>/*AQUA_CSS*/</style>
 <style>/*SNOW_CSS*/</style>
 <style>
-:root { box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); }
-html { height: 100%; }
-body { margin: 0; min-height: 100%; background: #070b24; color: #000; }
-.stage { max-width: 940px; margin: 0 auto; padding: 38px 12px 130px; display: flex; flex-direction: column; gap: 26px; position: relative; z-index: 1; }
-.window-body.pad { padding: 16px 18px 18px; background: #ececec; }
-.about { display: grid; grid-template-columns: 64px 1fr; gap: 14px; align-items: start; }
-.about svg { width: 64px; height: 64px; color: #2b5ca8; }
-.about > div { min-width: 0; }
-.about h1 { margin: 0 0 4px; font-size: 17px; }
-.about p { margin: 0 0 8px; line-height: 1.45; }
-.cta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-.cta a { text-decoration: none; }
-.cta a button { cursor: pointer; }
-.code { display: block; margin: 8px 0 0; padding: 7px 9px; font: 12px/1.45 Menlo, Monaco, Consolas, "DejaVu Sans Mono", monospace; background: #fff; border: 1px solid #a9a9a9; box-shadow: inset 0 1px 2px rgba(0,0,0,.25); overflow-x: auto; white-space: pre; border-radius: 2px; }
-.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px 22px; }
-.group { background: #e3e3e3; border: 1px solid #c1c1c1; border-radius: 6px; box-shadow: inset 0 2px 4px rgba(168,168,168,.55); padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 10px; }
-.group h2 { margin: 0; font-size: 12px; font-weight: 700; color: #444; }
-.row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-.group label { display: inline-flex; align-items: center; gap: 6px; }
-.foot { text-align: center; color: rgba(255,255,255,.78); font-size: 12px; line-height: 1.5; text-shadow: 0 1px 2px rgba(0,0,0,.7); }
-.foot a { color: #bcd8ff; }
-.snow-dock a.dock-item { text-decoration: none; }
-@media (max-width: 640px) { .about { grid-template-columns: 1fr; } .about svg { width: 48px; height: 48px; } }
+html, body { height: 100%; margin: 0; }
+body { display: flex; flex-direction: column; background: #070b24; }
+.bar {
+  flex: none; display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 5px 12px; padding-top: calc(5px + env(safe-area-inset-top, 0px));
+  background: linear-gradient(var(--snow-chrome-top), var(--snow-chrome-mid) 55%, var(--snow-chrome-bot)); border-bottom: 1px solid var(--snow-chrome-line);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9); font-size: 13px;
+}
+.bar .brand { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; white-space: nowrap; }
+.bar .brand svg { width: 16px; height: 16px; color: #2f66b5; }
+.bar .grow { flex: 1; }
+.bar a.out { color: #0b5fc4; text-decoration: none; white-space: nowrap; }
+.bar a.out:hover { text-decoration: underline; }
+.frame { flex: 1; min-height: 0; border: 0; width: 100%; background: #070b24; }
+noscript { display: block; padding: 24px; color: #fff; }
+noscript a { color: #bcd8ff; }
+@media (max-width: 520px) { .bar .brand span, .bar a.out { display: none; } }
 </style>
 </head>
 <body>
-
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <symbol id="i-snow" viewBox="0 0 24 24">
-    <g stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M12 2v20M3.3 7l17.4 10M3.3 17 20.7 7"/><path d="M9.5 3.8 12 6.2l2.5-2.4M9.5 20.2 12 17.8l2.5 2.4"/></g>
-  </symbol>
-</svg>
-
-<div class="snow snow-desktop" data-aqua-era="10-6">
-  <div class="snow-ribbon" style="left:-10%;top:14%;width:80%;height:90px;background:linear-gradient(90deg,transparent,#6aa8ff,transparent);transform:rotate(-14deg)"></div>
-  <div class="snow-ribbon" style="right:-15%;top:40%;width:85%;height:70px;background:linear-gradient(90deg,transparent,#b068f0,transparent);transform:rotate(9deg)"></div>
-  <div class="snow-ribbon" style="left:5%;top:68%;width:70%;height:60px;background:linear-gradient(90deg,transparent,#5de0e8,transparent);transform:rotate(-6deg);opacity:.35"></div>
-
-  <nav class="menu-bar" aria-label="Menu bar">
-    <ul>
-      <li><span class="menu-title menu-apple" aria-label="snow.css"><svg viewBox="0 0 24 24"><use href="#i-snow"/></svg></span></li>
-      <li><span class="menu-title"><b>snow.css</b></span></li>
-      <li><a class="menu-title" href="demo/finder.html" style="text-decoration:none;color:inherit">Finder demo</a></li>
-      <li><a class="menu-title" href="demo/web-patterns.html" style="text-decoration:none;color:inherit">Web patterns</a></li>
-    </ul>
-  </nav>
-
-  <main class="stage">
-
-    <section class="window" aria-labelledby="about-title">
-      <div class="snow-chrome">
-        <div class="title-bar">
-          <div class="title-bar-controls">
-            <button aria-label="Close"></button><button aria-label="Minimize"></button><button aria-label="Zoom"></button>
-          </div>
-          <div class="title-bar-text" id="about-title">About snow.css</div>
-        </div>
-      </div>
-      <div class="window-body pad">
-        <div class="about">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-snow"/></svg>
-          <div>
-            <h1>snow.css</h1>
-            <p>A Mac OS X 10.6 "Snow Leopard" layer for the web, built on <a href="https://github.com/ahzs645/aqua.css">aqua.css</a>. This page is styled with it. Everything below is live.</p>
-            <code class="code">&lt;div class="snow" data-aqua-era="10-6"&gt; … &lt;/div&gt;</code>
-            <div class="cta">
-              <a href="demo/finder.html"><button class="default" type="button">Open the Finder demo</button></a>
-              <a href="demo/web-patterns.html"><button type="button">Open web patterns</button></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="window" aria-labelledby="gallery-title">
-      <div class="snow-chrome">
-        <div class="title-bar">
-          <div class="title-bar-controls">
-            <button aria-label="Close"></button><button aria-label="Minimize"></button><button aria-label="Zoom"></button>
-          </div>
-          <div class="title-bar-text" id="gallery-title">Preview</div>
-        </div>
-      </div>
-      <div class="window-body pad">
-        <div class="gallery">
-          <div class="group">
-            <h2>Buttons</h2>
-            <div class="row"><button type="button">Cancel</button><button type="button" class="default">Save</button><button type="button" disabled>Disabled</button></div>
-            <div class="snow-seg" role="group" aria-label="Segmented control"><button type="button" aria-pressed="true">Day</button><button type="button" aria-pressed="false">Week</button><button type="button" aria-pressed="false">Month</button></div>
-          </div>
-          <div class="group">
-            <h2>Switches</h2>
-            <div class="snow-switchrow"><button type="button" class="snow-switch" role="switch" aria-checked="true" aria-labelledby="sw1"><span class="t"></span></button><span id="sw1">Show badges on the Dock</span></div>
-            <div class="snow-switchrow"><button type="button" class="snow-switch" role="switch" aria-checked="false" aria-labelledby="sw2"><span class="t"></span></button><span id="sw2">Email me about updates</span></div>
-          </div>
-          <div class="group">
-            <h2>Fields</h2>
-            <input type="search" class="aqua-search-field" placeholder="Search" aria-label="Search">
-            <input type="text" placeholder="Text field" aria-label="Text field">
-            <div class="row"><label><input type="checkbox" checked> Checked</label><label><input type="radio" name="r" checked> Radio</label></div>
-          </div>
-          <div class="group">
-            <h2>Progress</h2>
-            <div class="progress-bar"><div class="progress-bar-fill" style="width:62%"></div></div>
-            <input type="range" value="40" aria-label="Slider">
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:8px;margin-top:16px">
-          <div class="snow-banner info"><div><b>Scheduled maintenance</b>The site will be read-only on Sunday from 2 to 3 AM.</div></div>
-          <div class="snow-banner success"><div><b>Changes saved</b>Your profile was updated.</div></div>
-          <div class="snow-banner warn"><div><b>Storage almost full</b>You have used 82% of your 5 GB plan.</div></div>
-          <div class="snow-banner error"><div><b>Payment declined</b>Check the card number and try again.</div></div>
-        </div>
-      </div>
-    </section>
-
-    <p class="foot">
-      Lucida Grande isn't bundled, so text falls back to a system sans-serif. Dock reflections work in Chrome and Safari only.<br>
-      Mac OS X, Aqua, and Snow Leopard are trademarks of Apple Inc. This project isn't affiliated with Apple.
-    </p>
-  </main>
-
-  <div class="snow-dock" role="toolbar" aria-label="Demos">
-    <a class="dock-item running" href="demo/finder.html"><span class="tile" style="background:linear-gradient(120deg,#cfe7fb 0 50%,#4d90d9 50% 100%)"><svg viewBox="0 0 24 24" fill="none" stroke="#173a66" stroke-width="2" stroke-linecap="round"><path d="M8 8v3M16 8v3M7 15c2.5 3 7.5 3 10 0"/></svg></span><span class="tip">Finder demo</span></a>
-    <a class="dock-item" href="demo/web-patterns.html"><span class="tile" style="background:radial-gradient(circle at 50% 35%,#e9f6ff,#5fb0ee 55%,#2a73c4)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="#fff" stroke-width="1.5"/><path d="m15.5 8.5-2 5-5 2 2-5z" fill="#fff"/></svg></span><span class="tip">Web patterns</span></a>
-  </div>
+<div class="snow" data-aqua-era="10-6" style="display:contents">
+  <header class="bar">
+    <span class="brand"><svg viewBox="0 0 24 24" aria-hidden="true"><g stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M12 2v20M3.3 7l17.4 10M3.3 17 20.7 7"/><path d="M9.5 3.8 12 6.2l2.5-2.4M9.5 20.2 12 17.8l2.5 2.4"/></g></svg><span>snow.css</span></span>
+    <div class="snow-seg snow-tablist" role="tablist" aria-label="Demo">
+      <button role="tab" id="tab-web" aria-controls="frame" aria-selected="true" tabindex="0">Web patterns</button>
+      <button role="tab" id="tab-finder" aria-controls="frame" aria-selected="false" tabindex="-1">Finder simulator</button>
+    </div>
+    <span class="grow"></span>
+    <a class="out" id="out" href="demo/web-patterns.html">Open on its own page ↗</a>
+  </header>
+  <iframe class="frame" id="frame" role="tabpanel" aria-labelledby="tab-web" title="snow.css demo" src="demo/web-patterns.html"></iframe>
+  <noscript>JavaScript is off. Open the <a href="demo/web-patterns.html">web patterns</a> or the <a href="demo/finder.html">Finder simulator</a> directly.</noscript>
 </div>
-
+<script>
+(function () {
+  var DEMOS = { web: 'demo/web-patterns.html', finder: 'demo/finder.html' };
+  var tabs = { web: document.getElementById('tab-web'), finder: document.getElementById('tab-finder') };
+  var frame = document.getElementById('frame'), out = document.getElementById('out'), cur = 'web';
+  function show(key, focus, push) {
+    cur = key;
+    Object.keys(tabs).forEach(function (k) { var on = k === key; tabs[k].setAttribute('aria-selected', on); tabs[k].tabIndex = on ? 0 : -1; });
+    frame.setAttribute('aria-labelledby', tabs[key].id);
+    if (frame.getAttribute('src') !== DEMOS[key]) frame.setAttribute('src', DEMOS[key]);
+    out.setAttribute('href', DEMOS[key]);
+    document.title = (key === 'finder' ? 'Finder simulator' : 'Web patterns') + ' · snow.css';
+    if (push) { try { history.replaceState(null, '', key === 'finder' ? '#finder' : location.pathname + location.search); } catch (e) {} }
+    if (focus) tabs[key].focus();
+  }
+  tabs.web.addEventListener('click', function () { show('web', false, true); });
+  tabs.finder.addEventListener('click', function () { show('finder', false, true); });
+  document.querySelector('[role=tablist]').addEventListener('keydown', function (e) {
+    var order = ['web', 'finder'], i = order.indexOf(cur);
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); show(order[(i + 1) % 2], true, true); }
+    if (e.key === 'Home') { e.preventDefault(); show('web', true, true); }
+    if (e.key === 'End') { e.preventDefault(); show('finder', true, true); }
+  });
+  window.addEventListener('hashchange', function () { show(location.hash === '#finder' ? 'finder' : 'web', false, false); });
+  show(location.hash === '#finder' ? 'finder' : 'web', false, false);
+})();
+</script>
 </body>
 </html>
