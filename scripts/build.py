@@ -7,9 +7,13 @@ aqua = (root / "vendor" / "aqua.css").read_text()
 aqua = re.sub(r"@font-face\{[^}]*\}", "", aqua)  # fonts fall back to system fonts
 snow = (root / "src" / "snow.css").read_text()
 
-pages = {"finder.template.html": "finder.html", "web-patterns.template.html": "web-patterns.html"}
+pages = {
+    "finder.template.html": "demo/finder.html",
+    "web-patterns.template.html": "demo/web-patterns.html",
+    "index.template.html": "index.html",  # GitHub Pages landing page
+}
 for src, dst in pages.items():
     html = (root / "demo" / "src" / src).read_text()
     html = html.replace("/*AQUA_CSS*/", aqua).replace("/*SNOW_CSS*/", snow)
-    (root / "demo" / dst).write_text(html)
-    print(f"built demo/{dst} ({len(html) // 1024} KB)")
+    (root / dst).write_text(html)
+    print(f"built {dst} ({len(html) // 1024} KB)")
