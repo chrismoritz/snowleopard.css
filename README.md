@@ -52,11 +52,14 @@ For Graphite, add `theme-graphite` to the same element.
 ## Demos
 
 The [live demo](https://chrismoritz.github.io/snowleopard.css/) opens on **Web patterns** (40 patterns across
-navigation, forms, feedback, content, overlays, inputs, data, and layout) with a switch to the **Finder simulator**.
-You can also open them on their own:
+navigation, forms, feedback, content, overlays, inputs, data, and layout) with switches to the **Finder simulator**
+and a long **SaaS home page** (hero, features, pricing, testimonials, FAQ, and footer, all with made-up content).
+You can also open each on its own:
 [web patterns](https://chrismoritz.github.io/snowleopard.css/demo/web-patterns.html),
-[Finder](https://chrismoritz.github.io/snowleopard.css/demo/finder.html), or deep-link to the Finder tab with
-[`#finder`](https://chrismoritz.github.io/snowleopard.css/#finder).
+[Finder](https://chrismoritz.github.io/snowleopard.css/demo/finder.html),
+[SaaS home page](https://chrismoritz.github.io/snowleopard.css/demo/saas.html). Deep-link to a tab with
+[`#finder`](https://chrismoritz.github.io/snowleopard.css/#finder) or
+[`#saas`](https://chrismoritz.github.io/snowleopard.css/#saas).
 
 To build the pages locally and open them in a browser:
 
@@ -64,6 +67,7 @@ To build the pages locally and open them in a browser:
 python3 scripts/build.py
 open demo/finder.html
 open demo/web-patterns.html
+open demo/saas.html
 ```
 
 ## React components (preview)

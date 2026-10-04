@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>snow.css: Mac OS X 10.6 for the web</title>
-<meta name="description" content="A Mac OS X 10.6 Snow Leopard layer for aqua.css. Browse the web patterns, or switch to the Finder simulator.">
+<meta name="description" content="A Mac OS X 10.6 Snow Leopard layer for aqua.css. Browse the web patterns, the Finder simulator, or a sample SaaS home page.">
 <style>/*AQUA_CSS*/</style>
 <style>/*SNOW_CSS*/</style>
 <style>
@@ -23,7 +23,9 @@ body { display: flex; flex-direction: column; background: #070b24; }
 .frame { flex: 1; min-height: 0; border: 0; width: 100%; background: #070b24; }
 noscript { display: block; padding: 24px; color: #fff; }
 noscript a { color: #bcd8ff; }
-@media (max-width: 520px) { .bar .brand span, .bar a.out { display: none; } }
+.bar .sm { display: none; }
+.bar [role=tab] { white-space: nowrap; }
+@media (max-width: 520px) { .bar .brand span, .bar a.out { display: none; } .bar .lg { display: none; } .bar .sm { display: inline; } }
 </style>
 </head>
 <body>
@@ -31,40 +33,45 @@ noscript a { color: #bcd8ff; }
   <header class="bar">
     <span class="brand"><svg viewBox="0 0 24 24" aria-hidden="true"><g stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M12 2v20M3.3 7l17.4 10M3.3 17 20.7 7"/><path d="M9.5 3.8 12 6.2l2.5-2.4M9.5 20.2 12 17.8l2.5 2.4"/></g></svg><span>snow.css</span></span>
     <div class="snow-seg snow-tablist" role="tablist" aria-label="Demo">
-      <button role="tab" id="tab-web" aria-controls="frame" aria-selected="true" tabindex="0">Web patterns</button>
-      <button role="tab" id="tab-finder" aria-controls="frame" aria-selected="false" tabindex="-1">Finder simulator</button>
+      <button role="tab" id="tab-web" aria-controls="frame" aria-selected="true" tabindex="0"><span class="lg">Web patterns</span><span class="sm">Patterns</span></button>
+      <button role="tab" id="tab-finder" aria-controls="frame" aria-selected="false" tabindex="-1"><span class="lg">Finder simulator</span><span class="sm">Finder</span></button>
+      <button role="tab" id="tab-saas" aria-controls="frame" aria-selected="false" tabindex="-1"><span class="lg">SaaS home page</span><span class="sm">SaaS</span></button>
     </div>
     <span class="grow"></span>
     <a class="out" id="out" href="demo/web-patterns.html">Open on its own page ↗</a>
   </header>
   <iframe class="frame" id="frame" role="tabpanel" aria-labelledby="tab-web" title="snow.css demo" src="demo/web-patterns.html"></iframe>
-  <noscript>JavaScript is off. Open the <a href="demo/web-patterns.html">web patterns</a> or the <a href="demo/finder.html">Finder simulator</a> directly.</noscript>
+  <noscript>JavaScript is off. Open the <a href="demo/web-patterns.html">web patterns</a> or the <a href="demo/finder.html">Finder simulator</a>, or the <a href="demo/saas.html">SaaS home page</a> directly.</noscript>
 </div>
 <script>
 (function () {
-  var DEMOS = { web: 'demo/web-patterns.html', finder: 'demo/finder.html' };
-  var tabs = { web: document.getElementById('tab-web'), finder: document.getElementById('tab-finder') };
+  var DEMOS = { web: 'demo/web-patterns.html', finder: 'demo/finder.html', saas: 'demo/saas.html' };
+  var TITLES = { web: 'Web patterns', finder: 'Finder simulator', saas: 'SaaS home page' };
+  var HASH = { web: '', finder: '#finder', saas: '#saas' };
+  var order = ['web', 'finder', 'saas'], tabs = {};
+  order.forEach(function (k) { tabs[k] = document.getElementById('tab-' + k); });
   var frame = document.getElementById('frame'), out = document.getElementById('out'), cur = 'web';
+  function fromHash() { var k = location.hash.slice(1); return DEMOS[k] ? k : 'web'; }
   function show(key, focus, push) {
     cur = key;
-    Object.keys(tabs).forEach(function (k) { var on = k === key; tabs[k].setAttribute('aria-selected', on); tabs[k].tabIndex = on ? 0 : -1; });
+    order.forEach(function (k) { var on = k === key; tabs[k].setAttribute('aria-selected', on); tabs[k].tabIndex = on ? 0 : -1; });
     frame.setAttribute('aria-labelledby', tabs[key].id);
     if (frame.getAttribute('src') !== DEMOS[key]) frame.setAttribute('src', DEMOS[key]);
     out.setAttribute('href', DEMOS[key]);
-    document.title = (key === 'finder' ? 'Finder simulator' : 'Web patterns') + ' · snow.css';
-    if (push) { try { history.replaceState(null, '', key === 'finder' ? '#finder' : location.pathname + location.search); } catch (e) {} }
+    document.title = TITLES[key] + ' · snow.css';
+    if (push) { try { history.replaceState(null, '', HASH[key] || location.pathname + location.search); } catch (e) {} }
     if (focus) tabs[key].focus();
   }
-  tabs.web.addEventListener('click', function () { show('web', false, true); });
-  tabs.finder.addEventListener('click', function () { show('finder', false, true); });
+  order.forEach(function (k) { tabs[k].addEventListener('click', function () { show(k, false, true); }); });
   document.querySelector('[role=tablist]').addEventListener('keydown', function (e) {
-    var order = ['web', 'finder'], i = order.indexOf(cur);
-    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); show(order[(i + 1) % 2], true, true); }
-    if (e.key === 'Home') { e.preventDefault(); show('web', true, true); }
-    if (e.key === 'End') { e.preventDefault(); show('finder', true, true); }
+    var i = order.indexOf(cur), n = order.length;
+    if (e.key === 'ArrowRight') { e.preventDefault(); show(order[(i + 1) % n], true, true); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); show(order[(i - 1 + n) % n], true, true); }
+    if (e.key === 'Home') { e.preventDefault(); show(order[0], true, true); }
+    if (e.key === 'End') { e.preventDefault(); show(order[n - 1], true, true); }
   });
-  window.addEventListener('hashchange', function () { show(location.hash === '#finder' ? 'finder' : 'web', false, false); });
-  show(location.hash === '#finder' ? 'finder' : 'web', false, false);
+  window.addEventListener('hashchange', function () { show(fromHash(), false, false); });
+  show(fromHash(), false, false);
 })();
 </script>
 </body>

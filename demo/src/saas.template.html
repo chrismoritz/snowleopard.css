@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Northwind: plan, track, and ship work together (snow.css sample)</title>
+<meta name="description" content="A sample SaaS home page drawn in Mac OS X 10.6 chrome with snow.css. All names and figures are made up.">
+<style>/*AQUA_CSS*/</style>
+<style>/*SNOW_CSS*/</style>
+<style>
+:root { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+body { margin: 0; background: #ececec; color: #111; }
+.snow { font-size: 14px; line-height: 1.5; }
+.wrap { width: min(1040px, 100% - 32px); margin-inline: auto; }
+h1, h2, h3, h4, p { margin-top: 0; }
+a { color: #0b5fc4; }
+.eyebrow { margin: 0 0 6px; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--snow-source-head); }
+.sec { padding: 64px 0; }
+.sec.alt { background: linear-gradient(#f7f7f7, #e6e6e6); border-block: 1px solid #c4c4c4; }
+.sec-head { max-width: 640px; margin: 0 auto 32px; text-align: center; }
+.sec-head h2 { margin-bottom: 8px; font-size: 30px; line-height: 1.2; }
+.sec-head p { margin: 0; color: #444; font-size: 15px; }
+.btn-lg { height: 36px; padding: 0 20px; font-size: 14px; }
+.snow button.btn-lg { min-width: 0; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 20px; }
+.note { font-size: 12px; color: #555; }
+
+/* Header */
+.site-head { position: sticky; top: 0; z-index: 60; }
+.site-head .snow-navbar { border-radius: 0; border-width: 0 0 1px; padding-inline: max(16px, calc((100% - 1040px) / 2)); }
+.site-head .snow-dropdown { position: relative; }
+.site-head .snow-menu { top: calc(100% + 2px); }
+
+/* Hero */
+.hero {
+  position: relative; overflow: hidden; padding: 72px 0 80px; color: #fff;
+  background:
+    radial-gradient(ellipse 60% 55% at 15% 105%, rgba(112, 168, 255, .55), transparent 70%),
+    radial-gradient(ellipse 55% 60% at 90% 100%, rgba(172, 96, 230, .45), transparent 70%),
+    linear-gradient(#070b24 0%, #121c58 50%, #2b3a9c 100%);
+}
+.hero .snow-ribbon { z-index: 0; }
+.hero .wrap { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; }
+.hero h1 { margin-bottom: 12px; font-size: 44px; line-height: 1.1; text-shadow: 0 2px 6px rgba(0, 0, 0, .6); }
+.hero .lede { max-width: 46ch; margin-bottom: 20px; font-size: 17px; color: rgba(255, 255, 255, .88); text-shadow: 0 1px 3px rgba(0, 0, 0, .6); }
+.hero .snow-badge { margin-bottom: 14px; }
+.signup { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+.signup input[type=email] { flex: 1 1 220px; height: 36px; font-size: 14px; }
+.hero .fine { margin: 0; font-size: 12px; color: rgba(255, 255, 255, .75); }
+.hero .snow-msg { margin-top: 4px; color: #ffd0cb; }
+.mock { color: #000; }
+.mock .window-body { padding: 12px; background: #ececec; display: flex; flex-direction: column; gap: 10px; }
+.mock .tasks { display: flex; flex-direction: column; background: #fff; border: 1px solid #a3a3a3; border-radius: 4px; }
+.mock .tasks > div { display: flex; align-items: center; gap: 8px; padding: 6px 10px; font-size: 12px; }
+.mock .tasks > div + div { border-top: 1px solid #e1e1e1; }
+.mock .tasks .who { margin-left: auto; }
+.mock .mini-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.mock .mini-stats div { padding: 6px 8px; font-size: 11px; color: #555; background: #fff; border: 1px solid #b0b0b0; border-radius: 4px; }
+.mock .mini-stats b { display: block; font-size: 17px; color: #000; }
+
+/* Logos */
+.logos { padding: 26px 0; background: #f4f4f4; border-bottom: 1px solid #c8c8c8; }
+.logos p { margin: 0 0 12px; text-align: center; font-size: 12px; color: #666; }
+.logo-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 34px; font-size: 17px; font-weight: 700; color: #8a8a8a; letter-spacing: .03em; }
+.logo-row span { text-shadow: 0 1px 0 #fff; }
+
+/* Features */
+.feat { display: flex; flex-direction: column; gap: 6px; padding: 18px; background: linear-gradient(#fff, #f6f6f6); border: 1px solid #b0b0b0; border-radius: 8px; box-shadow: 0 1px 3px rgba(0, 0, 0, .18); }
+.feat h3 { margin: 0; font-size: 16px; }
+.feat p { margin: 0; color: #444; font-size: 13px; }
+.tile {
+  display: grid; place-items: center; width: 44px; height: 44px; margin-bottom: 6px; border: 1px solid var(--snow-sel-edge); border-radius: 22%;
+  background: linear-gradient(var(--snow-sel-1), var(--snow-sel-2)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), 0 2px 4px rgba(0, 0, 0, .3); position: relative; overflow: hidden;
+}
+.tile::after { content: ""; position: absolute; left: 6%; right: 6%; top: 2%; height: 46%; border-radius: 40% 40% 60% 60% / 60% 60% 40% 40%; background: linear-gradient(rgba(255, 255, 255, .65), rgba(255, 255, 255, .05)); }
+.tile svg { position: relative; z-index: 1; width: 24px; height: 24px; }
+
+/* Spotlight tabs */
+.spot { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: center; }
+.spot h3 { margin-bottom: 6px; font-size: 20px; }
+.spot ul { margin: 10px 0 0; padding: 0; list-style: none; }
+.spot li { position: relative; padding-left: 22px; margin-bottom: 4px; }
+.spot li::before { content: "✓"; position: absolute; left: 0; font-weight: 700; color: #2a8a28; }
+.board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 10px; background: #e3e3e3; border: 1px solid #c1c1c1; border-radius: 6px; box-shadow: inset 0 2px 4px rgba(168, 168, 168, .55); }
+.board h5 { margin: 0 0 6px; font-size: 11px; color: #555; }
+.board .c { margin-bottom: 6px; padding: 6px 8px; font-size: 11px; background: #fff; border: 1px solid #aaa; border-radius: 4px; box-shadow: 0 1px 2px rgba(0, 0, 0, .2); }
+.snow-tabs .snow-tabpanel { padding: 26px 22px 22px; }
+
+/* Steps */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 20px; counter-reset: s; }
+.steps li { position: relative; list-style: none; padding: 0 0 0 54px; counter-increment: s; }
+.steps li::before {
+  content: counter(s); position: absolute; left: 0; top: 0; display: grid; place-items: center; width: 40px; height: 40px; font-size: 20px; font-weight: 700; color: #fff; text-shadow: 0 -1px 0 rgba(0, 0, 0, .4);
+  border: 1px solid var(--snow-sel-edge); border-radius: 50%; background: linear-gradient(var(--snow-sel-1), var(--snow-sel-2)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), 0 2px 3px rgba(0, 0, 0, .3);
+}
+.steps h3 { margin: 0 0 4px; font-size: 16px; }
+.steps p { margin: 0; color: #444; font-size: 13px; }
+
+/* Stats band */
+.band { padding: 44px 0; color: #fff; text-shadow: 0 1px 3px rgba(0, 0, 0, .55); background: linear-gradient(#3f78c8, #1f4f9c); border-block: 1px solid #163a74; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35); }
+.band .wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; text-align: center; }
+.band b { display: block; font-size: 38px; line-height: 1.1; }
+.band span { font-size: 13px; opacity: .9; }
+
+/* Testimonials */
+.quote { flex: 0 0 100%; scroll-snap-align: center; display: flex; flex-direction: column; gap: 12px; padding: 22px 24px; background: #fff; border: 1px solid #a3a3a3; border-radius: 8px; box-shadow: 0 1px 3px rgba(0, 0, 0, .2); }
+.quote p { margin: 0; font-size: 17px; line-height: 1.5; }
+.quote .stars { color: #f2b21c; letter-spacing: 2px; text-shadow: 0 1px 1px rgba(150, 90, 0, .5); }
+.quote .snow-person { padding: 0; border: 0; background: none; }
+.snow-carousel .track { gap: 14px; }
+
+/* Pricing */
+.billing { display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 24px; }
+.billing .save { font-size: 12px; font-weight: 700; color: #2a8a28; }
+.plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 20px; align-items: stretch; }
+.plan { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 22px 20px; background: linear-gradient(#fff, #f6f6f6); border: 1px solid #a3a3a3; border-radius: 8px; box-shadow: 0 1px 3px rgba(0, 0, 0, .2); }
+.plan.pop { border-color: var(--snow-sel-edge); box-shadow: 0 0 0 3px var(--snow-sel-1), 0 3px 8px rgba(0, 0, 0, .25); }
+.plan .snow-badge { position: absolute; top: -10px; right: 16px; }
+.plan h3 { margin: 0; font-size: 18px; }
+.plan .price { margin: 0; font-size: 36px; font-weight: 700; line-height: 1.1; }
+.plan .price small { font-size: 13px; font-weight: 400; color: #555; }
+.plan ul { flex: 1; margin: 0 0 6px; padding: 0; list-style: none; font-size: 13px; }
+.plan li { position: relative; padding: 3px 0 3px 22px; border-top: 1px solid #e6e6e6; }
+.plan li::before { content: "✓"; position: absolute; left: 2px; font-weight: 700; color: #2a8a28; }
+.plan button { width: 100%; height: 32px; }
+.cmp { margin-top: 28px; }
+.cmp .snow-tablewrap { max-height: none; }
+.cmp td:not(:first-child), .cmp th:not(:first-child) { text-align: center; }
+
+/* Integrations */
+.apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(92px, 1fr)); gap: 16px; max-width: 880px; margin: 0 auto; }
+.snow button.app { display: flex; flex-direction: column; align-items: center; gap: 6px; height: auto; min-width: 0; padding: 4px; border: 0; background: none; box-shadow: none; font-size: 12px; cursor: default; }
+.app .tile { width: 56px; height: 56px; margin: 0; font-size: 22px; font-weight: 700; color: #fff; text-shadow: 0 -1px 0 rgba(0, 0, 0, .4); }
+.app .tile span { position: relative; z-index: 1; }
+
+/* FAQ */
+.faq { max-width: 740px; margin-inline: auto; }
+.snow-accordion summary { font-size: 14px; padding: 10px 12px; }
+.snow-accordion .pane { font-size: 13px; }
+
+/* CTA + footer */
+.cta { padding: 56px 0; text-align: center; color: #fff; background: radial-gradient(ellipse 70% 120% at 50% 130%, rgba(112, 168, 255, .55), transparent 70%), linear-gradient(#0b1240, #1f2f8a); }
+.cta h2 { margin-bottom: 8px; font-size: 30px; text-shadow: 0 2px 5px rgba(0, 0, 0, .6); }
+.cta p { margin-bottom: 18px; color: rgba(255, 255, 255, .85); }
+.cta .row { justify-content: center; }
+footer.site { padding: 40px 0 28px; font-size: 13px; background: linear-gradient(#e9e9e9, #d6d6d6); border-top: 1px solid #a9a9a9; }
+.cols { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 24px; margin-bottom: 26px; }
+.cols h4 { margin: 0 0 8px; font-size: 12px; color: #444; }
+.cols ul { margin: 0; padding: 0; list-style: none; }
+.cols li { margin-bottom: 5px; }
+.cols a { text-decoration: none; }
+.cols a:hover { text-decoration: underline; }
+.foot-bottom { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; padding-top: 16px; border-top: 1px solid #b5b5b5; font-size: 12px; color: #555; }
+.foot-bottom .grow { flex: 1; }
+.brandline { display: inline-flex; align-items: center; gap: 6px; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.brandline svg { width: 20px; height: 20px; color: #2f66b5; }
+
+/* Floating bits */
+.cookie { position: fixed; z-index: 70; left: 12px; right: 12px; bottom: 12px; max-width: 760px; margin-inline: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; box-shadow: 0 6px 20px rgba(0, 0, 0, .4); }
+.cookie[hidden] { display: none; }
+.cookie > div { flex: 1 1 280px; }
+.totop { position: fixed; z-index: 65; right: 16px; bottom: 76px; opacity: 0; visibility: hidden; transition: opacity .2s, visibility 0s linear .2s; }
+.totop.show { opacity: 1; visibility: visible; transition: opacity .2s; }
+
+@media (max-width: 820px) {
+  .hero { padding: 44px 0 52px; }
+  .hero .wrap, .spot { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 34px; }
+  .sec { padding: 44px 0; }
+  .sec-head h2, .cta h2 { font-size: 25px; }
+  .cols { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 520px) {
+  .site-head .snow-navbar .links { display: none; }
+  .cols { grid-template-columns: 1fr; }
+  .band b { font-size: 30px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .totop { transition: none; } }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-snow" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M12 2v20M3.3 7l17.4 10M3.3 17 20.7 7"/><path d="M9.5 3.8 12 6.2l2.5-2.4M9.5 20.2 12 17.8l2.5 2.4"/></g></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z" fill="#fff" stroke="#fff" stroke-linejoin="round"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M5 20V11M12 20V4M19 20V8" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2" fill="#fff"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5" fill="#fff"/><path d="M2.5 20c0-4 3-6 6.5-6s6.500 2 6.500 6z" fill="#fff"/><circle cx="17" cy="9" r="2.6" fill="#fff" opacity=".8"/><path d="M17 14c3 0 4.800 1.700 4.800 5H17.500" fill="#fff" opacity=".8"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M8 3v5M16 3v5M6 8h12v3a6 6 0 0 1-12 0zM12 17v4" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.500 2h-15zM10 21h4" fill="#fff" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div class="snow" id="root" data-aqua-era="10-6">
+  <div class="snow-toasts" id="toasts" aria-live="polite"></div>
+
+  <!-- ===== Header ===== -->
+  <header class="site-head">
+    <nav class="snow-navbar" aria-label="Primary">
+      <a class="brand" href="#top"><svg viewBox="0 0 24 24" style="color:#2f66b5" aria-hidden="true"><use href="#i-snow"/></svg>Northwind</a>
+      <ul class="links">
+        <li class="snow-dropdown">
+          <button class="snow-navlink" id="prod-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="prod-menu">Product ▾</button>
+          <ul class="snow-menu" id="prod-menu" role="menu" aria-labelledby="prod-btn">
+            <li role="none"><button role="menuitem" data-go="features">Features</button></li>
+            <li role="none"><button role="menuitem" data-go="how">How it works</button></li>
+            <li role="none"><button role="menuitem" data-go="integrations">Integrations</button></li>
+          </ul>
+        </li>
+        <li><a class="snow-navlink" href="#pricing">Pricing</a></li>
+        <li><a class="snow-navlink" href="#customers">Customers</a></li>
+        <li><a class="snow-navlink" href="#faq">FAQ</a></li>
+      </ul>
+      <span class="snow-spacer"></span>
+      <button type="button" data-toast="info">Sign in</button>
+      <a href="#start"><button type="button" class="default">Start free trial</button></a>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- ===== Hero ===== -->
+    <section class="hero" aria-labelledby="hero-t">
+      <div class="snow-ribbon" style="left:-10%;top:12%;width:80%;height:90px;background:linear-gradient(90deg,transparent,#6aa8ff,transparent);transform:rotate(-14deg)"></div>
+      <div class="snow-ribbon" style="right:-15%;top:46%;width:85%;height:70px;background:linear-gradient(90deg,transparent,#b068f0,transparent);transform:rotate(9deg)"></div>
+      <div class="wrap">
+        <div>
+          <span class="snow-badge blue">New</span>
+          <h1 id="hero-t">Plan, track, and ship work together.</h1>
+          <p class="lede">Northwind brings your projects, deadlines, and teammates into one calm place, so everyone knows what’s next without another meeting.</p>
+          <form class="signup" id="signup" novalidate aria-label="Start a free trial">
+            <label for="s-mail" class="sr-only">Work email</label>
+            <input type="email" id="s-mail" placeholder="Work email" autocomplete="email" aria-describedby="s-msg">
+            <button type="submit" class="default btn-lg">Start free trial</button>
+          </form>
+          <div class="snow-msg err" id="s-msg" hidden></div>
+          <p class="fine">Free for 14 days. No credit card required.</p>
+        </div>
+
+        <section class="window mock" aria-label="Product preview">
+          <div class="snow-chrome">
+            <div class="title-bar">
+              <div class="title-bar-controls"><button aria-label="Close" tabindex="-1"></button><button aria-label="Minimize" tabindex="-1"></button><button aria-label="Zoom" tabindex="-1"></button></div>
+              <div class="title-bar-text">Launch plan</div>
+            </div>
+            <div class="snow-toolbar">
+              <div class="snow-seg" role="group" aria-label="View"><button aria-pressed="true" tabindex="-1">Board</button><button aria-pressed="false" tabindex="-1">List</button><button aria-pressed="false" tabindex="-1">Timeline</button></div>
+              <span class="spacer"></span>
+              <input type="search" class="aqua-search-field" placeholder="Search" aria-label="Search tasks" tabindex="-1" style="max-width:120px">
+            </div>
+          </div>
+          <div class="window-body">
+            <div class="mini-stats"><div>Done<b>24</b></div><div>In progress<b>9</b></div><div>Due soon<b>3</b></div></div>
+            <div class="progress-bar" role="progressbar" aria-label="Launch progress" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" style="width:100%"><div class="progress-bar-fill" style="width:68%"></div></div>
+            <div class="tasks">
+              <div><span class="snow-state ok">Design review</span><span class="who snow-avatar" style="width:22px;height:22px;font-size:9px">AL</span></div>
+              <div><span class="snow-state wait">Write release notes</span><span class="who snow-avatar" style="--a:#f1b27c;--b:#c46a22;width:22px;height:22px;font-size:9px">GH</span></div>
+              <div><span class="snow-state bad">Fix checkout bug</span><span class="who snow-avatar" style="--a:#9fd49a;--b:#3b8d3a;width:22px;height:22px;font-size:9px">KJ</span></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ===== Logo cloud ===== -->
+    <section class="logos" aria-label="Customers">
+      <div class="wrap">
+        <p>Trusted by teams at sample companies like these</p>
+        <div class="logo-row"><span>BRIGHTWELL</span><span>Oakridge</span><span>KESTREL</span><span>Foxglove</span><span>Marlow&nbsp;&amp;&nbsp;Co</span><span>PINEWOOD</span></div>
+      </div>
+    </section>
+
+    <!-- ===== Features ===== -->
+    <section class="sec" id="features" aria-labelledby="feat-t">
+      <div class="wrap">
+        <div class="sec-head"><p class="eyebrow">Features</p><h2 id="feat-t">Everything your team needs, nothing it doesn’t</h2><p>Simple building blocks that fit the way you already work.</p></div>
+        <div class="grid3">
+          <article class="feat"><span class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"/></svg></span><h3>Fast by default</h3><p>Pages open instantly and edits sync as you type, even on a slow connection.</p></article>
+          <article class="feat"><span class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg></span><h3>Clear reporting</h3><p>See progress, risks, and workload at a glance, with charts you can share.</p></article>
+          <article class="feat"><span class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg></span><h3>Built for teams</h3><p>Assign work, leave comments, and keep everyone in the loop in one thread.</p></article>
+          <article class="feat"><span class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-lock"/></svg></span><h3>Secure</h3><p>Single sign-on, audit logs, and encryption at rest come with every paid plan.</p></article>
+          <article class="feat"><span class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-plug"/></svg></span><h3>Connects everywhere</h3><p>Works with the calendars, chat tools, and file stores your team already uses.</p></article>
+          <article class="feat"><span class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bell"/></svg></span><h3>Smart reminders</h3><p>Gentle nudges before deadlines, with quiet hours you control.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Spotlight tabs ===== -->
+    <section class="sec alt" aria-labelledby="spot-t">
+      <div class="wrap">
+        <div class="sec-head"><p class="eyebrow">One workspace</p><h2 id="spot-t">See your work the way you think</h2></div>
+        <div class="snow-tabs">
+          <div class="snow-seg snow-tablist" role="tablist" aria-label="Views" id="spot-tabs">
+            <button role="tab" id="st-a" aria-controls="sp-a" aria-selected="true" tabindex="0">Boards</button>
+            <button role="tab" id="st-b" aria-controls="sp-b" aria-selected="false" tabindex="-1">Reports</button>
+            <button role="tab" id="st-c" aria-controls="sp-c" aria-selected="false" tabindex="-1">Timeline</button>
+          </div>
+          <div class="snow-tabpanel" role="tabpanel" id="sp-a" aria-labelledby="st-a">
+            <div class="spot">
+              <div><h3>Boards that match your process</h3><p>Drag work across columns, filter by person, and keep every card’s history in one place.</p>
+                <ul><li>Custom columns and limits</li><li>Saved filters for every teammate</li><li>Keyboard shortcuts for everything</li></ul></div>
+              <div class="board" aria-hidden="true">
+                <div><h5>To do</h5><div class="c">Draft launch email</div><div class="c">Update pricing page</div></div>
+                <div><h5>In progress</h5><div class="c">Design review</div><div class="c">Fix checkout bug</div></div>
+                <div><h5>Done</h5><div class="c">Kick-off meeting</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="snow-tabpanel" role="tabpanel" id="sp-b" aria-labelledby="st-b" hidden>
+            <div class="spot">
+              <div><h3>Reports your leadership will read</h3><p>Turn any board into a weekly summary with progress, risks, and who is stretched thin.</p>
+                <ul><li>Scheduled email digests</li><li>Export to PDF or CSV</li><li>Share with a link</li></ul></div>
+              <div class="snow-stats" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px" aria-hidden="true">
+                <div class="snow-stat"><small>On track</small><b>82%</b><span class="up">▲ 6%</span></div>
+                <div class="snow-stat"><small>At risk</small><b>11%</b><span class="down">▼ 2%</span></div>
+                <div class="snow-stat"><small>Blocked</small><b>7%</b><span class="up">▲ 1%</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="snow-tabpanel" role="tabpanel" id="sp-c" aria-labelledby="st-c" hidden>
+            <div class="spot">
+              <div><h3>Timelines without the spreadsheet</h3><p>Plan dependencies, spot overlaps, and move a deadline with a drag.</p>
+                <ul><li>Dependencies and milestones</li><li>Workload view per person</li><li>Baseline versus actual</li></ul></div>
+              <ol class="snow-timeline" aria-hidden="true">
+                <li><b>Kick-off</b><time>Oct 1</time></li><li><b>Design freeze</b><time>Oct 15</time></li><li><b>Beta</b><time>Nov 3</time></li><li><b>Launch</b><time>Nov 20</time></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== How it works ===== -->
+    <section class="sec" id="how" aria-labelledby="how-t">
+      <div class="wrap">
+        <div class="sec-head"><p class="eyebrow">How it works</p><h2 id="how-t">Up and running in an afternoon</h2></div>
+        <ol class="steps" style="margin:0;padding:0">
+          <li><h3>Create a workspace</h3><p>Name it, invite your team, and import tasks from a spreadsheet.</p></li>
+          <li><h3>Shape your process</h3><p>Pick a template or build your own board with the columns you need.</p></li>
+          <li><h3>Ship with confidence</h3><p>Track progress, share weekly reports, and keep the launch on time.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== Stats band ===== -->
+    <section class="band" aria-label="Numbers">
+      <div class="wrap">
+        <div><b data-count="12000" data-suffix="+">12,000+</b><span>Teams</span></div>
+        <div><b data-count="98" data-suffix="%">98%</b><span>Customer satisfaction</span></div>
+        <div><b data-count="4" data-suffix="M">4M</b><span>Tasks completed each week</span></div>
+        <div><b data-count="99.9" data-suffix="%" data-dec="1">99.9%</b><span>Uptime over the last year</span></div>
+      </div>
+    </section>
+
+    <!-- ===== Testimonials ===== -->
+    <section class="sec" id="customers" aria-labelledby="cust-t">
+      <div class="wrap" style="max-width:760px">
+        <div class="sec-head"><p class="eyebrow">Customers</p><h2 id="cust-t">Teams love working here</h2></div>
+        <div class="snow-carousel" id="car" role="region" aria-roledescription="carousel" aria-label="Customer quotes">
+          <div class="track" id="car-track">
+            <figure class="quote" role="group" aria-label="1 of 3" style="margin:0"><span class="stars" aria-label="5 out of 5 stars">★★★★★</span><p>“We replaced three tools with Northwind and our Monday meeting went from an hour to ten minutes.”</p><div class="snow-person"><span class="snow-avatar">AL</span><div><b>Ada L.</b><small>Head of Product, Brightwell (sample)</small></div></div></figure>
+            <figure class="quote" role="group" aria-label="2 of 3" style="margin:0"><span class="stars" aria-label="5 out of 5 stars">★★★★★</span><p>“Reports that used to take a day now arrive in my inbox every Friday morning.”</p><div class="snow-person"><span class="snow-avatar" style="--a:#f1b27c;--b:#c46a22">GH</span><div><b>Grace H.</b><small>Operations Lead, Oakridge (sample)</small></div></div></figure>
+            <figure class="quote" role="group" aria-label="3 of 3" style="margin:0"><span class="stars" aria-label="4 out of 5 stars">★★★★☆</span><p>“Setup took an afternoon. The whole team was using it by the end of the week.”</p><div class="snow-person"><span class="snow-avatar" style="--a:#9fd49a;--b:#3b8d3a">KJ</span><div><b>Katherine J.</b><small>Engineering Manager, Kestrel (sample)</small></div></div></figure>
+          </div>
+          <div class="nav"><button id="car-prev" aria-label="Previous quote">‹</button><div class="dots" id="car-dots"></div><button id="car-next" aria-label="Next quote">›</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Pricing ===== -->
+    <section class="sec alt" id="pricing" aria-labelledby="price-t">
+      <div class="wrap">
+        <div class="sec-head"><p class="eyebrow">Pricing</p><h2 id="price-t">Simple plans that grow with you</h2><p>Start free. Upgrade when you need more.</p></div>
+        <div class="billing">
+          <div class="snow-seg" id="billing" role="group" aria-label="Billing period"><button aria-pressed="true" data-per="m">Monthly</button><button aria-pressed="false" data-per="y">Yearly</button></div>
+          <span class="save">Save 20% yearly</span>
+        </div>
+        <div class="plans">
+          <article class="plan"><h3>Starter</h3><p class="price"><span class="amt" data-m="0" data-y="0">$0</span> <small>per user / month</small></p><p class="note" style="margin:0">For individuals and small side projects.</p>
+            <ul><li>Up to 3 projects</li><li>Boards and lists</li><li>Community support</li></ul><button>Get started</button></article>
+          <article class="plan pop"><span class="snow-badge blue">Most popular</span><h3>Pro</h3><p class="price"><span class="amt" data-m="12" data-y="10">$12</span> <small>per user / month</small></p><p class="note" style="margin:0">For teams that ship every week.</p>
+            <ul><li>Unlimited projects</li><li>Reports and timelines</li><li>Integrations</li><li>Priority email support</li></ul><button class="default">Start free trial</button></article>
+          <article class="plan"><h3>Business</h3><p class="price"><span class="amt" data-m="29" data-y="24">$29</span> <small>per user / month</small></p><p class="note" style="margin:0">For organizations with security needs.</p>
+            <ul><li>Everything in Pro</li><li>Single sign-on</li><li>Audit logs</li><li>Dedicated success manager</li></ul><button>Contact sales</button></article>
+        </div>
+
+        <div class="cmp">
+          <div class="snow-tablewrap"><table class="aqua-table"><caption class="sr-only">Plan comparison</caption>
+            <thead><tr><th scope="col">Feature</th><th scope="col">Starter</th><th scope="col">Pro</th><th scope="col">Business</th></tr></thead>
+            <tbody>
+              <tr><th scope="row" style="font-weight:400;text-align:left">Projects</th><td>3</td><td>Unlimited</td><td>Unlimited</td></tr>
+              <tr><th scope="row" style="font-weight:400;text-align:left">Reports</th><td>—</td><td>✓</td><td>✓</td></tr>
+              <tr><th scope="row" style="font-weight:400;text-align:left">Integrations</th><td>—</td><td>✓</td><td>✓</td></tr>
+              <tr><th scope="row" style="font-weight:400;text-align:left">Single sign-on</th><td>—</td><td>—</td><td>✓</td></tr>
+              <tr><th scope="row" style="font-weight:400;text-align:left">Support</th><td>Community</td><td>Priority email</td><td>Dedicated manager</td></tr>
+            </tbody></table></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Integrations ===== -->
+    <section class="sec" id="integrations" aria-labelledby="int-t">
+      <div class="wrap">
+        <div class="sec-head"><p class="eyebrow">Integrations</p><h2 id="int-t">Works with the tools you already use</h2></div>
+        <div class="apps" role="list">
+          <button class="app" role="listitem" data-tip="Calendar" tabindex="0"><span class="tile" style="background:linear-gradient(#f08a80,#c4372b);border-color:#9a2018"><span>31</span></span>Calendar</button>
+          <button class="app" role="listitem" data-tip="Chat" tabindex="0"><span class="tile" style="background:linear-gradient(#a8e08f,#3b9d2c);border-color:#2a7a1e"><span>💬</span></span>Chat</button>
+          <button class="app" role="listitem" data-tip="Files" tabindex="0"><span class="tile" style="background:linear-gradient(#ffe48a,#e1a31a);border-color:#9a6a08"><span>▤</span></span>Files</button>
+          <button class="app" role="listitem" data-tip="Email" tabindex="0"><span class="tile"><span>✉</span></span>Email</button>
+          <button class="app" role="listitem" data-tip="Code" tabindex="0"><span class="tile" style="background:linear-gradient(#b9a2e8,#6c3aa0);border-color:#4f2680"><span>&lt;/&gt;</span></span>Code</button>
+          <button class="app" role="listitem" data-tip="Forms" tabindex="0"><span class="tile" style="background:linear-gradient(#9fe3da,#2a9c8c);border-color:#1d7266"><span>☑</span></span>Forms</button>
+          <button class="app" role="listitem" data-tip="Docs" tabindex="0"><span class="tile" style="background:linear-gradient(#f2f2f2,#a9a9a9);border-color:#6f6f6f;color:#333;text-shadow:none"><span>≡</span></span>Docs</button>
+          <button class="app" role="listitem" data-tip="Analytics" tabindex="0"><span class="tile" style="background:linear-gradient(#ffc08a,#e0701f);border-color:#a24a0c"><span>▲</span></span>Analytics</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="sec alt" id="faq" aria-labelledby="faq-t">
+      <div class="wrap">
+        <div class="sec-head"><p class="eyebrow">FAQ</p><h2 id="faq-t">Questions, answered</h2></div>
+        <div class="faq snow-accordion">
+          <details open><summary>Is there a free trial?</summary><div class="pane">Yes. Every paid plan starts with 14 days free, and you don’t need a credit card.</div></details>
+          <details><summary>Can I change plans later?</summary><div class="pane">You can upgrade or downgrade at any time. We prorate the difference on your next invoice.</div></details>
+          <details><summary>How is my data protected?</summary><div class="pane">Data is encrypted in transit and at rest. Business plans add single sign-on and audit logs.</div></details>
+          <details><summary>Do you offer discounts for non-profits?</summary><div class="pane">Registered non-profits and schools get 50% off any paid plan. Contact sales to apply.</div></details>
+          <details><summary>Can I import from another tool?</summary><div class="pane">Yes. Upload a CSV, or connect your existing tool and we’ll bring boards, tasks, and comments over.</div></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Final CTA ===== -->
+    <section class="cta" id="start" aria-labelledby="cta-t">
+      <div class="wrap">
+        <h2 id="cta-t">Ready to get everyone on the same page?</h2>
+        <p>Start your free trial today. It takes less than two minutes.</p>
+        <div class="row"><button type="button" class="default btn-lg" id="cta-go">Start free trial</button><button type="button" class="btn-lg" data-toast="info">Talk to sales</button></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site">
+    <div class="wrap">
+      <div class="cols">
+        <div><div class="brandline"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-snow"/></svg>Northwind</div><p style="margin:0;max-width:30ch;color:#444">Plan, track, and ship work together.</p></div>
+        <nav aria-label="Product"><h4>Product</h4><ul><li><a href="#features">Features</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#integrations">Integrations</a></li></ul></nav>
+        <nav aria-label="Company"><h4>Company</h4><ul><li><a href="#customers">Customers</a></li><li><a href="#faq">FAQ</a></li><li><a href="#start">Contact</a></li></ul></nav>
+        <nav aria-label="Legal"><h4>Legal</h4><ul><li><a href="#top">Privacy</a></li><li><a href="#top">Terms</a></li><li><a href="#top">Security</a></li></ul></nav>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 Northwind (sample content)</span>
+        <span class="grow"></span>
+        <label for="lang" class="sr-only">Language</label>
+        <select id="lang"><option>English</option><option>Español</option><option>Français</option><option>Deutsch</option></select>
+        <span class="snow-switchrow"><button class="snow-switch" id="sw-news" role="switch" aria-checked="true" aria-labelledby="sw-news-l"><span class="t"></span></button><span id="sw-news-l">Product news</span></span>
+      </div>
+      <p class="note" style="margin:14px 0 0">This is a sample page built with snow.css. All names, quotes, and figures are made up. Mac OS X, Aqua, and Snow Leopard are trademarks of Apple Inc. This project isn’t affiliated with Apple.</p>
+    </div>
+  </footer>
+
+  <div class="snow-banner info cookie" id="cookie" role="region" aria-label="Cookie notice">
+    <div><b>We use cookies</b>This sample page pretends to remember your choice. Nothing is stored.</div>
+    <div class="row" style="flex:none"><button id="ck-no">Decline</button><button class="default" id="ck-yes">Accept</button></div>
+  </div>
+  <button type="button" class="totop" id="totop" aria-label="Back to top">↑ Top</button>
+</div>
+
+<script>
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Toasts */
+  var GLYPH = { info: 'i', success: '✓', warn: '!', error: '×' };
+  function toast(kind, title, msg) {
+    var el = document.createElement('div');
+    el.className = 'snow-hud ' + kind; el.setAttribute('role', kind === 'error' ? 'alert' : 'status');
+    el.innerHTML = '<span class="ico" aria-hidden="true">' + GLYPH[kind] + '</span><div><h4></h4><p></p></div><button class="x" aria-label="Dismiss">×</button>';
+    $('h4', el).textContent = title; $('p', el).textContent = msg;
+    function close() { if (el.parentNode) { el.classList.add('is-out'); setTimeout(function () { el.remove(); }, 220); } }
+    $('.x', el).addEventListener('click', close);
+    $('#toasts').appendChild(el); setTimeout(close, 4500);
+  }
+  $$('[data-toast]').forEach(function (b) { b.addEventListener('click', function () { toast('info', 'This is a sample page', 'Nothing here is wired up. It only shows the components.'); }); });
+
+  /* Product menu */
+  var pBtn = $('#prod-btn'), pMenu = $('#prod-menu');
+  function setMenu(o) { pMenu.toggleAttribute('data-open', o); pBtn.setAttribute('aria-expanded', o); if (o) { var f = $('[role=menuitem]', pMenu); if (f) f.focus(); } }
+  pBtn.addEventListener('click', function () { setMenu(!pMenu.hasAttribute('data-open')); });
+  pMenu.addEventListener('keydown', function (e) {
+    var it = $$('[role=menuitem]', pMenu), i = it.indexOf(document.activeElement);
+    if (e.key === 'ArrowDown') { e.preventDefault(); it[(i + 1) % it.length].focus(); }
+    if (e.key === 'ArrowUp') { e.preventDefault(); it[(i - 1 + it.length) % it.length].focus(); }
+    if (e.key === 'Escape') { setMenu(false); pBtn.focus(); }
+  });
+  $$('[data-go]').forEach(function (b) { b.addEventListener('click', function () { setMenu(false); var el = document.getElementById(b.getAttribute('data-go')); if (el) el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); }); });
+  document.addEventListener('click', function (e) { if (!e.target.closest('.snow-dropdown')) setMenu(false); });
+
+  /* Email sign-up */
+  var mail = $('#s-mail'), msg = $('#s-msg');
+  $('#signup').addEventListener('submit', function (e) {
+    e.preventDefault(); var v = mail.value.trim(), ok = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v);
+    if (!ok) { mail.setAttribute('aria-invalid', 'true'); msg.textContent = v ? 'Enter an email like name@example.com.' : 'Enter your work email.'; msg.hidden = false; mail.focus(); return; }
+    mail.setAttribute('aria-invalid', 'false'); msg.hidden = true; toast('success', 'You’re on the list', 'We’d email ' + v + ' (this is only a demo).'); mail.value = '';
+  });
+  mail.addEventListener('input', function () { if (mail.getAttribute('aria-invalid') === 'true') { mail.setAttribute('aria-invalid', 'false'); msg.hidden = true; } });
+  $('#cta-go').addEventListener('click', function () { document.getElementById('top').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); setTimeout(function () { mail.focus({ preventScroll: true }); }, reduce ? 0 : 450); });
+
+  /* Tabs (roving tabindex) */
+  var tabs = $$('[role=tab]', $('#spot-tabs'));
+  function selTab(t, focus) {
+    tabs.forEach(function (x) { var on = x === t; x.setAttribute('aria-selected', on); x.tabIndex = on ? 0 : -1; document.getElementById(x.getAttribute('aria-controls')).hidden = !on; });
+    if (focus) t.focus();
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { selTab(t); }); });
+  $('#spot-tabs').addEventListener('keydown', function (e) {
+    var i = tabs.indexOf(document.activeElement); if (i < 0) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); selTab(tabs[(i + 1) % tabs.length], true); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); selTab(tabs[(i - 1 + tabs.length) % tabs.length], true); }
+    if (e.key === 'Home') { e.preventDefault(); selTab(tabs[0], true); }
+    if (e.key === 'End') { e.preventDefault(); selTab(tabs[tabs.length - 1], true); }
+  });
+
+  /* Count-up numbers */
+  var counters = $$('[data-count]');
+  function fmt(el, v) { var d = +el.getAttribute('data-dec') || 0, s = d ? v.toFixed(d) : Math.round(v).toLocaleString(); return s + (el.getAttribute('data-suffix') || ''); }
+  function run(el) {
+    var to = +el.getAttribute('data-count'), t0 = null;
+    if (reduce) { el.textContent = fmt(el, to); return; }
+    (function step(t) { if (t0 === null) t0 = t; var p = Math.min(1, (t - t0) / 1200); el.textContent = fmt(el, to * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); })(performance.now());
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { run(en.target); io.unobserve(en.target); } }); }, { threshold: 0.6 });
+    counters.forEach(function (c) { io.observe(c); });
+  }
+
+  /* Testimonial carousel */
+  var track = $('#car-track'), slides = $$('.quote', track), dots = $('#car-dots'), ci = 0;
+  dots.innerHTML = slides.map(function (s, i) { return '<button type="button" aria-label="Go to quote ' + (i + 1) + '" data-i="' + i + '"></button>'; }).join('');
+  function drawCar() { $$('button', dots).forEach(function (b, i) { b.setAttribute('aria-current', i === ci); }); $('#car-prev').disabled = ci === 0; $('#car-next').disabled = ci === slides.length - 1; }
+  function go(i) { ci = Math.max(0, Math.min(slides.length - 1, i)); track.scrollTo({ left: slides[ci].offsetLeft - track.offsetLeft, behavior: reduce ? 'auto' : 'smooth' }); drawCar(); }
+  $('#car-prev').addEventListener('click', function () { go(ci - 1); });
+  $('#car-next').addEventListener('click', function () { go(ci + 1); });
+  dots.addEventListener('click', function (e) { var b = e.target.closest('[data-i]'); if (b) go(+b.getAttribute('data-i')); });
+  track.addEventListener('scroll', function () { var i = Math.round(track.scrollLeft / (slides[0].offsetWidth + 14)); if (i !== ci) { ci = i; drawCar(); } }, { passive: true });
+  drawCar();
+
+  /* Pricing toggle */
+  var per = $$('#billing button');
+  per.forEach(function (b) {
+    b.addEventListener('click', function () {
+      per.forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
+      var k = b.getAttribute('data-per');
+      $$('.amt').forEach(function (a) { a.textContent = '$' + a.getAttribute('data-' + k); });
+    });
+  });
+
+  /* Switch, cookie banner, back to top */
+  $('#sw-news').addEventListener('click', function () { var on = this.getAttribute('aria-checked') !== 'true'; this.setAttribute('aria-checked', on); toast(on ? 'success' : 'info', on ? 'Subscribed' : 'Unsubscribed', on ? 'You’ll get product news.' : 'No more product news.'); });
+  function cookie(yes) { $('#cookie').hidden = true; toast('info', yes ? 'Preferences saved' : 'Cookies declined', 'This is only a demo. Nothing was stored.'); }
+  $('#ck-yes').addEventListener('click', function () { cookie(true); });
+  $('#ck-no').addEventListener('click', function () { cookie(false); });
+  var top = $('#totop');
+  window.addEventListener('scroll', function () { top.classList.toggle('show', window.scrollY > 600); }, { passive: true });
+  top.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); });
+})();
+</script>
+</body>
+</html>
