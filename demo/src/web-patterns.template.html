@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>snow.css web patterns</title>
+<style>/*AQUA_CSS*/</style>
+<style>/*SNOW_CSS*/</style>
+<style>
+:root { box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+html { scroll-padding-top: calc(36px + env(safe-area-inset-top, 0px)); height: 100%; }
+body { margin: 0; min-height: 100%; background: #070b24; }
+.stage { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 30px; max-width: 960px; margin: 0 auto; padding: 38px 12px 140px; }
+.intro { color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.8); }
+.intro h1 { margin: 0 0 4px; font-size: 22px; font-weight: 700; }
+.intro p { margin: 0; max-width: 62ch; line-height: 1.5; color: rgba(255,255,255,.85); }
+.window-body.pad { padding: 16px 18px 20px; background: #ececec; display: flex; flex-direction: column; gap: 16px; }
+.snow-chrome .title-bar { cursor: default; }
+.snow-menu-top { top: 100%; }
+.page-note { font-size: 12px; color: #444; margin: 0; }
+.tbl-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.spacer { flex: 1; }
+.swatchrow { display: flex; flex-wrap: wrap; gap: 14px; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="gFront" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ccdf5"/><stop offset="1" stop-color="#4b94db"/></linearGradient>
+    <linearGradient id="gBack" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5d9bd8"/><stop offset="1" stop-color="#3c78b8"/></linearGradient>
+    <linearGradient id="gWarn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe98a"/><stop offset="1" stop-color="#f0a818"/></linearGradient>
+    <linearGradient id="gSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6db4ee"/><stop offset="1" stop-color="#cfe9fb"/></linearGradient>
+  </defs>
+  <symbol id="i-folder" viewBox="0 0 48 48">
+    <path d="M4 12a3 3 0 0 1 3-3h10l4 4h20a3 3 0 0 1 3 3v22a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z" fill="url(#gBack)"/>
+    <path d="M4 19a3 3 0 0 1 3-3h34a3 3 0 0 1 3 3v18a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z" fill="url(#gFront)" stroke="#3a76b4" stroke-width=".8"/>
+    <path d="M5.500 19.500a1.800 1.800 0 0 1 1.800-1.800h33.400a1.800 1.800 0 0 1 1.800 1.800" fill="none" stroke="#fff" stroke-opacity=".7"/>
+  </symbol>
+  <symbol id="i-doc" viewBox="0 0 48 48">
+    <path d="M10 4h20l9 9v31H10z" fill="#fff" stroke="#8f8f8f"/><path d="M30 4v9h9" fill="#dedede" stroke="#8f8f8f"/>
+    <path d="M15 21h20M15 26h20M15 31h20M15 36h13" stroke="#b9b9b9" stroke-width="1.600" fill="none"/>
+  </symbol>
+  <symbol id="i-img" viewBox="0 0 48 48">
+    <path d="M10 4h20l9 9v31H10z" fill="#fff" stroke="#8f8f8f"/><path d="M30 4v9h9" fill="#dedede" stroke="#8f8f8f"/>
+    <rect x="14" y="19" width="21" height="17" fill="url(#gSky)" stroke="#7aa6cf" stroke-width=".8"/>
+    <path d="M14 36l7-9 5 6 4-4 5 7z" fill="#5da05a"/><circle cx="29" cy="24" r="2.200" fill="#fff6c8"/>
+  </symbol>
+  <symbol id="i-snow" viewBox="0 0 24 24">
+    <g stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M12 2v20M3.300 7l17.400 10M3.300 17 20.700 7"/><path d="M9.500 3.800 12 6.200l2.500-2.400M9.500 20.200 12 17.800l2.500 2.400"/></g>
+  </symbol>
+  <symbol id="i-caution" viewBox="0 0 64 64">
+    <path d="M32 6 61 57H3z" fill="url(#gWarn)" stroke="#9a6a08" stroke-width="2.500" stroke-linejoin="round"/>
+    <path d="M32 24v17" stroke="#5a3d00" stroke-width="5" stroke-linecap="round"/><circle cx="32" cy="48" r="3" fill="#5a3d00"/>
+    <path d="M12 52 32 14l20 38" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="2"/>
+  </symbol>
+  <symbol id="i-upload" viewBox="0 0 48 48">
+    <path d="M24 6v24M14 16l10-10 10 10" fill="none" stroke="#4b7fc0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M8 30v10h32V30" fill="none" stroke="#7d7d7d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="i-search" viewBox="0 0 48 48">
+    <circle cx="20" cy="20" r="12" fill="#eef5fd" stroke="#6b6b6b" stroke-width="4"/><path d="m29 29 13 13" stroke="#6b6b6b" stroke-width="6" stroke-linecap="round"/>
+    <path d="M13 17a8 8 0 0 1 8-6" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<div class="snow snow-desktop" id="root" data-aqua-era="10-6">
+  <div class="snow-ribbon" style="left:-10%;top:10%;width:80%;height:90px;background:linear-gradient(90deg,transparent,#6aa8ff,transparent);transform:rotate(-14deg)"></div>
+  <div class="snow-ribbon" style="right:-15%;top:42%;width:85%;height:70px;background:linear-gradient(90deg,transparent,#b068f0,transparent);transform:rotate(9deg)"></div>
+  <div class="snow-ribbon" style="left:5%;top:72%;width:70%;height:60px;background:linear-gradient(90deg,transparent,#5de0e8,transparent);transform:rotate(-6deg);opacity:.35"></div>
+
+  <nav class="menu-bar" aria-label="Menu bar">
+    <ul>
+      <li><span class="menu-title menu-apple" aria-label="snow.css"><svg viewBox="0 0 24 24"><use href="#i-snow"/></svg></span></li>
+      <li class="active"><span class="menu-title">Gallery</span>
+        <ul class="menu-dropdown"><li>About snow.css</li><li class="separator"></li><li data-go="nav">Navigation</li><li data-go="forms">Forms</li><li data-go="feedback">Feedback</li><li data-go="content">Content</li></ul></li>
+      <li><span class="menu-title">Appearance</span>
+        <ul class="menu-dropdown"><li id="m-blue">Blue</li><li id="m-graphite">Graphite</li></ul></li>
+      <li><span class="menu-title">Window</span>
+        <ul class="menu-dropdown"><li id="m-inactive">Toggle inactive windows</li></ul></li>
+    </ul>
+    <div class="menu-bar-status"><span class="menu-bar-clock" id="clock"></span></div>
+  </nav>
+
+  <div class="snow-toasts" id="toasts" aria-live="polite"></div>
+
+  <main class="stage">
+    <header class="intro">
+      <h1>Web patterns</h1>
+      <p>The common pieces of a website, drawn in Mac OS X 10.6 chrome: glass pills, etched group boxes, and blue selection. Everything on this page is live.</p>
+    </header>
+
+    <!-- ===================== NAVIGATION ===================== -->
+    <section class="window" id="nav" aria-labelledby="nav-t">
+      <div class="snow-chrome"><div class="title-bar">
+        <div class="title-bar-controls"><button aria-label="Close"></button><button aria-label="Minimize"></button><button aria-label="Zoom"></button></div>
+        <div class="title-bar-text" id="nav-t">Navigation</div></div></div>
+      <div class="window-body pad">
+
+        <div class="snow-group">
+          <h3>Site navigation bar</h3>
+          <nav class="snow-navbar" aria-label="Primary">
+            <a class="brand" href="#"><svg viewBox="0 0 24 24" style="color:#2f66b5"><use href="#i-snow"/></svg>Northwind</a>
+            <ul class="links" id="navlinks">
+              <li><a class="snow-navlink" href="#" aria-current="page">Overview</a></li>
+              <li><a class="snow-navlink" href="#">Products</a></li>
+              <li><a class="snow-navlink" href="#">Support</a></li>
+              <li><a class="snow-navlink" href="#">Store</a></li>
+            </ul>
+            <span class="snow-spacer"></span>
+            <div class="snow-dropdown">
+              <button class="snow-navlink" id="more-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="more-menu">More ▾</button>
+              <ul class="snow-menu right" id="more-menu" role="menu" aria-labelledby="more-btn">
+                <li role="none"><button role="menuitem">Company <kbd>⌘1</kbd></button></li>
+                <li role="none"><button role="menuitem">Careers <kbd>⌘2</kbd></button></li>
+                <li class="sep" role="separator"></li>
+                <li role="none"><button role="menuitem">Contact us… </button></li>
+              </ul>
+            </div>
+            <input type="search" class="aqua-search-field" placeholder="Search" aria-label="Search site">
+          </nav>
+          <p class="page-note" id="navnote" role="status">Current page: Overview</p>
+        </div>
+
+        <div class="snow-cols">
+          <div class="snow-group">
+            <h3>Breadcrumbs</h3>
+            <nav aria-label="Breadcrumb"><ol class="snow-crumbs" id="crumbs"></ol></nav>
+            <div class="snow-row"><button id="crumb-deeper">Go deeper</button><button id="crumb-reset">Reset</button></div>
+          </div>
+          <div class="snow-group">
+            <h3>Pagination</h3>
+            <nav class="snow-pager" aria-label="Pagination"><div class="snow-seg" id="pager"></div><span class="count" id="pagecount"></span></nav>
+          </div>
+        </div>
+
+        <div class="snow-cols">
+          <div class="snow-group">
+            <h3>Tab view</h3>
+            <div class="snow-tabs">
+              <div class="snow-seg snow-tablist" role="tablist" aria-label="Account sections" id="tabs1">
+                <button role="tab" id="t-a" aria-controls="p-a" aria-selected="true" tabindex="0">General</button>
+                <button role="tab" id="t-b" aria-controls="p-b" aria-selected="false" tabindex="-1">Security</button>
+                <button role="tab" id="t-c" aria-controls="p-c" aria-selected="false" tabindex="-1">Billing</button>
+              </div>
+              <div class="snow-tabpanel" role="tabpanel" id="p-a" aria-labelledby="t-a"><h4>General</h4><p>Name, language, and the way dates are shown across the site.</p></div>
+              <div class="snow-tabpanel" role="tabpanel" id="p-b" aria-labelledby="t-b" hidden><h4>Security</h4><p>Change your password and review devices that are signed in.</p></div>
+              <div class="snow-tabpanel" role="tabpanel" id="p-c" aria-labelledby="t-c" hidden><h4>Billing</h4><p>Payment methods, receipts, and your next renewal date.</p></div>
+            </div>
+          </div>
+          <div class="snow-group">
+            <h3>Document tabs</h3>
+            <div class="snow-doctabs-wrap">
+              <div class="snow-doctabs" role="tablist" aria-label="Open documents" id="doctabs"></div>
+              <div class="snow-doccontent" id="docbody" role="tabpanel"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FORMS ===================== -->
+    <section class="window" id="forms" aria-labelledby="forms-t">
+      <div class="snow-chrome"><div class="title-bar">
+        <div class="title-bar-controls"><button aria-label="Close"></button><button aria-label="Minimize"></button><button aria-label="Zoom"></button></div>
+        <div class="title-bar-text" id="forms-t">Forms</div></div></div>
+      <div class="window-body pad">
+        <div class="snow-cols">
+          <div class="snow-group">
+            <h3>Fields with validation</h3>
+            <form class="snow-form" id="signup" novalidate>
+              <label for="f-name">Name</label>
+              <div><input type="text" id="f-name" autocomplete="name" aria-describedby="f-name-m"><div class="snow-msg err" id="f-name-m" hidden></div></div>
+              <label for="f-email">Email</label>
+              <div><input type="email" id="f-email" autocomplete="email" aria-describedby="f-email-m"><div class="snow-msg err" id="f-email-m" hidden></div></div>
+              <label for="f-note" class="top">Notes</label>
+              <textarea id="f-note" rows="3" style="width:100%;max-width:280px"></textarea>
+              <div class="span snow-row"><button type="reset" id="f-reset">Clear</button><button type="submit" class="default">Create account</button></div>
+            </form>
+          </div>
+
+          <div class="snow-group">
+            <h3>Choices</h3>
+            <div class="snow-switchrow"><button class="snow-switch" role="switch" aria-checked="false" aria-labelledby="sw1"><span class="t"></span></button><span id="sw1">Email me about updates</span></div>
+            <div class="snow-switchrow"><button class="snow-switch" role="switch" aria-checked="true" aria-labelledby="sw2"><span class="t"></span></button><span id="sw2">Show badges on the Dock</span></div>
+            <div class="snow-row"><label for="qty">Seats</label>
+              <span class="snow-stepper"><input type="text" id="qty" value="3" inputmode="numeric"><span class="arrows"><button type="button" aria-label="Increase" data-d="1">▲</button><button type="button" aria-label="Decrease" data-d="-1">▼</button></span></span></div>
+            <div class="snow-row"><label for="plan">Plan</label><select id="plan"><option>Starter</option><option selected>Studio</option><option>Enterprise</option></select></div>
+            <div class="snow-row"><label for="vol">Volume</label><input type="range" id="vol" min="0" max="100" value="40" style="width:160px"><output id="volout">40%</output></div>
+          </div>
+        </div>
+
+        <div class="snow-cols">
+          <div class="snow-group">
+            <h3>Token field and date picker</h3>
+            <label for="tok-in">To</label>
+            <div class="snow-tokens" id="tokens"><input type="text" id="tok-in" placeholder="Add a name, then press Return" aria-describedby="tokhelp"></div>
+            <div class="snow-help" id="tokhelp">Press Return or comma to add. Backspace removes the last.</div>
+            <div class="snow-row" style="margin-top:6px"><label for="date">Due date</label>
+              <div class="snow-datefield" id="datefield">
+                <input type="text" id="date" readonly placeholder="Choose a date" aria-haspopup="dialog" aria-expanded="false">
+                <button type="button" id="date-btn" aria-label="Open calendar" style="min-width:0;width:26px;padding:0">▦</button>
+                <div class="snow-cal" id="cal" role="dialog" aria-label="Choose a date" hidden></div>
+              </div></div>
+            <div style="height:230px" id="calspace" hidden></div>
+          </div>
+
+          <div class="snow-group">
+            <h3>File upload</h3>
+            <div class="snow-drop" id="drop">
+              <svg viewBox="0 0 48 48"><use href="#i-upload"/></svg>
+              <div>Drop files here</div>
+              <button type="button" id="choose">Choose…</button>
+              <input type="file" id="filein" multiple class="sr-only" tabindex="-1" aria-label="Choose files to upload">
+            </div>
+            <ul class="snow-files" id="files" aria-live="polite"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FEEDBACK ===================== -->
+    <section class="window" id="feedback" aria-labelledby="fb-t">
+      <div class="snow-chrome"><div class="title-bar">
+        <div class="title-bar-controls"><button aria-label="Close"></button><button aria-label="Minimize"></button><button aria-label="Zoom"></button></div>
+        <div class="title-bar-text" id="fb-t">Feedback</div></div></div>
+      <div class="snow-sheetwrap" id="sheetwrap">
+        <div class="snow-scrim"></div>
+        <div class="snow-sheet" id="sheet" role="dialog" aria-label="Save as" aria-modal="true">
+          <h3>Save report as:</h3>
+          <input type="text" id="sheet-name" value="Quarterly report.pdf" style="width:100%" aria-label="File name">
+          <div class="snow-row" style="margin-top:8px"><label for="sheet-where">Where</label><select id="sheet-where"><option>Documents</option><option>Desktop</option></select></div>
+          <div class="btns"><button id="sheet-cancel">Cancel</button><button class="default pulse" id="sheet-save">Save</button></div>
+        </div>
+        <div class="window-body pad">
+
+          <div class="snow-cols">
+            <div class="snow-group">
+              <h3>Notifications</h3>
+              <p class="note">Dark HUD panels slide in at the top right and fade after a few seconds.</p>
+              <div class="snow-row">
+                <button data-toast="info">Info</button><button data-toast="success">Success</button><button data-toast="warn">Warning</button><button data-toast="error">Error</button>
+              </div>
+            </div>
+            <div class="snow-group">
+              <h3>Dialogs</h3>
+              <p class="note">The alert blocks the page. The sheet slides out of the title bar and blocks only this window.</p>
+              <div class="snow-row"><button id="open-alert">Delete account…</button><button id="open-sheet">Save as…</button></div>
+            </div>
+          </div>
+
+          <div class="snow-cols">
+            <div class="snow-group">
+              <h3>Tooltips and popovers</h3>
+              <div class="snow-row" style="padding-top:8px">
+                <button data-tip="Reload this page ⌘R">Hover or focus me</button>
+                <div class="snow-popwrap">
+                  <button id="pop-btn" aria-expanded="false" aria-controls="pop">Shipping details</button>
+                  <div class="snow-pop" id="pop" role="dialog" aria-label="Shipping details" hidden>
+                    <h4>Free shipping</h4><p>Orders over $49 arrive in 3 to 5 business days.</p><button id="pop-close">Got it</button>
+                  </div>
+                </div>
+              </div>
+              <div style="height:96px" id="popspace" hidden></div>
+            </div>
+            <div class="snow-group">
+              <h3>Progress</h3>
+              <div class="progress-bar animated" role="progressbar" aria-label="Uploading" aria-valuenow="58" aria-valuemin="0" aria-valuemax="100" style="width:100%"><div class="progress-bar-fill" style="width:58%"></div></div>
+              <div class="progress-bar" role="progressbar" aria-label="Storage used" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100" style="width:100%"><div class="progress-bar-fill" style="width:82%"></div></div>
+            </div>
+          </div>
+
+          <div class="snow-group">
+            <h3>Inline messages</h3>
+            <div class="snow-banner info"><div><b>Scheduled maintenance</b>The site will be read-only on Sunday from 2 to 3 AM.</div></div>
+            <div class="snow-banner success"><div><b>Changes saved</b>Your profile was updated.</div></div>
+            <div class="snow-banner warn"><div><b>Storage almost full</b>You have used 82% of your 5 GB plan.</div></div>
+            <div class="snow-banner error"><div><b>Payment declined</b>Check the card number and try again.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CONTENT ===================== -->
+    <section class="window" id="content" aria-labelledby="ct-t">
+      <div class="snow-chrome"><div class="title-bar">
+        <div class="title-bar-controls"><button aria-label="Close"></button><button aria-label="Minimize"></button><button aria-label="Zoom"></button></div>
+        <div class="title-bar-text" id="ct-t">Content</div></div></div>
+      <div class="window-body pad">
+
+        <div class="snow-group">
+          <h3>Cards</h3>
+          <p class="note">Select a card to see the focus ring.</p>
+          <div class="snow-cols" id="cards" style="grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr))">
+            <article class="snow-card" tabindex="0" aria-selected="true"><header>Aurora</header><div class="media"><svg viewBox="0 0 48 48"><use href="#i-img"/></svg></div><div class="body">A cool gradient wallpaper in two sizes.</div><footer><button>Preview</button><button class="default">Download</button></footer></article>
+            <article class="snow-card" tabindex="0" aria-selected="false"><header>Field notes</header><div class="media"><svg viewBox="0 0 48 48"><use href="#i-doc"/></svg></div><div class="body">Twelve pages of interview takeaways.</div><footer><button>Preview</button><button class="default">Download</button></footer></article>
+            <article class="snow-card" tabindex="0" aria-selected="false"><header>Assets</header><div class="media"><svg viewBox="0 0 48 48"><use href="#i-folder"/></svg></div><div class="body">Logos, icons, and brand colors.</div><footer><button>Preview</button><button class="default">Download</button></footer></article>
+          </div>
+        </div>
+
+        <div class="snow-cols">
+          <div class="snow-group">
+            <h3>Accordion</h3>
+            <div class="snow-accordion">
+              <details open><summary>Shipping</summary><div class="pane">Standard delivery takes 3 to 5 business days. Express arrives next day.</div></details>
+              <details><summary>Returns</summary><div class="pane">Return anything within 30 days in its original packaging for a full refund.</div></details>
+              <details><summary>Warranty</summary><div class="pane">Every product includes a one-year limited warranty.</div></details>
+            </div>
+          </div>
+          <div class="snow-group">
+            <h3>People, badges, and labels</h3>
+            <ul class="snow-people">
+              <li class="snow-person"><span class="snow-avatar">AL</span><div><b>Ada Lovelace</b><small>Engineering</small></div><span class="snow-badge">3</span></li>
+              <li class="snow-person"><span class="snow-avatar" style="--a:#f1b27c;--b:#c46a22">GH</span><div><b>Grace Hopper</b><small>Compilers</small></div><span class="snow-badge blue">12</span></li>
+              <li class="snow-person"><span class="snow-avatar" style="--a:#9fd49a;--b:#3b8d3a">KJ</span><div><b>Katherine Johnson</b><small>Flight dynamics</small></div><span class="snow-badge gray">0</span></li>
+            </ul>
+            <div class="swatchrow">
+              <span class="snow-label" style="--c:#ee6a5f;--d:#a82a20">Red</span><span class="snow-label" style="--c:#f2a23a;--d:#b0680a">Orange</span><span class="snow-label" style="--c:#5fc654;--d:#2a8a28">Green</span><span class="snow-label" style="--c:#5fa0ee;--d:#2a62b8">Blue</span><span class="snow-label" style="--c:#b27ae0;--d:#6c3aa0">Purple</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="snow-group">
+          <h3>Data table</h3>
+          <div class="tbl-tools">
+            <input type="search" class="aqua-search-field" id="tq" placeholder="Filter projects" aria-label="Filter projects">
+            <span class="spacer"></span><span class="page-note" id="tcount"></span>
+          </div>
+          <div class="snow-tablewrap" id="tablewrap">
+            <table class="aqua-table" id="grid"><thead><tr>
+              <th data-k="name" tabindex="0" aria-sort="ascending">Project</th><th data-k="owner" tabindex="0">Owner</th><th data-k="status" tabindex="0">Status</th><th data-k="due" tabindex="0">Due</th>
+            </tr></thead><tbody></tbody></table>
+            <div class="snow-empty" id="tempty" hidden>
+              <svg viewBox="0 0 48 48"><use href="#i-search"/></svg><h4>No results</h4><p>Nothing matches the filter. Try a different word.</p><button id="tclear">Clear filter</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Alert dialog -->
+  <div class="snow-overlay" id="ov" hidden>
+    <div class="snow-alert" role="alertdialog" aria-modal="true" aria-labelledby="ov-t" aria-describedby="ov-d">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><use href="#i-caution"/></svg>
+      <div><h3 id="ov-t">Delete your account?</h3><p id="ov-d">All of your projects and files will be removed. This action can’t be undone.</p></div>
+      <div class="btns"><button id="ov-cancel">Cancel</button><button class="default pulse" id="ov-ok">Delete</button></div>
+    </div>
+  </div>
+
+  <div class="snow-dock" id="dock" role="toolbar" aria-label="Jump to section">
+    <button class="dock-item" data-go="nav" data-tip="Navigation"><span class="tile" style="background:radial-gradient(circle at 50% 35%,#e9f6ff,#5fb0ee 55%,#2a73c4)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="#fff" stroke-width="1.500"/><path d="m15.500 8.500-2 5-5 2 2-5z" fill="#e5473b" stroke="#fff" stroke-width=".8" stroke-linejoin="round"/></svg></span><span class="tip">Navigation</span></button>
+    <button class="dock-item" data-go="forms" data-tip="Forms"><span class="tile" style="background:linear-gradient(#fff,#d9dde3)"><svg viewBox="0 0 24 24" fill="none" stroke="#2f66b5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 7 2 2 3-4M13 7h7M4 16l2 2 3-4M13 16h7"/></svg></span><span class="tip">Forms</span></button>
+    <button class="dock-item" data-go="feedback" data-tip="Feedback"><span class="tile" style="background:linear-gradient(#ffe98a,#f0a818)"><svg viewBox="0 0 24 24" fill="none" stroke="#6a4600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.500 2h-15zM10 21h4"/></svg></span><span class="tip">Feedback</span></button>
+    <button class="dock-item" data-go="content" data-tip="Content"><span class="tile" style="background:linear-gradient(#8fc6f6,#2f78c9)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><rect x="3.500" y="3.500" width="7" height="7"/><rect x="13.500" y="3.500" width="7" height="7"/><rect x="3.500" y="13.500" width="7" height="7"/><rect x="13.500" y="13.500" width="7" height="7"/></svg></span><span class="tip">Content</span></button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = $('#root');
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+  /* ---------- Shell: dock, menu, appearance, clock ---------- */
+  function goTo(id) { var el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); }
+  $$('[data-go]').forEach(function (b) { b.addEventListener('click', function () { goTo(b.getAttribute('data-go')); if (b.classList.contains('dock-item')) { b.classList.remove('bounce'); void b.offsetWidth; b.classList.add('bounce'); } }); });
+  function setApp(g) { root.classList.toggle('theme-graphite', g); }
+  $('#m-blue').addEventListener('click', function () { setApp(false); });
+  $('#m-graphite').addEventListener('click', function () { setApp(true); });
+  $('#m-inactive').addEventListener('click', function () { var w = $$('.snow .window'); var on = !w[0].classList.contains('inactive'); w.forEach(function (x) { x.classList.toggle('inactive', on); }); });
+  var dock = $('#dock'), ditems = $$('.dock-item', dock), raf = 0;
+  if (!reduce) {
+    dock.addEventListener('pointermove', function (e) { if (e.pointerType === 'touch') return; var x = e.clientX; cancelAnimationFrame(raf); raf = requestAnimationFrame(function () { ditems.forEach(function (it) { var r = it.getBoundingClientRect(); it.style.setProperty('--s', (1 + 0.62 * Math.exp(-Math.pow(Math.abs(x - (r.left + r.width / 2)) / 62, 2))).toFixed(3)); }); }); });
+    dock.addEventListener('pointerleave', function () { ditems.forEach(function (it) { it.style.setProperty('--s', 1); }); });
+  }
+  function tick() { var n = new Date(); $('#clock').textContent = n.toLocaleDateString(undefined, { weekday: 'short' }) + ' ' + n.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' }); }
+  tick(); setInterval(tick, 20000);
+
+  /* ---------- Toasts ---------- */
+  var GLYPH = { info: 'i', success: '✓', warn: '!', error: '×' };
+  var TOASTS = {
+    info: ['New version available', 'Reload the page to get the latest design.'],
+    success: ['Changes saved', 'Your profile was updated.'],
+    warn: ['Connection is slow', 'We’ll keep trying in the background.'],
+    error: ['Upload failed', 'The file is larger than 25 MB.']
+  };
+  function toast(kind, title, msg) {
+    var el = document.createElement('div');
+    el.className = 'snow-hud ' + kind; el.setAttribute('role', kind === 'error' ? 'alert' : 'status');
+    el.innerHTML = '<span class="ico" aria-hidden="true">' + GLYPH[kind] + '</span><div><h4></h4><p></p></div><button class="x" aria-label="Dismiss">×</button>';
+    $('h4', el).textContent = title; $('p', el).textContent = msg;
+    function close() { if (el.parentNode) { el.classList.add('is-out'); setTimeout(function () { el.remove(); }, 220); } }
+    $('.x', el).addEventListener('click', close);
+    $('#toasts').appendChild(el); setTimeout(close, 4500);
+  }
+  $$('[data-toast]').forEach(function (b) { b.addEventListener('click', function () { var k = b.getAttribute('data-toast'); toast(k, TOASTS[k][0], TOASTS[k][1]); }); });
+
+  /* ---------- Navigation ---------- */
+  $$('#navlinks .snow-navlink').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      $$('#navlinks .snow-navlink').forEach(function (x) { x.removeAttribute('aria-current'); });
+      a.setAttribute('aria-current', 'page'); $('#navnote').textContent = 'Current page: ' + a.textContent;
+    });
+  });
+  var moreBtn = $('#more-btn'), moreMenu = $('#more-menu');
+  function setMenu(open) {
+    moreMenu.toggleAttribute('data-open', open); moreBtn.setAttribute('aria-expanded', open);
+    if (open) { var f = $('[role=menuitem]', moreMenu); if (f) f.focus(); }
+  }
+  moreBtn.addEventListener('click', function () { setMenu(!moreMenu.hasAttribute('data-open')); });
+  moreMenu.addEventListener('keydown', function (e) {
+    var items = $$('[role=menuitem]', moreMenu), i = items.indexOf(document.activeElement);
+    if (e.key === 'ArrowDown') { e.preventDefault(); items[(i + 1) % items.length].focus(); }
+    if (e.key === 'ArrowUp') { e.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
+    if (e.key === 'Escape') { setMenu(false); moreBtn.focus(); }
+  });
+  moreMenu.addEventListener('click', function (e) { var it = e.target.closest('[role=menuitem]'); if (it) { setMenu(false); $('#navnote').textContent = 'Opened: ' + it.firstChild.textContent.trim(); moreBtn.focus(); } });
+  document.addEventListener('click', function (e) { if (!e.target.closest('.snow-dropdown')) setMenu(false); });
+
+  // Breadcrumbs
+  var TRAIL = ['Store', 'Computers', 'Notebooks', '13-inch', 'Silver'], crumbN = 3;
+  function drawCrumbs() {
+    $('#crumbs').innerHTML = TRAIL.slice(0, crumbN).map(function (t, i) {
+      var cur = i === crumbN - 1;
+      return '<li><a href="#" data-i="' + i + '"' + (cur ? ' aria-current="page"' : '') + '>' + (i === 0 ? '<svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-folder"/></svg>' : '') + esc(t) + '</a></li>';
+    }).join('');
+    $('#crumb-deeper').disabled = crumbN >= TRAIL.length;
+  }
+  $('#crumbs').addEventListener('click', function (e) { var a = e.target.closest('a'); if (!a) return; e.preventDefault(); crumbN = +a.getAttribute('data-i') + 1; drawCrumbs(); });
+  $('#crumb-deeper').addEventListener('click', function () { if (crumbN < TRAIL.length) { crumbN++; drawCrumbs(); } });
+  $('#crumb-reset').addEventListener('click', function () { crumbN = 3; drawCrumbs(); });
+  drawCrumbs();
+
+  // Pagination
+  var page = 4, PAGES = 12;
+  function drawPager() {
+    var nums = [1];
+    var lo = Math.max(2, page - 1), hi = Math.min(PAGES - 1, page + 1);
+    if (lo > 2) nums.push('…'); for (var p = lo; p <= hi; p++) nums.push(p); if (hi < PAGES - 1) nums.push('…'); nums.push(PAGES);
+    var h = '<button data-p="' + (page - 1) + '" aria-label="Previous page"' + (page === 1 ? ' disabled' : '') + '>‹</button>';
+    nums.forEach(function (n) { h += n === '…' ? '<button disabled>…</button>' : '<button data-p="' + n + '"' + (n === page ? ' aria-current="page"' : '') + ' aria-label="Page ' + n + '">' + n + '</button>'; });
+    h += '<button data-p="' + (page + 1) + '" aria-label="Next page"' + (page === PAGES ? ' disabled' : '') + '>›</button>';
+    $('#pager').innerHTML = h; $('#pagecount').textContent = 'Page ' + page + ' of ' + PAGES;
+  }
+  $('#pager').addEventListener('click', function (e) { var b = e.target.closest('button[data-p]'); if (b && !b.disabled) { page = +b.getAttribute('data-p'); drawPager(); } });
+  drawPager();
+
+  // Tab view (roving tabindex)
+  function tabs(listEl) {
+    var tabs = $$('[role=tab]', listEl);
+    function sel(t, focus) {
+      tabs.forEach(function (x) { var on = x === t; x.setAttribute('aria-selected', on); x.tabIndex = on ? 0 : -1; var p = document.getElementById(x.getAttribute('aria-controls')); if (p) p.hidden = !on; });
+      if (focus) t.focus();
+    }
+    tabs.forEach(function (t) { t.addEventListener('click', function () { sel(t); }); });
+    listEl.addEventListener('keydown', function (e) {
+      var i = tabs.indexOf(document.activeElement); if (i < 0) return;
+      if (e.key === 'ArrowRight') { e.preventDefault(); sel(tabs[(i + 1) % tabs.length], true); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); sel(tabs[(i - 1 + tabs.length) % tabs.length], true); }
+      if (e.key === 'Home') { e.preventDefault(); sel(tabs[0], true); }
+      if (e.key === 'End') { e.preventDefault(); sel(tabs[tabs.length - 1], true); }
+    });
+  }
+  tabs($('#tabs1'));
+
+  // Document tabs
+  var docs = [{ t: 'Home', b: 'Welcome back. Recent items appear here.' }, { t: 'Q3 numbers.xls', b: 'Revenue grew 12% quarter over quarter.' }, { t: 'Release notes', b: 'Fixed a rare crash when resizing windows.' }], docSel = 0, docId = 0;
+  docs.forEach(function (d) { d.id = ++docId; });
+  function drawDocs() {
+    $('#doctabs').innerHTML = docs.map(function (d, i) {
+      return '<div role="tab" id="dt' + d.id + '" aria-selected="' + (i === docSel) + '" tabindex="' + (i === docSel ? 0 : -1) + '" data-i="' + i + '"><span class="t">' + esc(d.t) + '</span><button class="x" aria-label="Close ' + esc(d.t) + '" tabindex="-1" data-x="' + i + '">×</button></div>';
+    }).join('') + '<button class="add" aria-label="New tab">+</button>';
+    var d = docs[docSel]; $('#docbody').textContent = d ? d.b : 'No documents open.';
+    if (d) $('#docbody').setAttribute('aria-labelledby', 'dt' + d.id);
+  }
+  $('#doctabs').addEventListener('click', function (e) {
+    var x = e.target.closest('[data-x]'), add = e.target.closest('.add'), t = e.target.closest('[role=tab]');
+    if (x) { var i = +x.getAttribute('data-x'); docs.splice(i, 1); if (docSel >= docs.length) docSel = docs.length - 1; if (docSel < 0) docSel = 0; drawDocs(); return; }
+    if (add) { docs.push({ id: ++docId, t: 'Untitled ' + docId, b: 'A new blank document.' }); docSel = docs.length - 1; drawDocs(); return; }
+    if (t) { docSel = +t.getAttribute('data-i'); drawDocs(); }
+  });
+  $('#doctabs').addEventListener('keydown', function (e) {
+    var t = e.target.closest('[role=tab]'); if (!t) return; var i = +t.getAttribute('data-i');
+    if (e.key === 'ArrowRight' && i < docs.length - 1) { docSel = i + 1; drawDocs(); $('[role=tab][aria-selected=true]', $('#doctabs')).focus(); }
+    if (e.key === 'ArrowLeft' && i > 0) { docSel = i - 1; drawDocs(); $('[role=tab][aria-selected=true]', $('#doctabs')).focus(); }
+    if (e.key === 'Delete' || e.key === 'Backspace') { docs.splice(i, 1); docSel = Math.max(0, Math.min(docSel, docs.length - 1)); drawDocs(); }
+  });
+  drawDocs();
+
+  /* ---------- Forms ---------- */
+  var nameEl = $('#f-name'), mailEl = $('#f-email');
+  function setErr(input, msgEl, msg) {
+    if (msg) { input.setAttribute('aria-invalid', 'true'); input.classList.remove('touched'); msgEl.textContent = msg; msgEl.className = 'snow-msg err'; msgEl.hidden = false; }
+    else { input.setAttribute('aria-invalid', 'false'); input.classList.add('touched'); msgEl.hidden = true; }
+  }
+  function vName() { var v = nameEl.value.trim(); setErr(nameEl, $('#f-name-m'), v ? '' : 'Enter your name.'); return !!v; }
+  function vMail() { var v = mailEl.value.trim(), ok = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v); setErr(mailEl, $('#f-email-m'), v ? (ok ? '' : 'Enter an email like name@example.com.') : 'Enter your email address.'); return ok; }
+  nameEl.addEventListener('blur', vName); mailEl.addEventListener('blur', vMail);
+  nameEl.addEventListener('input', function () { if (nameEl.getAttribute('aria-invalid') === 'true') vName(); });
+  mailEl.addEventListener('input', function () { if (mailEl.getAttribute('aria-invalid') === 'true') vMail(); });
+  $('#signup').addEventListener('submit', function (e) {
+    e.preventDefault(); var a = vName(), b = vMail();
+    if (a && b) toast('success', 'Account created', 'Welcome, ' + nameEl.value.trim().split(' ')[0] + '.');
+    else (a ? mailEl : nameEl).focus();
+  });
+  $('#signup').addEventListener('reset', function () {
+    [nameEl, mailEl].forEach(function (i) { i.removeAttribute('aria-invalid'); i.classList.remove('touched'); }); $$('.snow-msg', $('#signup')).forEach(function (m) { m.hidden = true; });
+  });
+
+  $$('.snow-switch').forEach(function (s) { s.addEventListener('click', function () { s.setAttribute('aria-checked', s.getAttribute('aria-checked') !== 'true'); }); });
+  $$('.snow-stepper .arrows button').forEach(function (b) { b.addEventListener('click', function () { var i = $('#qty'), v = (parseInt(i.value, 10) || 0) + (+b.getAttribute('data-d')); i.value = Math.max(0, Math.min(99, v)); }); });
+  $('#vol').addEventListener('input', function (e) { $('#volout').textContent = e.target.value + '%'; });
+
+  // Token field
+  var tokBox = $('#tokens'), tokIn = $('#tok-in');
+  tokBox.addEventListener('click', function (e) { if (e.target === tokBox) tokIn.focus(); });
+  function addTok(v) {
+    v = v.replace(/,/g, '').trim(); if (!v) return;
+    var t = document.createElement('span'); t.className = 'snow-token';
+    t.innerHTML = '<span></span><button type="button" aria-label="Remove">×</button>'; $('span', t).textContent = v; $('button', t).setAttribute('aria-label', 'Remove ' + v);
+    $('button', t).addEventListener('click', function () { t.remove(); tokIn.focus(); }); tokBox.insertBefore(t, tokIn);
+  }
+  tokIn.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); addTok(tokIn.value); tokIn.value = ''; }
+    else if (e.key === 'Backspace' && !tokIn.value) { var ts = $$('.snow-token', tokBox); if (ts.length) ts[ts.length - 1].remove(); }
+  });
+  tokIn.addEventListener('blur', function () { addTok(tokIn.value); tokIn.value = ''; });
+  addTok('Ada'); addTok('Grace');
+
+  // Date picker
+  var cal = $('#cal'), dIn = $('#date'), dBtn = $('#date-btn'), view = new Date(), picked = null, calSpace = $('#calspace');
+  view.setDate(1);
+  var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  function drawCal() {
+    var y = view.getFullYear(), m = view.getMonth(), first = new Date(y, m, 1).getDay(), days = new Date(y, m + 1, 0).getDate(), today = new Date();
+    var h = '<div class="snow-cal-head"><button type="button" data-n="-1" aria-label="Previous month">‹</button><span aria-live="polite">' + MONTHS[m] + ' ' + y + '</span><button type="button" data-n="1" aria-label="Next month">›</button></div><div class="snow-cal-grid">';
+    ['S', 'M', 'T', 'W', 'T', 'F', 'S'].forEach(function (d) { h += '<div class="dow" aria-hidden="true">' + d + '</div>'; });
+    for (var i = 0; i < first; i++) h += '<span></span>';
+    for (var d = 1; d <= days; d++) {
+      var dt = new Date(y, m, d), we = dt.getDay() === 0 || dt.getDay() === 6, isT = dt.toDateString() === today.toDateString(), isP = picked && dt.toDateString() === picked.toDateString();
+      h += '<button type="button" class="day' + (we ? ' we' : '') + (isT ? ' today' : '') + '" data-d="' + d + '" aria-pressed="' + !!isP + '" aria-label="' + MONTHS[m] + ' ' + d + ', ' + y + '">' + d + '</button>';
+    }
+    cal.innerHTML = h + '</div><div class="snow-cal-foot"><button type="button" data-today="1">Today</button></div>';
+  }
+  function setCal(open) { cal.hidden = !open; calSpace.hidden = !open; dIn.setAttribute('aria-expanded', open); if (open) { drawCal(); var t = $('.day[aria-pressed=true]', cal) || $('.day.today', cal) || $('.day', cal); if (t) t.focus(); } }
+  function pick(dt) { picked = dt; dIn.value = dt.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }); setCal(false); dBtn.focus(); }
+  dBtn.addEventListener('click', function () { setCal(cal.hidden); });
+  dIn.addEventListener('click', function () { setCal(cal.hidden); });
+  cal.addEventListener('click', function (e) {
+    var n = e.target.closest('[data-n]'), d = e.target.closest('[data-d]'), t = e.target.closest('[data-today]');
+    if (n) { view.setMonth(view.getMonth() + (+n.getAttribute('data-n'))); drawCal(); $('[data-n="' + n.getAttribute('data-n') + '"]', cal).focus(); }
+    else if (d) pick(new Date(view.getFullYear(), view.getMonth(), +d.getAttribute('data-d')));
+    else if (t) pick(new Date());
+  });
+  cal.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { setCal(false); dBtn.focus(); return; }
+    var ds = $$('.day', cal), i = ds.indexOf(document.activeElement); if (i < 0) return;
+    var step = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: 7, ArrowUp: -7 }[e.key];
+    if (step) { e.preventDefault(); var j = i + step; if (j >= 0 && j < ds.length) ds[j].focus(); }
+  });
+  document.addEventListener('click', function (e) { if (!e.target.closest('#datefield')) { if (!cal.hidden) setCal(false); } });
+
+  // File upload (simulated)
+  var drop = $('#drop'), fin = $('#filein'), flist = $('#files');
+  $('#choose').addEventListener('click', function () { fin.click(); });
+  ['dragenter', 'dragover'].forEach(function (ev) { drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.add('is-over'); }); });
+  ['dragleave', 'drop'].forEach(function (ev) { drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.remove('is-over'); }); });
+  drop.addEventListener('drop', function (e) { addFiles(e.dataTransfer.files); });
+  fin.addEventListener('change', function () { addFiles(fin.files); fin.value = ''; });
+  function size(n) { return n > 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB'; }
+  function addFiles(fl) {
+    Array.prototype.forEach.call(fl, function (f) {
+      var li = document.createElement('li'); li.className = 'snow-file';
+      li.innerHTML = '<svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-doc"/></svg><span class="nm"></span><span class="sz"></span><div class="progress-bar animated" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar-fill" style="width:0"></div></div>';
+      $('.nm', li).textContent = f.name; $('.sz', li).textContent = size(f.size); flist.appendChild(li);
+      var p = 0, bar = $('.progress-bar', li), fill = $('.progress-bar-fill', li);
+      var iv = setInterval(function () { p = Math.min(100, p + 6 + Math.random() * 14); fill.style.width = p + '%'; bar.setAttribute('aria-valuenow', Math.round(p)); if (p >= 100) { clearInterval(iv); bar.classList.remove('animated'); toast('success', 'Uploaded', f.name); } }, 220);
+    });
+  }
+
+  /* ---------- Feedback ---------- */
+  var ov = $('#ov'), lastF = null;
+  function openAlert() { lastF = document.activeElement; ov.hidden = false; $('#ov-ok').focus(); }
+  function closeAlert() { ov.hidden = true; if (lastF) lastF.focus(); }
+  $('#open-alert').addEventListener('click', openAlert);
+  $('#ov-cancel').addEventListener('click', closeAlert);
+  $('#ov-ok').addEventListener('click', function () { closeAlert(); toast('error', 'Account deleted', 'This is only a demo. Nothing was removed.'); });
+  ov.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeAlert();
+    if (e.key === 'Tab') { var f = [$('#ov-cancel'), $('#ov-ok')], i = f.indexOf(document.activeElement); e.preventDefault(); f[(i + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus(); }
+  });
+
+  var sw = $('#sheetwrap'), sheetF = null;
+  function sheet(open) { sw.toggleAttribute('data-sheet', open); if (open) { sheetF = document.activeElement; setTimeout(function () { var i = $('#sheet-name'); i.focus(); i.select(); }, reduce ? 0 : 230); } else if (sheetF) sheetF.focus(); }
+  $('#open-sheet').addEventListener('click', function () { sheet(true); });
+  $('#sheet-cancel').addEventListener('click', function () { sheet(false); });
+  $('#sheet-save').addEventListener('click', function () { sheet(false); toast('success', 'Saved', $('#sheet-name').value + ' in ' + $('#sheet-where').value + '.'); });
+  $('#sheet').addEventListener('keydown', function (e) { if (e.key === 'Escape') sheet(false); });
+
+  var popBtn = $('#pop-btn'), pop = $('#pop'), popSpace = $('#popspace');
+  function setPop(o) { pop.hidden = !o; popSpace.hidden = !o; popBtn.setAttribute('aria-expanded', o); if (o) $('#pop-close').focus(); }
+  popBtn.addEventListener('click', function () { setPop(pop.hidden); });
+  $('#pop-close').addEventListener('click', function () { setPop(false); popBtn.focus(); });
+  pop.addEventListener('keydown', function (e) { if (e.key === 'Escape') { setPop(false); popBtn.focus(); } });
+  document.addEventListener('click', function (e) { if (!e.target.closest('.snow-popwrap') && !pop.hidden) setPop(false); });
+
+  /* ---------- Content ---------- */
+  var cards = $$('#cards .snow-card');
+  function selCard(c) { cards.forEach(function (x) { x.setAttribute('aria-selected', x === c); }); }
+  cards.forEach(function (c) {
+    c.addEventListener('click', function () { selCard(c); });
+    c.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target === c) { e.preventDefault(); selCard(c); } });
+  });
+
+  var ROWS = [
+    { name: 'Atlas redesign', owner: 'Ada Lovelace', status: 'On track', due: '2026-10-21' },
+    { name: 'Billing migration', owner: 'Grace Hopper', status: 'At risk', due: '2026-10-09' },
+    { name: 'Help center', owner: 'Katherine Johnson', status: 'On track', due: '2026-11-04' },
+    { name: 'Mobile checkout', owner: 'Ada Lovelace', status: 'Blocked', due: '2026-10-15' },
+    { name: 'Partner portal', owner: 'Grace Hopper', status: 'On track', due: '2026-12-01' },
+    { name: 'Search relevance', owner: 'Katherine Johnson', status: 'At risk', due: '2026-10-30' },
+    { name: 'Status page', owner: 'Ada Lovelace', status: 'On track', due: '2026-11-18' }
+  ];
+  var tSort = { k: 'name', dir: 1 }, tSel = null, tq = '';
+  var CLS = { 'On track': 'ok', 'At risk': 'wait', 'Blocked': 'bad' };
+  function drawTable() {
+    var list = ROWS.filter(function (r) { return !tq || (r.name + ' ' + r.owner + ' ' + r.status).toLowerCase().indexOf(tq) > -1; });
+    list.sort(function (a, b) { return a[tSort.k] < b[tSort.k] ? -tSort.dir : a[tSort.k] > b[tSort.k] ? tSort.dir : 0; });
+    $('#grid tbody').innerHTML = list.map(function (r) {
+      return '<tr tabindex="0" data-n="' + esc(r.name) + '" class="' + (r.name === tSel ? 'selected' : '') + '" aria-selected="' + (r.name === tSel) + '"><td>' + esc(r.name) + '</td><td>' + esc(r.owner) + '</td><td><span class="snow-state ' + CLS[r.status] + '">' + r.status + '</span></td><td>' + r.due + '</td></tr>';
+    }).join('');
+    $$('#grid th').forEach(function (th) {
+      var on = th.getAttribute('data-k') === tSort.k; th.setAttribute('aria-sort', on ? (tSort.dir > 0 ? 'ascending' : 'descending') : 'none');
+      var old = $('.sort-arrow', th); if (old) old.remove();
+      if (on) { var s = document.createElement('span'); s.className = 'sort-arrow ' + (tSort.dir > 0 ? 'asc' : 'desc'); th.appendChild(s); }
+    });
+    $('#grid').hidden = !list.length; $('#tempty').hidden = !!list.length;
+    $('#tcount').textContent = list.length + (list.length === 1 ? ' project' : ' projects');
+  }
+  $('#grid thead').addEventListener('click', function (e) { var th = e.target.closest('th'); if (!th) return; var k = th.getAttribute('data-k'); tSort.dir = (tSort.k === k) ? -tSort.dir : 1; tSort.k = k; drawTable(); });
+  $('#grid thead').addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.target.click(); var k = e.target.getAttribute('data-k'); setTimeout(function () { var t = $('th[data-k="' + k + '"]'); if (t) t.focus(); }, 0); } });
+  $('#grid tbody').addEventListener('click', function (e) { var tr = e.target.closest('tr'); if (tr) { tSel = tr.getAttribute('data-n'); drawTable(); var n = $('tr[data-n="' + tSel + '"]'); if (n) n.focus(); } });
+  $('#grid tbody').addEventListener('keydown', function (e) {
+    var tr = e.target.closest('tr'); if (!tr) return;
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tr.click(); }
+    if (e.key === 'ArrowDown' && tr.nextElementSibling) { e.preventDefault(); tr.nextElementSibling.focus(); }
+    if (e.key === 'ArrowUp' && tr.previousElementSibling) { e.preventDefault(); tr.previousElementSibling.focus(); }
+  });
+  $('#tq').addEventListener('input', function (e) { tq = e.target.value.trim().toLowerCase(); drawTable(); });
+  $('#tclear').addEventListener('click', function () { $('#tq').value = ''; tq = ''; drawTable(); $('#tq').focus(); });
+  drawTable();
+})();
+</script>
+</body>
+</html>

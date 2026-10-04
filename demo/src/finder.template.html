@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>snow.css: Mac OS X 10.6 for the web</title>
+<style>/*AQUA_CSS*/</style>
+<style>/*SNOW_CSS*/</style>
+<style>
+:root { box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); height: 100%; }
+body { margin: 0; min-height: 100%; background: #070b24; color: #000; }
+.stage { max-width: 940px; margin: 0 auto; padding: 38px 12px 130px; display: flex; flex-direction: column; gap: 26px; position: relative; z-index: 1; }
+.window-body.pad { padding: 16px 18px 18px; background: #ececec; }
+.about { display: grid; grid-template-columns: 64px 1fr; gap: 14px; align-items: start; }
+.about svg { width: 64px; height: 64px; }
+.about h2 { margin: 0 0 4px; font-size: 15px; }
+.about p { margin: 0 0 8px; line-height: 1.45; }
+.code { display: block; margin: 8px 0 0; padding: 7px 9px; font: 12px/1.45 Menlo, Monaco, Consolas, "DejaVu Sans Mono", monospace; background: #fff; border: 1px solid #a9a9a9; box-shadow: inset 0 1px 2px rgba(0,0,0,.25); overflow-x: auto; white-space: pre; border-radius: 2px; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px 22px; margin-top: 16px; }
+.group { background: #e3e3e3; border: 1px solid #c1c1c1; border-radius: 6px; box-shadow: inset 0 2px 4px rgba(168,168,168,.55); padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 10px; }
+.group h3 { margin: 0; font-size: 12px; font-weight: 700; color: #444; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.row.col { flex-direction: column; align-items: flex-start; }
+.group label { display: inline-flex; align-items: center; gap: 6px; }
+.group input[type=range] { width: 100%; max-width: 220px; }
+.group .progress-bar { width: 100%; max-width: 220px; }
+.tabs-demo .aqua-tab-bar { justify-content: center; }
+.foot { text-align: center; color: rgba(255,255,255,.78); font-size: 12px; line-height: 1.5; text-shadow: 0 1px 2px rgba(0,0,0,.7); }
+.foot a { color: #bcd8ff; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+@media (max-width: 640px) { .about { grid-template-columns: 1fr; } .about svg { width: 48px; height: 48px; } .finder-body { height: 330px; } }
+</style>
+</head>
+<body>
+
+<!-- Icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="gFront" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ccdf5"/><stop offset="1" stop-color="#4b94db"/></linearGradient>
+    <linearGradient id="gBack" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5d9bd8"/><stop offset="1" stop-color="#3c78b8"/></linearGradient>
+    <linearGradient id="gDrive" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1f1f1"/><stop offset="1" stop-color="#a9a9a9"/></linearGradient>
+    <linearGradient id="gSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6db4ee"/><stop offset="1" stop-color="#cfe9fb"/></linearGradient>
+    <linearGradient id="gSlide" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5c8fd6"/><stop offset="1" stop-color="#2b5ca8"/></linearGradient>
+  </defs>
+  <symbol id="i-folder" viewBox="0 0 48 48">
+    <path d="M4 12a3 3 0 0 1 3-3h10l4 4h20a3 3 0 0 1 3 3v22a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z" fill="url(#gBack)"/>
+    <path d="M4 19a3 3 0 0 1 3-3h34a3 3 0 0 1 3 3v18a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z" fill="url(#gFront)" stroke="#3a76b4" stroke-width=".8"/>
+    <path d="M5.5 19.5a1.8 1.8 0 0 1 1.8-1.8h33.4a1.8 1.8 0 0 1 1.8 1.8" fill="none" stroke="#fff" stroke-opacity=".7"/>
+  </symbol>
+  <symbol id="i-doc" viewBox="0 0 48 48">
+    <path d="M10 4h20l9 9v31H10z" fill="#fff" stroke="#8f8f8f"/><path d="M30 4v9h9" fill="#dedede" stroke="#8f8f8f"/>
+    <path d="M15 21h20M15 26h20M15 31h20M15 36h13" stroke="#b9b9b9" stroke-width="1.6" fill="none"/>
+  </symbol>
+  <symbol id="i-img" viewBox="0 0 48 48">
+    <path d="M10 4h20l9 9v31H10z" fill="#fff" stroke="#8f8f8f"/><path d="M30 4v9h9" fill="#dedede" stroke="#8f8f8f"/>
+    <rect x="14" y="19" width="21" height="17" fill="url(#gSky)" stroke="#7aa6cf" stroke-width=".8"/>
+    <path d="M14 36l7-9 5 6 4-4 5 7z" fill="#5da05a"/><circle cx="29" cy="24" r="2.2" fill="#fff6c8"/>
+  </symbol>
+  <symbol id="i-audio" viewBox="0 0 48 48">
+    <path d="M10 4h20l9 9v31H10z" fill="#fff" stroke="#8f8f8f"/><path d="M30 4v9h9" fill="#dedede" stroke="#8f8f8f"/>
+    <path d="M21 36a3.6 3 0 1 1-3.600-3 3.600 3 0 0 1 3.600 3zm10-3a3.600 3 0 1 1-3.600-3 3.600 3 0 0 1 3.600 3zM21 36V22l10-3v14" fill="none" stroke="#e0782c" stroke-width="2.4" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="i-slides" viewBox="0 0 48 48">
+    <path d="M10 4h20l9 9v31H10z" fill="#fff" stroke="#8f8f8f"/><path d="M30 4v9h9" fill="#dedede" stroke="#8f8f8f"/>
+    <rect x="14" y="20" width="21" height="14" rx="1.5" fill="url(#gSlide)"/><path d="M17 26h11M17 30h7" stroke="#fff" stroke-width="1.6"/>
+  </symbol>
+  <symbol id="i-drive" viewBox="0 0 48 48">
+    <rect x="5" y="14" width="38" height="22" rx="4" fill="url(#gDrive)" stroke="#6f6f6f"/>
+    <path d="M7 31h34" stroke="#8d8d8d"/><circle cx="37" cy="33.500" r="1.600" fill="#58c24a" stroke="#2f7a28" stroke-width=".5"/>
+  </symbol>
+  <symbol id="i-clock" viewBox="0 0 48 48">
+    <circle cx="24" cy="24" r="17" fill="#fff" stroke="#7a8aa5" stroke-width="3"/><path d="M24 13v11l7 5" fill="none" stroke="#586986" stroke-width="3" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-snow" viewBox="0 0 24 24">
+    <g stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M12 2v20M3.300 7l17.400 10M3.300 17 20.700 7"/><path d="M9.500 3.800 12 6.200l2.500-2.400M9.500 20.200 12 17.800l2.500 2.400"/></g>
+  </symbol>
+</svg>
+
+<div class="snow snow-desktop" id="root" data-aqua-era="10-6">
+  <div class="snow-ribbon" style="left:-10%;top:14%;width:80%;height:90px;background:linear-gradient(90deg,transparent,#6aa8ff,transparent);transform:rotate(-14deg)"></div>
+  <div class="snow-ribbon" style="right:-15%;top:40%;width:85%;height:70px;background:linear-gradient(90deg,transparent,#b068f0,transparent);transform:rotate(9deg)"></div>
+  <div class="snow-ribbon" style="left:5%;top:68%;width:70%;height:60px;background:linear-gradient(90deg,transparent,#5de0e8,transparent);transform:rotate(-6deg);opacity:.35"></div>
+
+  <nav class="menu-bar" aria-label="Menu bar">
+    <ul>
+      <li><span class="menu-title menu-apple" aria-label="snow.css"><svg viewBox="0 0 24 24"><use href="#i-snow"/></svg></span></li>
+      <li class="active"><span class="menu-title">Finder</span>
+        <ul class="menu-dropdown">
+          <li>About This Finder</li><li class="separator"></li><li>Preferences…<span class="shortcut">⌘,</span></li><li class="separator"></li><li>Empty Trash…<span class="shortcut">⇧⌘⌫</span></li>
+        </ul></li>
+      <li><span class="menu-title">File</span>
+        <ul class="menu-dropdown">
+          <li>New Finder Window<span class="shortcut">⌘N</span></li><li>New Folder<span class="shortcut">⇧⌘N</span></li><li class="separator"></li><li>Get Info<span class="shortcut">⌘I</span></li><li class="disabled">Close Window<span class="shortcut">⌘W</span></li>
+        </ul></li>
+      <li><span class="menu-title">Edit</span>
+        <ul class="menu-dropdown"><li>Undo<span class="shortcut">⌘Z</span></li><li class="separator"></li><li>Copy<span class="shortcut">⌘C</span></li><li>Paste<span class="shortcut">⌘V</span></li></ul></li>
+      <li><span class="menu-title">View</span>
+        <ul class="menu-dropdown">
+          <li data-view="icons">as Icons<span class="shortcut">⌘1</span></li><li data-view="list">as List<span class="shortcut">⌘2</span></li><li data-view="columns">as Columns<span class="shortcut">⌘3</span></li><li data-view="cover">as Cover Flow<span class="shortcut">⌘4</span></li>
+        </ul></li>
+      <li><span class="menu-title">Go</span>
+        <ul class="menu-dropdown"><li>Back<span class="shortcut">⌘[</span></li><li>Enclosing Folder<span class="shortcut">⌘↑</span></li></ul></li>
+      <li><span class="menu-title">Window</span>
+        <ul class="menu-dropdown"><li>Minimize<span class="shortcut">⌘M</span></li><li>Zoom</li></ul></li>
+      <li><span class="menu-title">Help</span>
+        <ul class="menu-dropdown"><li>Finder Help<span class="shortcut">⌘?</span></li></ul></li>
+    </ul>
+    <div class="menu-bar-status"><span class="menu-bar-clock" id="clock"></span></div>
+  </nav>
+
+  <main class="stage">
+
+    <!-- Finder -->
+    <section class="window finder" id="finder" aria-label="Finder window">
+      <div class="snow-chrome">
+        <div class="title-bar">
+          <div class="title-bar-controls">
+            <button aria-label="Close"></button><button aria-label="Minimize"></button><button aria-label="Zoom"></button>
+          </div>
+          <div class="title-bar-text"><svg viewBox="0 0 48 48"><use href="#i-folder"/></svg><span id="win-title">studio</span></div>
+        </div>
+        <div class="snow-toolbar">
+          <div class="snow-seg" role="group" aria-label="Navigation">
+            <button id="btn-back" aria-label="Back" disabled><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5"/></svg></button>
+            <button id="btn-fwd" aria-label="Forward" disabled><svg viewBox="0 0 16 16"><path d="m6 3 5 5-5 5"/></svg></button>
+          </div>
+          <div class="snow-seg" role="group" aria-label="View">
+            <button data-view="icons" aria-label="as Icons" aria-pressed="false"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5"/><rect x="9" y="2" width="5" height="5"/><rect x="2" y="9" width="5" height="5"/><rect x="9" y="9" width="5" height="5"/></svg></button>
+            <button data-view="list" aria-label="as List" aria-pressed="false"><svg viewBox="0 0 16 16"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button>
+            <button data-view="columns" aria-label="as Columns" aria-pressed="true"><svg viewBox="0 0 16 16"><rect x="2" y="2.500" width="12" height="11"/><path d="M6 2.500v11M10 2.500v11"/></svg></button>
+            <button data-view="cover" aria-label="as Cover Flow" aria-pressed="false"><svg viewBox="0 0 16 16"><path d="M1.500 5v6M14.500 5v6"/><rect x="5" y="3" width="6" height="9"/></svg></button>
+          </div>
+          <span class="spacer"></span>
+          <input type="search" class="aqua-search-field" id="q" placeholder="Search" aria-label="Search this folder">
+        </div>
+      </div>
+      <div class="finder-body">
+        <ul class="source-list" id="source" role="listbox" aria-label="Sidebar"></ul>
+        <div class="finder-main" id="main" data-view="columns">
+          <div class="view v-columns" id="v-columns"></div>
+          <div class="view v-list" id="v-list"></div>
+          <div class="view v-icons" id="v-icons"></div>
+          <div class="view v-cover" id="v-cover"><div class="coverflow" id="cf"></div><div class="cf-list" id="cf-list"></div></div>
+        </div>
+      </div>
+      <div class="snow-pathbar" id="pathbar"></div>
+      <div class="snow-status" id="status"></div>
+    </section>
+
+    <!-- Controls -->
+    <section class="window" id="controls" aria-label="snow.css controls">
+      <div class="snow-chrome">
+        <div class="title-bar">
+          <div class="title-bar-controls"><button aria-label="Close"></button><button aria-label="Minimize"></button><button aria-label="Zoom"></button></div>
+          <div class="title-bar-text">snow.css</div>
+        </div>
+      </div>
+      <div class="window-body pad">
+        <div class="about">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="gAbout" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe0fb"/><stop offset="1" stop-color="#4f8fd4"/></linearGradient></defs><rect x="3" y="3" width="58" height="58" rx="13" fill="url(#gAbout)" stroke="#2e5f9e"/><rect x="6" y="5" width="52" height="26" rx="10" fill="#fff" opacity=".35"/><g transform="translate(14 14) scale(1.5)" color="#fff"><use href="#i-snow" width="24" height="24"/></g></svg>
+          <div>
+            <h2>snow.css</h2>
+            <p>A Mac OS X 10.6 layer for aqua.css: unified toolbars, source lists, column view, Cover Flow, and the glass-shelf Dock. Everything above is live. Click folders, switch views, or search.</p>
+            <code class="code">&lt;div class="snow" data-aqua-era="10-6"&gt;
+  &lt;section class="window"&gt;
+    &lt;div class="snow-chrome"&gt; … &lt;/div&gt;
+  &lt;/section&gt;
+&lt;/div&gt;</code>
+          </div>
+        </div>
+
+        <div class="gallery">
+          <div class="group">
+            <h3>Appearance</h3>
+            <div class="snow-seg" role="group" aria-label="Appearance">
+              <button id="ap-blue" aria-pressed="true">Blue</button><button id="ap-graphite" aria-pressed="false">Graphite</button>
+            </div>
+            <label><input type="checkbox" id="ap-inactive"> Inactive windows</label>
+          </div>
+          <div class="group">
+            <h3>Buttons</h3>
+            <div class="row"><button>Cancel</button><button class="default pulse">Save</button><button disabled>Disabled</button><button class="help" aria-label="Help">?</button></div>
+            <div class="row"><select aria-label="Pop-up"><option>Icon size: Medium</option><option>Small</option><option>Large</option></select></div>
+          </div>
+          <div class="group">
+            <h3>Selection</h3>
+            <label><input type="checkbox" checked> Show all filename extensions</label>
+            <label><input type="checkbox"> Show warning before emptying</label>
+            <div class="row"><label><input type="radio" name="r" checked> Open in new window</label></div>
+            <div class="row"><label><input type="radio" name="r"> Open in same window</label></div>
+          </div>
+          <div class="group">
+            <h3>Sliders and progress</h3>
+            <input type="range" min="0" max="100" value="62" aria-label="Volume">
+            <div class="progress-bar animated" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar-fill" style="width:62%"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="snow-status">Blue and Graphite share one set of CSS variables.</div>
+    </section>
+
+    <p class="foot">Built on <a href="https://github.com/ahzs645/aqua.css">aqua.css</a> (MIT). Fonts fall back to Lucida Sans or Verdana when Lucida Grande isn't installed.</p>
+  </main>
+
+  <div class="snow-dock" id="dock" role="toolbar" aria-label="Dock">
+    <button class="dock-item running" data-tip="Finder"><span class="tile" style="background:linear-gradient(120deg,#cfe7fb 0 50%,#4d90d9 50% 100%)"><svg viewBox="0 0 24 24" fill="none" stroke="#173a66" stroke-width="2" stroke-linecap="round"><path d="M8 8v3M16 8v3M7 15c2.500 3 7.500 3 10 0"/></svg></span><span class="tip">Finder</span></button>
+    <button class="dock-item" data-tip="Mail"><span class="tile" style="background:linear-gradient(#8fc6f6,#2f78c9)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="1.500"/><path d="m3.500 7.500 8.500 6 8.500-6"/></svg></span><span class="tip">Mail</span></button>
+    <button class="dock-item running" data-tip="Browser"><span class="tile" style="background:radial-gradient(circle at 50% 35%,#e9f6ff,#5fb0ee 55%,#2a73c4)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="#fff" stroke-width="1.500"/><path d="m15.500 8.500-2 5-5 2 2-5z" fill="#e5473b" stroke="#fff" stroke-width=".8" stroke-linejoin="round"/></svg></span><span class="tip">Browser</span></button>
+    <button class="dock-item" data-tip="Calendar"><span class="tile" style="background:linear-gradient(#fff,#e3e3e3)"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="6" fill="#d93a32"/><text id="cal-day" x="12" y="20" text-anchor="middle" font-size="12" font-weight="700" fill="#333" font-family="Lucida Grande, Verdana, sans-serif">3</text></svg></span><span class="tip">Calendar</span></button>
+    <button class="dock-item" data-tip="Notes"><span class="tile" style="background:linear-gradient(#fff4a8,#f1cf4a)"><svg viewBox="0 0 24 24" fill="none" stroke="#8a6b12" stroke-width="1.600" stroke-linecap="round"><path d="M6 8h12M6 12h12M6 16h8"/></svg></span><span class="tip">Notes</span></button>
+    <span class="dock-sep" aria-hidden="true"></span>
+    <button class="dock-item" data-tip="Trash"><span class="tile" style="background:linear-gradient(#e9eef4,#9fa9b6)"><svg viewBox="0 0 24 24" fill="none" stroke="#3d4655" stroke-width="1.700" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14M9 7V5h6v2M7 7l1 12h8l1-12M10 11v5M14 11v5"/></svg></span><span class="tip">Trash</span></button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  /* ---------- File tree ---------- */
+  function f(name, kind, size, mod, extra) { var o = { name: name, kind: kind, size: size, mod: mod }; if (extra) for (var k in extra) o[k] = extra[k]; return o; }
+  function d(name, children, mod) { return { name: name, kind: 'folder', children: children, mod: mod || 'Oct 1, 2026' }; }
+  var ROOT = d('studio', [
+    d('Applications', [f('Calculator.app', 'app', '4.1 MB', 'Sep 12, 2026'), f('Text Editor.app', 'app', '9.8 MB', 'Sep 12, 2026')]),
+    d('Desktop', [f('Screenshot 2026-10-02.png', 'img', '1.4 MB', 'Oct 2, 2026')]),
+    d('Documents', [
+      d('Briefs', [f('Autumn campaign brief.doc', 'doc', '84 KB', 'Sep 29, 2026'), f('Kickoff notes.txt', 'doc', '6 KB', 'Sep 30, 2026')]),
+      d('Decks', [f('Pitch v3.key', 'slides', '12.6 MB', 'Sep 26, 2026'), f('Readout.key', 'slides', '8.2 MB', 'Oct 1, 2026'), f('Template.key', 'slides', '2.9 MB', 'Aug 14, 2026')]),
+      d('Research', [f('Interview 01.m4a', 'audio', '18.3 MB', 'Sep 21, 2026'), f('Moderator guide.doc', 'doc', '212 KB', 'Oct 2, 2026'), f('Survey results.csv', 'doc', '420 KB', 'Sep 28, 2026')]),
+      d('Sketches', [f('Home page.png', 'img', '2.1 MB', 'Sep 18, 2026'), f('Navigation study.png', 'img', '1.7 MB', 'Sep 19, 2026'), f('Checkout flow.png', 'img', '2.4 MB', 'Sep 24, 2026')]),
+      f('Read me.txt', 'doc', '2 KB', 'Aug 3, 2026')
+    ]),
+    d('Downloads', [f('fonts.zip', 'doc', '5.3 MB', 'Oct 2, 2026'), f('receipt.pdf', 'doc', '96 KB', 'Sep 30, 2026')]),
+    d('Movies', []), d('Music', [f('Demo track.m4a', 'audio', '6.1 MB', 'Jul 9, 2026')]), d('Pictures', [f('Aurora.png', 'img', '3.8 MB', 'Jun 2, 2026')])
+  ]);
+  var KIND = { folder: 'Folder', doc: 'Document', img: 'PNG image', audio: 'MPEG-4 audio', slides: 'Presentation', app: 'Application' };
+  var ICON = { folder: 'i-folder', doc: 'i-doc', img: 'i-img', audio: 'i-audio', slides: 'i-slides', app: 'i-doc' };
+  var ico = function (kind, cls) { return '<svg class="' + (cls || '') + '" viewBox="0 0 48 48" aria-hidden="true"><use href="#' + ICON[kind] + '"/></svg>'; };
+
+  function node(path) { var n = ROOT; for (var i = 0; i < path.length; i++) { n = (n.children || []).filter(function (c) { return c.name === path[i]; })[0]; if (!n) return null; } return n; }
+  function folderPath(path) { var n = node(path); return (n && n.kind === 'folder') ? path : path.slice(0, -1); }
+
+  /* ---------- State ---------- */
+  var state = { path: ['Documents', 'Research', 'Moderator guide.doc'], view: 'columns', q: '', back: [], fwd: [] };
+  var SIDE = [
+    { h: 'Devices' }, { id: 'hd', label: 'Macintosh HD', icon: 'i-drive', path: [] }, { id: 'disc', label: 'Remote Disc', icon: 'i-drive', path: [] },
+    { h: 'Places' }, { id: 'Desktop', label: 'Desktop', icon: 'i-folder', path: ['Desktop'] }, { id: 'home', label: 'studio', icon: 'i-folder', path: [] },
+    { id: 'Applications', label: 'Applications', icon: 'i-folder', path: ['Applications'] }, { id: 'Documents', label: 'Documents', icon: 'i-folder', path: ['Documents'] },
+    { h: 'Search for' }, { id: 'today', label: 'Today', icon: 'i-clock', path: ['Documents', 'Research'] }, { id: 'week', label: 'Past Week', icon: 'i-clock', path: ['Documents', 'Decks'] }, { id: 'images', label: 'All Images', icon: 'i-clock', path: ['Documents', 'Sketches'] }
+  ];
+  var sideSel = null;
+
+  function go(path, opts) {
+    opts = opts || {};
+    if (!opts.noHistory) { state.back.push(state.path); state.fwd = []; }
+    state.path = path; render();
+  }
+
+  /* ---------- Render ---------- */
+  function filtered(items) {
+    var q = state.q.trim().toLowerCase();
+    return q ? items.filter(function (i) { return i.name.toLowerCase().indexOf(q) > -1; }) : items;
+  }
+  function rows(list, sel) {
+    if (!list.length) return '<tr><td colspan="4" style="color:#888;padding:12px">No items</td></tr>';
+    return list.map(function (i) {
+      return '<tr data-name="' + i.name + '" class="' + (i.name === sel ? 'selected' : '') + '"><td><span class="cell">' + ico(i.kind) + i.name + '</span></td><td>' + (i.mod || '') + '</td><td>' + (i.size || '--') + '</td><td>' + KIND[i.kind] + '</td></tr>';
+    }).join('');
+  }
+  var THEAD = '<thead><tr><th>Name <span class="sort-arrow asc"></span></th><th>Date Modified</th><th>Size</th><th>Kind</th></tr></thead>';
+
+  function render() {
+    var p = state.path, fp = folderPath(p), fnode = node(fp), sel = (node(p) && node(p).kind !== 'folder') ? p[p.length - 1] : (p.length > fp.length ? p[p.length - 1] : null);
+    var items = filtered(fnode.children);
+    var lastSelFolder = node(p) && node(p).kind === 'folder';
+
+    // Title
+    $('#win-title').textContent = fnode.name;
+
+    // Sidebar
+    var cur = (p.length === 0) ? 'home' : (['Desktop', 'Applications', 'Documents'].indexOf(p[0]) > -1 ? p[0] : null);
+    if (sideSel && SIDE.filter(function (s) { return s.id === sideSel && s.path && s.path.join('/') === fp.join('/') ; }).length === 0 && !(sideSel === 'hd' && fp.length === 0)) sideSel = null;
+    var active = sideSel || cur;
+    $('#source').innerHTML = SIDE.map(function (s) {
+      if (s.h) return '<li class="source-head" role="presentation">' + s.h + '</li>';
+      return '<li class="source-item" role="option" tabindex="0" data-id="' + s.id + '" aria-selected="' + (s.id === active) + '"><svg viewBox="0 0 48 48"><use href="#' + s.icon + '"/></svg>' + s.label + '</li>';
+    }).join('');
+
+    // Columns
+    var html = '', i, colItems, selName, folderCols = [];
+    for (i = 0; i <= p.length; i++) {
+      var parent = node(p.slice(0, i));
+      if (!parent || parent.kind !== 'folder') break;
+      selName = p[i];
+      colItems = parent.children;
+      var isDeepest = (parent === fnode);
+      if (isDeepest) colItems = filtered(colItems);
+      folderCols.push({ i: i, items: colItems, sel: selName, deepest: isDeepest });
+    }
+    var focusAt = -1;
+    folderCols.forEach(function (c, idx) { if (c.sel && c.items.some(function (x) { return x.name === c.sel; })) focusAt = idx; });
+    folderCols.forEach(function (c, idx) {
+      html += '<ul class="col' + (idx === focusAt || (focusAt === -1 && idx === folderCols.length - 1) ? ' focus' : '') + '" role="listbox" data-col="' + c.i + '">' +
+        c.items.map(function (x) {
+          return '<li role="option" tabindex="0" data-name="' + x.name + '" aria-selected="' + (x.name === c.sel) + '">' + ico(x.kind) + '<span class="name">' + x.name + '</span>' + (x.kind === 'folder' ? '<span class="chev"></span>' : '') + '</li>';
+        }).join('') + '</ul>';
+    });
+    var sn = node(p);
+    if (sn && sn.kind !== 'folder') {
+      html += '<div class="col-preview">' + ico(sn.kind, 'big') + '<h4>' + sn.name + '</h4><div class="sub">' + KIND[sn.kind] + ' – ' + (sn.size || '') + '</div><dl><dt>Created</dt><dd>' + sn.mod + '</dd><dt>Modified</dt><dd>' + sn.mod + '</dd><dt>Last opened</dt><dd>Today, 9:41 AM</dd></dl></div>';
+    }
+    $('#v-columns').innerHTML = html;
+    var vc = $('#v-columns'); vc.scrollLeft = vc.scrollWidth;
+
+    // List
+    $('#v-list').innerHTML = '<table class="aqua-table">' + THEAD + '<tbody>' + rows(items, sel) + '</tbody></table>';
+
+    // Icons
+    $('#v-icons').innerHTML = '<div class="icon-grid">' + (items.length ? items.map(function (x) {
+      return '<div class="icon-item" role="option" tabindex="0" data-name="' + x.name + '" aria-selected="' + (x.name === sel) + '">' + ico(x.kind) + '<span class="label">' + x.name + '</span></div>';
+    }).join('') : '<div style="grid-column:1/-1;color:#888;padding:12px">No items</div>') + '</div>';
+
+    // Cover flow
+    var cf = $('#cf'), idx = Math.max(0, items.map(function (x) { return x.name; }).indexOf(sel));
+    cf.innerHTML = items.map(function (x, n) {
+      var o = n - idx, sign = o === 0 ? 0 : (o > 0 ? 1 : -1), ab = Math.abs(o);
+      var tf = o === 0 ? 'translateX(0) translateZ(70px)' : 'translateX(' + (sign * (82 + (ab - 1) * 36)) + 'px) rotateY(' + (-sign * 62) + 'deg)';
+      return '<button class="cf-card" data-name="' + x.name + '" aria-label="' + x.name + '" style="transform:' + tf + ';z-index:' + (50 - ab) + '">' + ico(x.kind) + '</button>';
+    }).join('') + (items[idx] ? '<div class="cf-title">' + items[idx].name + '</div>' : '');
+    $('#cf-list').innerHTML = '<table class="aqua-table">' + THEAD + '<tbody>' + rows(items, sel) + '</tbody></table>';
+
+    // Path bar + status
+    var crumbs = [{ n: 'Macintosh HD', k: 'drive', path: null }, { n: ROOT.name, k: 'folder', path: [] }];
+    for (var j = 0; j < fp.length; j++) crumbs.push({ n: fp[j], k: 'folder', path: fp.slice(0, j + 1) });
+    $('#pathbar').innerHTML = crumbs.map(function (c, n) {
+      return (n ? '<span class="sep">›</span>' : '') + '<svg viewBox="0 0 48 48"><use href="#' + (c.k === 'drive' ? 'i-drive' : 'i-folder') + '"/></svg><span>' + c.n + '</span>';
+    }).join('');
+    $('#status').textContent = sel ? ('1 of ' + fnode.children.length + ' selected, 112.4 GB available') : (items.length + (items.length === 1 ? ' item' : ' items') + ', 112.4 GB available');
+
+    // Toolbar state
+    $('#btn-back').disabled = !state.back.length; $('#btn-fwd').disabled = !state.fwd.length;
+    $('#main').setAttribute('data-view', state.view);
+    $$('.snow-seg [data-view]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-view') === state.view); });
+  }
+
+  /* ---------- Events ---------- */
+  function activate(name, fromCols, colIndex) {
+    var fp = fromCols ? state.path.slice(0, colIndex) : folderPath(state.path);
+    go(fp.concat(name));
+  }
+  $('#v-columns').addEventListener('click', function (e) {
+    var li = e.target.closest('li[data-name]'); if (!li) return;
+    var col = li.closest('.col'); activate(li.getAttribute('data-name'), true, parseInt(col.getAttribute('data-col'), 10));
+  });
+  ['#v-list', '#cf-list'].forEach(function (s) { $(s).addEventListener('click', function (e) { var tr = e.target.closest('tr[data-name]'); if (tr) activate(tr.getAttribute('data-name')); }); });
+  $('#v-icons').addEventListener('click', function (e) { var it = e.target.closest('[data-name]'); if (it) activate(it.getAttribute('data-name')); });
+  $('#cf').addEventListener('click', function (e) { var c = e.target.closest('.cf-card'); if (c) activate(c.getAttribute('data-name')); });
+  document.addEventListener('keydown', function (e) {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('.col li, .icon-item')) { e.preventDefault(); e.target.click(); }
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('.source-item')) { e.preventDefault(); e.target.click(); }
+  });
+  $('#source').addEventListener('click', function (e) {
+    var li = e.target.closest('.source-item'); if (!li) return;
+    var s = SIDE.filter(function (x) { return x.id === li.getAttribute('data-id'); })[0];
+    go(s.path.slice()); sideSel = s.id; render();
+  });
+  $$('.snow-seg [data-view]').forEach(function (b) { b.addEventListener('click', function () { state.view = b.getAttribute('data-view'); render(); }); });
+  $$('.menu-dropdown li[data-view]').forEach(function (li) { li.addEventListener('click', function () { state.view = li.getAttribute('data-view'); render(); }); });
+  $('#btn-back').addEventListener('click', function () { if (!state.back.length) return; state.fwd.push(state.path); state.path = state.back.pop(); render(); });
+  $('#btn-fwd').addEventListener('click', function () { if (!state.fwd.length) return; state.back.push(state.path); state.path = state.fwd.pop(); render(); });
+  $('#q').addEventListener('input', function (e) { state.q = e.target.value; render(); });
+
+  /* ---------- Appearance controls ---------- */
+  var root = $('#root');
+  function setAppearance(g) { root.classList.toggle('theme-graphite', g); $('#ap-blue').setAttribute('aria-pressed', !g); $('#ap-graphite').setAttribute('aria-pressed', g); }
+  $('#ap-blue').addEventListener('click', function () { setAppearance(false); });
+  $('#ap-graphite').addEventListener('click', function () { setAppearance(true); });
+  $('#ap-inactive').addEventListener('change', function (e) { $$('.snow .window').forEach(function (w) { w.classList.toggle('inactive', e.target.checked); }); });
+
+  /* ---------- Dock magnification ---------- */
+  var dock = $('#dock'), items = $$('.dock-item', dock), raf = 0;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function mag(x) {
+    items.forEach(function (it) { var r = it.getBoundingClientRect(), c = r.left + r.width / 2, dist = Math.abs(x - c); it.style.setProperty('--s', (1 + 0.62 * Math.exp(-Math.pow(dist / 62, 2))).toFixed(3)); });
+  }
+  function reset() { items.forEach(function (it) { it.style.setProperty('--s', 1); }); }
+  if (!reduce) {
+    dock.addEventListener('pointermove', function (e) { if (e.pointerType === 'touch') return; var x = e.clientX; cancelAnimationFrame(raf); raf = requestAnimationFrame(function () { mag(x); }); });
+    dock.addEventListener('pointerleave', reset);
+  }
+  items.forEach(function (it) { it.addEventListener('click', function () { it.classList.remove('bounce'); void it.offsetWidth; it.classList.add('bounce'); }); });
+
+  /* ---------- Clock + calendar ---------- */
+  var now = new Date(); $('#cal-day').textContent = now.getDate();
+  function tick() { var n = new Date(); $('#clock').textContent = n.toLocaleDateString(undefined, { weekday: 'short' }) + ' ' + n.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' }); }
+  tick(); setInterval(tick, 20000);
+
+  render();
+})();
+</script>
+</body>
+</html>
