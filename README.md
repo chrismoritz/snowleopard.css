@@ -53,18 +53,13 @@ For Graphite, add `theme-graphite` to the same element.
 
 The [live demo](https://chrismoritz.github.io/snowleopard.css/) opens on **Web patterns** (40 patterns across
 navigation, forms, feedback, content, overlays, inputs, data, and layout) with switches to the **Finder simulator**
-a long **SaaS home page** (hero, features, pricing, testimonials, FAQ, and footer), and a two-page **luxury auto**
-site for a fictional American automaker with an electric-first lineup: a home page with a charging planner and
-test-drive form, and a model overview page with filters, trims, colors, and a compare tray. All content is made up.
+and a long **SaaS home page** (hero, features, pricing, testimonials, FAQ, and footer, all with made-up content).
 You can also open each on its own:
 [web patterns](https://chrismoritz.github.io/snowleopard.css/demo/web-patterns.html),
 [Finder](https://chrismoritz.github.io/snowleopard.css/demo/finder.html),
-[SaaS home page](https://chrismoritz.github.io/snowleopard.css/demo/saas.html),
-[luxury auto home](https://chrismoritz.github.io/snowleopard.css/demo/auto-home.html),
-[luxury auto models](https://chrismoritz.github.io/snowleopard.css/demo/auto-models.html). Deep-link to a tab with
-[`#finder`](https://chrismoritz.github.io/snowleopard.css/#finder),
-[`#saas`](https://chrismoritz.github.io/snowleopard.css/#saas), or
-[`#auto`](https://chrismoritz.github.io/snowleopard.css/#auto).
+[SaaS home page](https://chrismoritz.github.io/snowleopard.css/demo/saas.html). Deep-link to a tab with
+[`#finder`](https://chrismoritz.github.io/snowleopard.css/#finder) or
+[`#saas`](https://chrismoritz.github.io/snowleopard.css/#saas).
 
 To build the pages locally and open them in a browser:
 
@@ -73,7 +68,6 @@ python3 scripts/build.py
 open demo/finder.html
 open demo/web-patterns.html
 open demo/saas.html
-open demo/auto-home.html
 ```
 
 ## React components (preview)
@@ -87,7 +81,7 @@ gallery. The plain CSS above doesn't depend on any of this.
 | Path | Purpose |
 | --- | --- |
 | `src/snow.css` | The stylesheet. |
-| `demo/src/*.template.html` | Demo page sources. The luxury auto pages share `demo/src/auto.*` partials (CSS, JS, header, footer, car artwork). |
+| `demo/src/*.template.html` | Demo page sources. |
 | `demo/*.html`, `index.html` | Built, self-contained demos and the GitHub Pages page that switches between them (generated). |
 | `vendor/aqua.css` | Pinned copy of aqua.css, used only to build the demos. |
 | `scripts/build.py` | Inlines the CSS into the demo templates. |
