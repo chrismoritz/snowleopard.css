@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>snow.css: Mac OS X 10.6 for the web</title>
-<meta name="description" content="A Mac OS X 10.6 Snow Leopard layer for aqua.css. Browse the web patterns, the Finder simulator, or a sample SaaS home page.">
+<meta name="description" content="A Mac OS X 10.6 Snow Leopard layer for aqua.css. Browse the web patterns, the Finder simulator, or a sample SaaS home page, or a luxury automaker.">
 <style>/*AQUA_CSS*/</style>
 <style>/*SNOW_CSS*/</style>
 <style>
@@ -36,19 +36,20 @@ noscript a { color: #bcd8ff; }
       <button role="tab" id="tab-web" aria-controls="frame" aria-selected="true" tabindex="0"><span class="lg">Web patterns</span><span class="sm">Patterns</span></button>
       <button role="tab" id="tab-finder" aria-controls="frame" aria-selected="false" tabindex="-1"><span class="lg">Finder simulator</span><span class="sm">Finder</span></button>
       <button role="tab" id="tab-saas" aria-controls="frame" aria-selected="false" tabindex="-1"><span class="lg">SaaS home page</span><span class="sm">SaaS</span></button>
+      <button role="tab" id="tab-auto" aria-controls="frame" aria-selected="false" tabindex="-1"><span class="lg">Luxury auto</span><span class="sm">Auto</span></button>
     </div>
     <span class="grow"></span>
     <a class="out" id="out" href="demo/web-patterns.html">Open on its own page ↗</a>
   </header>
   <iframe class="frame" id="frame" role="tabpanel" aria-labelledby="tab-web" title="snow.css demo" src="demo/web-patterns.html"></iframe>
-  <noscript>JavaScript is off. Open the <a href="demo/web-patterns.html">web patterns</a> or the <a href="demo/finder.html">Finder simulator</a>, or the <a href="demo/saas.html">SaaS home page</a> directly.</noscript>
+  <noscript>JavaScript is off. Open the <a href="demo/web-patterns.html">web patterns</a> or the <a href="demo/finder.html">Finder simulator</a>, the <a href="demo/saas.html">SaaS home page</a>, or the <a href="demo/auto-home.html">luxury auto site</a> directly.</noscript>
 </div>
 <script>
 (function () {
-  var DEMOS = { web: 'demo/web-patterns.html', finder: 'demo/finder.html', saas: 'demo/saas.html' };
-  var TITLES = { web: 'Web patterns', finder: 'Finder simulator', saas: 'SaaS home page' };
-  var HASH = { web: '', finder: '#finder', saas: '#saas' };
-  var order = ['web', 'finder', 'saas'], tabs = {};
+  var DEMOS = { web: 'demo/web-patterns.html', finder: 'demo/finder.html', saas: 'demo/saas.html', auto: 'demo/auto-home.html' };
+  var TITLES = { web: 'Web patterns', finder: 'Finder simulator', saas: 'SaaS home page', auto: 'Luxury auto' };
+  var HASH = { web: '', finder: '#finder', saas: '#saas', auto: '#auto' };
+  var order = ['web', 'finder', 'saas', 'auto'], tabs = {};
   order.forEach(function (k) { tabs[k] = document.getElementById('tab-' + k); });
   var frame = document.getElementById('frame'), out = document.getElementById('out'), cur = 'web';
   function fromHash() { var k = location.hash.slice(1); return DEMOS[k] ? k : 'web'; }

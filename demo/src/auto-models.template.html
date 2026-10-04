@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Models · Halcyon (snow.css sample)</title>
+<meta name="description" content="Compare the six models of a fictional American luxury automaker, from electric sedans to a V8 flagship. Drawn with snow.css. All figures are made up.">
+<style>/*AQUA_CSS*/</style>
+<style>/*SNOW_CSS*/</style>
+<style>/*include:auto.shared.css*/</style>
+<style>
+.page-head { padding: 34px 0 26px; background: radial-gradient(ellipse 70% 120% at 80% 0%, rgba(95, 130, 190, .25), transparent 70%), linear-gradient(#10121a, #0b0c10); border-bottom: 1px solid var(--line); }
+.page-head h1 { margin: 6px 0 6px; font-size: 40px; font-weight: 300; }
+.page-head p { margin: 0; max-width: 62ch; color: #aab0bb; }
+.crumbs { margin: 0; font-size: 12px; color: #8b92a0; }
+.crumbs a { color: #aab0bb; }
+
+/* Filters */
+.filters { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-bottom: 22px; padding: 12px 14px; background: linear-gradient(#1b1e26, #12141a); border: 1px solid var(--line); border-radius: 8px; }
+.filters label { font-size: 12px; color: #cfd4dc; margin-right: 6px; }
+.filters .grow { flex: 1; }
+.filters .count { font-size: 12px; color: #aab0bb; }
+
+/* Cards */
+.model { padding: 0 0 16px; overflow: hidden; }
+.model[aria-current="true"] { border-color: var(--snow-sel-1); box-shadow: 0 0 0 2px var(--snow-sel-2), 0 4px 14px rgba(0, 0, 0, .4); }
+.model .art { display: block; padding: 16px 16px 4px; background: radial-gradient(ellipse 80% 90% at 50% 100%, rgba(120, 150, 210, .28), transparent 70%), linear-gradient(#20242e, #14161c); border-bottom: 1px solid var(--line); }
+.model .art .car { filter: drop-shadow(0 8px 8px rgba(0, 0, 0, .55)); }
+.model .body { display: flex; flex-direction: column; gap: 8px; padding: 0 18px; }
+.model .top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.model .top h3 { font-size: 22px; font-weight: 300; }
+.model .btns { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.model .btns label { display: inline-flex; align-items: center; gap: 6px; margin-left: auto; font-size: 12px; color: #cfd4dc; }
+.empty { padding: 40px 20px; text-align: center; color: #aab0bb; background: linear-gradient(#1b1e26, #12141a); border: 1px dashed var(--line); border-radius: 8px; }
+.empty[hidden] { display: none; }
+
+/* Spotlight */
+.spot { display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; align-items: center; }
+.spot .scene { padding: 20px 20px 36px; border: 1px solid var(--line); border-radius: 8px; background: radial-gradient(ellipse 80% 70% at 50% 100%, rgba(120, 150, 210, .3), transparent 70%), linear-gradient(#20242e, #101218); }
+.spot h2 { margin: 0 0 4px; font-size: 40px; font-weight: 300; }
+.spot .lead { color: #aab0bb; margin-bottom: 14px; }
+.spot .ctl { display: flex; flex-direction: column; gap: 14px; }
+.spot .ctl label.t { display: block; margin-bottom: 6px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.swatches { display: flex; flex-wrap: wrap; gap: 8px; }
+.swatches button { min-width: 0; width: 28px; height: 28px; padding: 0; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .3); box-shadow: inset 0 2px 3px rgba(255, 255, 255, .5), 0 1px 3px rgba(0, 0, 0, .6); }
+.swatches button[aria-checked="true"] { border-color: #fff; box-shadow: 0 0 0 2px var(--snow-sel-2), inset 0 2px 3px rgba(255, 255, 255, .5); }
+.pricebox { display: flex; align-items: baseline; gap: 10px; }
+.pricebox b { font-size: 30px; font-weight: 300; }
+.pricebox span { font-size: 12px; color: #8b92a0; }
+.feat { margin: 0; padding: 0; list-style: none; }
+.feat li { position: relative; padding: 3px 0 3px 22px; color: #cfd4dc; font-size: 13px; }
+.feat li::before { content: "✓"; position: absolute; left: 0; color: #7cc77c; font-weight: 700; }
+.specs { margin-top: 22px; }
+.specs .tablewrap { max-height: none; }
+.specs td:first-child { font-weight: 700; }
+
+/* Compare tray + dialog */
+.tray { position: fixed; z-index: 70; left: 12px; right: 12px; bottom: 12px; max-width: 760px; margin-inline: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 10px 14px; background: linear-gradient(#2a2f3a, #14161c); border: 1px solid #000; border-radius: 8px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 8px 24px rgba(0, 0, 0, .6); }
+.tray[hidden] { display: none; }
+.tray .chips { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; font-size: 13px; }
+.tray .chip { display: inline-flex; align-items: center; gap: 6px; padding: 2px 4px 2px 10px; border-radius: 12px; background: rgba(255, 255, 255, .1); border: 1px solid var(--line); }
+.tray .chip button { min-width: 0; width: 18px; height: 18px; padding: 0; border-radius: 50%; font-size: 12px; line-height: 1; }
+.cmp-win { width: min(900px, calc(100vw - 24px)); max-height: calc(100vh - 40px); display: flex; flex-direction: column; color: #000; }
+.cmp-win .window-body { padding: 14px; overflow: auto; background: #ececec; }
+.cmp-win .tablewrap th, .cmp-win .tablewrap td { white-space: normal; text-align: center; }
+.cmp-win .tablewrap th:first-child, .cmp-win .tablewrap td:first-child { text-align: left; font-weight: 700; }
+.cmp-win .car-cell .car { max-width: 150px; }
+
+/* Data table */
+.tablewrap th[data-k] { cursor: default; }
+.tablewrap .tag-ev, .tablewrap .tag-phev, .tablewrap .tag-gas { font-weight: 400; }
+
+@media (max-width: 860px) { .spot { grid-template-columns: 1fr; } .page-head h1 { font-size: 32px; } .spot h2 { font-size: 32px; } }
+</style>
+</head>
+<body data-page="models">
+<!--include:auto.sprite.html-->
+
+<div class="snow theme-graphite" id="root" data-aqua-era="10-6">
+<!--include:auto.header.html-->
+
+  <main id="top">
+    <section class="page-head" aria-labelledby="pg-t">
+      <div class="wrap">
+        <nav aria-label="Breadcrumb"><ol class="snow-crumbs crumbs" style="margin:0;padding:0;list-style:none"><li><a href="auto-home.html">Home</a></li><li><a href="auto-models.html" aria-current="page">Models</a></li></ol></nav>
+        <h1 id="pg-t">Choose your Halcyon</h1>
+        <p>Four electric models, a plug-in hybrid, and a V8 flagship. Filter the lineup, explore trims and colors, and compare up to three side by side.</p>
+      </div>
+    </section>
+
+    <!-- ===== Lineup ===== -->
+    <section class="sec" id="lineup" aria-labelledby="ln-t">
+      <div class="wrap">
+        <h2 id="ln-t" class="sr-only">All models</h2>
+        <div class="filters" role="search" aria-label="Filter models">
+          <div class="snow-seg" id="pt-filter" role="group" aria-label="Powertrain"><button aria-pressed="true" data-pt="all">All</button><button aria-pressed="false" data-pt="ev">Electric</button><button aria-pressed="false" data-pt="phev">Plug-in hybrid</button><button aria-pressed="false" data-pt="gas">Gasoline</button></div>
+          <span><label for="f-body">Body</label><select id="f-body"><option value="all">All styles</option><option>Sedan</option><option>SUV</option><option>Coupe</option></select></span>
+          <span><label for="f-sort">Sort</label><select id="f-sort"><option value="price">Price: low to high</option><option value="range">Range: high to low</option><option value="speed">Quickest 0 to 60</option><option value="name">Name</option></select></span>
+          <span class="grow"></span>
+          <input type="search" class="aqua-search-field" id="f-q" placeholder="Search models" aria-label="Search models" style="max-width:180px">
+          <span class="count" id="f-count" role="status"></span>
+        </div>
+        <div class="grid" id="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(330px,100%),1fr))"></div>
+        <div class="empty" id="empty" hidden><p style="margin:0 0 10px">No models match those filters.</p><button type="button" id="f-clear">Clear filters</button></div>
+      </div>
+    </section>
+
+    <!-- ===== Spotlight ===== -->
+    <section class="sec alt" id="spotlight" aria-labelledby="sp-t">
+      <div class="wrap">
+        <div class="spot">
+          <div class="scene stage-car" id="sp-scene"></div>
+          <div class="ctl">
+            <div><p class="eyebrow" id="sp-pt"></p><h2 id="sp-t"></h2><p class="lead" id="sp-blurb"></p></div>
+            <div><span class="t" style="display:block;margin-bottom:6px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)">Trim</span><div class="snow-seg" id="sp-trims" role="group" aria-label="Trim"></div></div>
+            <div><span class="t" style="display:block;margin-bottom:6px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)" id="sp-paint-l">Paint: <span id="sp-paint-n"></span></span><div class="swatches" id="sp-paints" role="radiogroup" aria-labelledby="sp-paint-l"></div></div>
+            <div class="pricebox"><b id="sp-price"></b><span>Starting price (sample), before incentives</span></div>
+            <ul class="feat" id="sp-feat"></ul>
+            <div class="row"><button type="button" class="default btn-lg" id="sp-build">Build and price</button><a href="auto-home.html#drive"><button type="button" class="btn-lg">Test drive</button></a></div>
+          </div>
+        </div>
+        <div class="specs">
+          <h3 style="margin:0 0 10px;font-size:15px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:#aab0bb">Specifications</h3>
+          <div class="tablewrap"><table class="aqua-table" id="sp-table"><caption class="sr-only">Specifications for the selected trim</caption><tbody></tbody></table></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Compare all ===== -->
+    <section class="sec" id="compare" aria-labelledby="cmp-h">
+      <div class="wrap">
+        <div class="sec-head"><p class="eyebrow">At a glance</p><h2 id="cmp-h">Compare the lineup</h2><p>Click a column heading to sort. Figures are for each model’s longest-range trim.</p></div>
+        <div class="tablewrap"><table class="aqua-table" id="grid-table"><thead><tr>
+          <th data-k="name" tabindex="0" aria-sort="none">Model</th><th data-k="pt" tabindex="0" aria-sort="none">Powertrain</th><th data-k="body" tabindex="0" aria-sort="none">Body</th><th data-k="seats" tabindex="0" aria-sort="none">Seats</th><th data-k="range" tabindex="0" aria-sort="none">Range</th><th data-k="zero" tabindex="0" aria-sort="none">0 to 60</th><th data-k="hp" tabindex="0" aria-sort="none">Power</th><th data-k="price" tabindex="0" aria-sort="ascending">From</th>
+        </tr></thead><tbody></tbody></table></div>
+      </div>
+    </section>
+
+    <!-- ===== Help choosing ===== -->
+    <section class="sec alt" aria-labelledby="faq-t">
+      <div class="wrap">
+        <div class="sec-head"><p class="eyebrow">Not sure?</p><h2 id="faq-t">Which Halcyon is right for you?</h2></div>
+        <div class="snow-accordion" style="max-width:780px;margin-inline:auto">
+          <details open><summary>I want the quietest, quickest daily driver</summary><div class="pane">Aria. Four doors, up to 412 miles of range, and a glass roof. The Performance trim reaches 60 mph in 3.0 seconds.</div></details>
+          <details><summary>I need space for family and gear</summary><div class="pane">Orion seats seven and tows 7,500 pounds. Vega is the smaller choice with a flat floor and a hands-free liftgate.</div></details>
+          <details><summary>I’m not ready to go fully electric</summary><div class="pane">Atlas runs on electricity for about 42 miles and then switches to its V6. Regent keeps a twin-turbo V8 and a traditional fuel tank.</div></details>
+          <details><summary>I want something special</summary><div class="pane">Nova is a limited-production grand tourer with three motors and a carbon-fiber body. Only 1,200 are built each year.</div></details>
+        </div>
+        <div class="row" style="justify-content:center;margin-top:26px"><a href="auto-home.html#drive"><button type="button" class="default btn-lg">Schedule a test drive</button></a><a href="auto-home.html"><button type="button" class="btn-lg">Back to home</button></a></div>
+      </div>
+    </section>
+  </main>
+
+<!--include:auto.footer.html-->
+
+  <!-- Compare tray -->
+  <div class="tray" id="tray" hidden role="region" aria-label="Compare tray">
+    <div class="chips" id="tray-chips" aria-live="polite"></div>
+    <button type="button" id="tray-clear">Clear</button>
+    <button type="button" class="default" id="tray-go" disabled>Compare</button>
+  </div>
+
+  <!-- Compare dialog -->
+  <div class="snow-overlay" id="cmp-ov" hidden>
+    <section class="window cmp-win" role="dialog" aria-modal="true" aria-labelledby="cmp-t">
+      <div class="snow-chrome"><div class="title-bar">
+        <div class="title-bar-controls"><button aria-label="Close" id="cmp-x"></button><button aria-label="Minimize" tabindex="-1"></button><button aria-label="Zoom" tabindex="-1"></button></div>
+        <div class="title-bar-text" id="cmp-t">Compare models</div></div></div>
+      <div class="window-body"><div class="tablewrap"><table class="aqua-table" id="cmp-table"></table></div>
+        <div class="row" style="justify-content:flex-end;margin-top:12px"><button type="button" class="default" id="cmp-done">Done</button></div></div>
+    </section>
+  </div>
+</div>
+
+<script>/*include:auto.shared.js*/</script>
+<script>
+(function () {
+  var $ = H.$, $$ = H.$$, esc = H.esc, M = H.MODELS;
+  H.initChrome();
+
+  /* ---------- Lineup filters ---------- */
+  var f = { pt: 'all', body: 'all', sort: 'price', q: '' }, picked = [], current = 'aria';
+  function zeroBest(m) { return Math.min.apply(null, m.trims.map(function (t) { return t.zero; })); }
+  function rangeVal(m) { return H.best(m).range || 0; }
+  function list() {
+    var l = M.filter(function (m) { return (f.pt === 'all' || m.pt === f.pt) && (f.body === 'all' || m.body === f.body) && (!f.q || (m.name + ' ' + m.body + ' ' + H.PT[m.pt] + ' ' + m.tag).toLowerCase().indexOf(f.q) > -1); });
+    var by = { price: function (a, b) { return H.from(a) - H.from(b); }, range: function (a, b) { return rangeVal(b) - rangeVal(a); }, speed: function (a, b) { return zeroBest(a) - zeroBest(b); }, name: function (a, b) { return a.name < b.name ? -1 : 1; } };
+    return l.sort(by[f.sort]);
+  }
+  function drawGrid() {
+    var l = list();
+    $('#grid').innerHTML = l.map(function (m) {
+      var t = H.best(m), on = picked.indexOf(m.id) > -1;
+      return '<article class="card model" id="c-' + m.id + '"' + (m.id === current ? ' aria-current="true"' : '') + '><a class="art" href="#' + m.id + '" data-pick="' + m.id + '" aria-label="' + esc(m.name) + ' details" tabindex="-1">' + H.carSvg(m) + '</a>' +
+        '<div class="body"><div class="top"><h3>' + esc(m.name) + '</h3>' + H.ptBadge(m) + '</div><p>' + esc(m.tag) + '</p>' +
+        '<div class="spec"><div><b>' + H.range(m, t) + '</b>' + H.rangeLabel(m) + '</div><div><b>' + zeroBest(m).toFixed(1) + ' s</b>0 to 60</div><div><b>' + m.seats + '</b>Seats</div></div>' +
+        '<div class="price">From <b>' + H.money(H.from(m)) + '</b></div>' +
+        '<div class="btns"><button type="button" class="default" data-pick="' + m.id + '">Details</button><label><input type="checkbox" data-cmp="' + m.id + '"' + (on ? ' checked' : '') + '> Compare</label></div></div></article>';
+    }).join('');
+    $('#empty').hidden = l.length > 0; $('#grid').hidden = !l.length;
+    $('#f-count').textContent = l.length + (l.length === 1 ? ' model' : ' models');
+  }
+  $$('#pt-filter button').forEach(function (b) { b.addEventListener('click', function () { f.pt = b.getAttribute('data-pt'); $$('#pt-filter button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); drawGrid(); }); });
+  $('#f-body').addEventListener('change', function (e) { f.body = e.target.value; drawGrid(); });
+  $('#f-sort').addEventListener('change', function (e) { f.sort = e.target.value; drawGrid(); });
+  $('#f-q').addEventListener('input', function (e) { f.q = e.target.value.trim().toLowerCase(); drawGrid(); });
+  $('#f-clear').addEventListener('click', function () { f = { pt: 'all', body: 'all', sort: f.sort, q: '' }; $('#f-q').value = ''; $('#f-body').value = 'all'; $$('#pt-filter button').forEach(function (x) { x.setAttribute('aria-pressed', x.getAttribute('data-pt') === 'all'); }); drawGrid(); });
+
+  $('#grid').addEventListener('click', function (e) {
+    var p = e.target.closest('[data-pick]');
+    if (p) { e.preventDefault(); select(p.getAttribute('data-pick'), true); }
+  });
+  $('#grid').addEventListener('change', function (e) {
+    var c = e.target.closest('[data-cmp]'); if (!c) return; var id = c.getAttribute('data-cmp');
+    if (c.checked) { if (picked.length >= 3) { c.checked = false; H.toast('warn', 'Up to three models', 'Remove one to add another.'); return; } picked.push(id); }
+    else picked = picked.filter(function (x) { return x !== id; });
+    drawTray();
+  });
+
+  /* ---------- Compare tray + dialog ---------- */
+  function drawTray() {
+    $('#tray').hidden = !picked.length;
+    $('#tray-chips').innerHTML = picked.map(function (id) { var m = H.byId(id); return '<span class="chip">' + esc(m.name) + '<button type="button" aria-label="Remove ' + esc(m.name) + '" data-rm="' + id + '">×</button></span>'; }).join('') || '';
+    $('#tray-go').disabled = picked.length < 2; $('#tray-go').textContent = 'Compare (' + picked.length + ')';
+  }
+  $('#tray-chips').addEventListener('click', function (e) { var b = e.target.closest('[data-rm]'); if (!b) return; picked = picked.filter(function (x) { return x !== b.getAttribute('data-rm'); }); drawGrid(); drawTray(); });
+  $('#tray-clear').addEventListener('click', function () { picked = []; drawGrid(); drawTray(); });
+  var cmpOpener = null;
+  function openCmp() {
+    var ms = picked.map(H.byId), best = ms.map(function (m) { return H.best(m); });
+    function row(label, fn) { return '<tr><th scope="row">' + label + '</th>' + ms.map(function (m, i) { return '<td>' + fn(m, best[i]) + '</td>'; }).join('') + '</tr>'; }
+    $('#cmp-table').innerHTML = '<thead><tr><th scope="col"></th>' + ms.map(function (m) { return '<th scope="col" class="car-cell">' + H.carSvg(m) + '<br>' + esc(m.name) + '</th>'; }).join('') + '</tr></thead><tbody>' +
+      row('Powertrain', function (m) { return H.PT[m.pt]; }) + row('Body', function (m) { return m.body; }) + row('Seats', function (m) { return m.seats; }) +
+      row('Range / economy', function (m, t) { return H.range(m, t); }) + row('0 to 60 mph', function (m) { return zeroBest(m).toFixed(1) + ' s'; }) +
+      row('Peak power', function (m) { return Math.max.apply(null, m.trims.map(function (t) { return t.hp; })) + ' hp'; }) +
+      row('Fast charging', function (m) { return m.pt === 'ev' ? '10 to 80% in ' + m.charge + ' min' : m.pt === 'phev' ? 'Plug-in, 42 mi EV' : 'Not applicable'; }) +
+      row('Starting price', function (m) { return H.money(H.from(m)); }) + '</tbody>';
+    cmpOpener = document.activeElement; $('#cmp-ov').hidden = false; $('#cmp-done').focus();
+  }
+  function closeCmp() { $('#cmp-ov').hidden = true; if (cmpOpener) cmpOpener.focus(); }
+  $('#tray-go').addEventListener('click', openCmp);
+  $('#cmp-done').addEventListener('click', closeCmp); $('#cmp-x').addEventListener('click', closeCmp);
+  $('#cmp-ov').addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeCmp();
+    if (e.key === 'Tab') { var fs = $$('button', $('#cmp-ov')).filter(function (b) { return b.tabIndex >= 0 && !b.disabled; }), i = fs.indexOf(document.activeElement); e.preventDefault(); fs[(i + (e.shiftKey ? -1 : 1) + fs.length) % fs.length].focus(); }
+  });
+  $('#cmp-ov').addEventListener('mousedown', function (e) { if (e.target === this) closeCmp(); });
+
+  /* ---------- Spotlight ---------- */
+  var trimIdx = 0, paint = null;
+  function select(id, scroll) {
+    var m = H.byId(id); if (!m) return; current = id; trimIdx = 0; paint = m.paint;
+    $$('#grid .model').forEach(function (c) { if (c.id === 'c-' + id) c.setAttribute('aria-current', 'true'); else c.removeAttribute('aria-current'); });
+    $('#sp-pt').textContent = H.PT[m.pt] + ' · ' + m.body + ' · ' + m.seats + ' seats'; $('#sp-t').textContent = 'Halcyon ' + m.name; $('#sp-blurb').textContent = m.blurb;
+    $('#sp-feat').innerHTML = m.features.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
+    $('#sp-paints').innerHTML = H.PAINTS.map(function (p) { return '<button type="button" role="radio" aria-checked="' + (p[1] === paint) + '" aria-label="' + esc(p[0]) + '" title="' + esc(p[0]) + '" data-c="' + p[1] + '" data-n="' + esc(p[0]) + '" style="background:' + p[1] + '"></button>'; }).join('');
+    $('#sp-trims').innerHTML = m.trims.map(function (t, i) { return '<button type="button" aria-pressed="' + (i === 0) + '" data-t="' + i + '">' + esc(t.n) + '</button>'; }).join('');
+    drawSpot(); if (history.replaceState) { try { history.replaceState(null, '', '#' + id); } catch (e) {} }
+    if (scroll) $('#spotlight').scrollIntoView({ behavior: H.reduce ? 'auto' : 'smooth', block: 'start' });
+  }
+  function drawSpot() {
+    var m = H.byId(current), t = m.trims[trimIdx], pn = (H.PAINTS.filter(function (p) { return p[1] === paint; })[0] || [''])[0];
+    $('#sp-scene').innerHTML = H.carSvg(m, paint, 'sp-car'); $('#sp-paint-n').textContent = pn; $('#sp-price').textContent = H.money(t.price);
+    var rows = [['Trim', t.n], ['Powertrain', H.PT[m.pt]], [m.pt === 'ev' ? 'Estimated range' : m.pt === 'phev' ? 'Electric range' : 'Fuel economy (city / hwy)', H.range(m, t)], ['Power', t.hp + ' hp'], ['0 to 60 mph', t.zero.toFixed(1) + ' s'], ['Seating', m.seats + ' seats'], ['Body style', m.body]];
+    if (m.pt === 'ev') rows.push(['Fast charging', '10 to 80% in ' + m.charge + ' min']);
+    if (m.pt === 'phev') rows.push(['Total range', m.total + ' mi']);
+    $('#sp-table tbody').innerHTML = rows.map(function (r) { return '<tr><td>' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td></tr>'; }).join('');
+  }
+  $('#sp-trims').addEventListener('click', function (e) { var b = e.target.closest('[data-t]'); if (!b) return; trimIdx = +b.getAttribute('data-t'); $$('#sp-trims button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); drawSpot(); });
+  $('#sp-paints').addEventListener('click', function (e) { var b = e.target.closest('[data-c]'); if (!b) return; paint = b.getAttribute('data-c'); $$('#sp-paints button').forEach(function (x) { x.setAttribute('aria-checked', x === b); }); drawSpot(); });
+  $('#sp-paints').addEventListener('keydown', function (e) {
+    var bs = $$('#sp-paints button'), i = bs.indexOf(document.activeElement); if (i < 0) return;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); var n = bs[(i + (e.key === 'ArrowRight' ? 1 : bs.length - 1)) % bs.length]; n.focus(); n.click(); }
+  });
+  $('#sp-build').addEventListener('click', function () { var m = H.byId(current); H.toast('info', 'Build and price (sample)', 'This would open the Halcyon ' + m.name + ' configurator. It is only a demo.'); });
+
+  /* ---------- Sortable table ---------- */
+  var sort = { k: 'price', dir: 1 };
+  function val(m, k) { var t = H.best(m); return { name: m.name, pt: H.PT[m.pt], body: m.body, seats: m.seats, range: m.pt === 'gas' ? 0 : t.range, zero: zeroBest(m), hp: Math.max.apply(null, m.trims.map(function (x) { return x.hp; })), price: H.from(m) }[k]; }
+  function drawTable() {
+    var l = M.slice().sort(function (a, b) { var x = val(a, sort.k), y = val(b, sort.k); return (x < y ? -1 : x > y ? 1 : 0) * sort.dir; });
+    $('#grid-table tbody').innerHTML = l.map(function (m) { var t = H.best(m); return '<tr tabindex="0" data-id="' + m.id + '"><td><b>' + esc(m.name) + '</b></td><td>' + H.PT[m.pt] + '</td><td>' + m.body + '</td><td>' + m.seats + '</td><td>' + H.range(m, t) + '</td><td>' + zeroBest(m).toFixed(1) + ' s</td><td>' + val(m, 'hp') + ' hp</td><td>' + H.money(H.from(m)) + '</td></tr>'; }).join('');
+    $$('#grid-table th').forEach(function (th) { var on = th.getAttribute('data-k') === sort.k; th.setAttribute('aria-sort', on ? (sort.dir > 0 ? 'ascending' : 'descending') : 'none'); var o = $('.sort-arrow', th); if (o) o.remove(); if (on) { var s = document.createElement('span'); s.className = 'sort-arrow ' + (sort.dir > 0 ? 'asc' : 'desc'); th.appendChild(s); } });
+  }
+  $('#grid-table thead').addEventListener('click', function (e) { var th = e.target.closest('th'); if (!th) return; var k = th.getAttribute('data-k'); sort.dir = sort.k === k ? -sort.dir : 1; sort.k = k; drawTable(); });
+  $('#grid-table thead').addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); var k = e.target.getAttribute('data-k'); e.target.click(); setTimeout(function () { var t = $('th[data-k="' + k + '"]'); if (t) t.focus(); }, 0); } });
+  $('#grid-table tbody').addEventListener('click', function (e) { var tr = e.target.closest('tr'); if (tr) select(tr.getAttribute('data-id'), true); });
+  $('#grid-table tbody').addEventListener('keydown', function (e) { var tr = e.target.closest('tr'); if (tr && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); tr.click(); } });
+
+  /* ---------- Start ---------- */
+  var start = (location.hash || '').slice(1);
+  drawGrid(); drawTable(); drawTray();
+  select(H.byId(start) ? start : 'aria', !!H.byId(start));
+  window.addEventListener('hashchange', function () { var id = location.hash.slice(1); if (H.byId(id) && id !== current) select(id, true); });
+})();
+</script>
+</body>
+</html>

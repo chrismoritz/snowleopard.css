@@ -7,14 +7,23 @@ aqua = (root / "vendor" / "aqua.css").read_text()
 aqua = re.sub(r"@font-face\{[^}]*\}", "", aqua)  # fonts fall back to system fonts
 snow = (root / "src" / "snow.css").read_text()
 
+def includes(text):
+    """Replace <!--include:name--> and /*include:name*/ markers with files from demo/src/."""
+    def sub(m):
+        return (root / "demo" / "src" / m.group(1)).read_text()
+    return re.sub(r"(?:<!--|/\*)include:([\w.-]+)(?:-->|\*/)", sub, text)
+
+
 pages = {
     "finder.template.html": "demo/finder.html",
     "web-patterns.template.html": "demo/web-patterns.html",
     "saas.template.html": "demo/saas.html",
+    "auto-home.template.html": "demo/auto-home.html",
+    "auto-models.template.html": "demo/auto-models.html",
     "index.template.html": "index.html",  # GitHub Pages landing page
 }
 for src, dst in pages.items():
-    html = (root / "demo" / "src" / src).read_text()
+    html = includes((root / "demo" / "src" / src).read_text())
     html = html.replace("/*AQUA_CSS*/", aqua).replace("/*SNOW_CSS*/", snow)
     (root / dst).write_text(html)
     print(f"built {dst} ({len(html) // 1024} KB)")
