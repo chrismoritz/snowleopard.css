@@ -1,0 +1,20 @@
+{
+  "name": "snow-ui",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Mac OS X 10.6 Snow Leopard components for React, built on Radix UI and Tailwind, installable through the shadcn CLI.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "shadcn build"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
+    "radix-ui": "^1.6.7",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "tailwind-merge": "^3.7.0"
+  }
+}

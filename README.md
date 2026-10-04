@@ -59,6 +59,12 @@ open demo/finder.html
 open demo/web-patterns.html
 ```
 
+## React components (preview)
+
+[`packages/snow-ui`](packages/snow-ui) is an early set of React components (Button, Select, Command) built
+on Radix UI and Tailwind, with a shadcn-compatible registry. Run `npm install && npm run dev` to open the
+gallery. The plain CSS above doesn't depend on any of this.
+
 ## Repo layout
 
 | Path | Purpose |

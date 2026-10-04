@@ -1,0 +1,27 @@
+{
+  "name": "snowleopard-css-workspace",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "gallery"
+  ],
+  "scripts": {
+    "dev": "vite --config gallery/vite.config.ts gallery",
+    "build:gallery": "vite build --config gallery/vite.config.ts gallery",
+    "typecheck": "tsc --noEmit",
+    "check:tokens": "node scripts/check-tokens.mjs",
+    "registry:build": "npm run build --workspace snow-ui"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.6.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "shadcn": "^4.21.1",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.2"
+  }
+}

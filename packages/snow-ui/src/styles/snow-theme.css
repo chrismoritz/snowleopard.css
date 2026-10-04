@@ -1,0 +1,64 @@
+/* snow-ui theme: Mac OS X 10.6 tokens for Tailwind v4.
+ *
+ * The --snow-* color tokens mirror src/snow.css in the repo root. Run
+ * `npm run check:tokens` to confirm they haven't drifted. Graphite: add the
+ * `theme-graphite` class to <html> or any ancestor.
+ */
+
+:root,
+.snow {
+  --font-ui: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
+
+  --snow-chrome-top: #eeeeee;
+  --snow-chrome-mid: #d6d6d6;
+  --snow-chrome-bot: #b2b2b2;
+  --snow-chrome-line: #4f4f4f;
+
+  --snow-source-bg: #d8dee7;
+  --snow-source-edge: #a4aab4;
+  --snow-source-head: #76839a;
+
+  --snow-sel-1: #6fa6e0;
+  --snow-sel-2: #3877c8;
+  --snow-sel-edge: #2c61ab;
+  --snow-sel-off-1: #b6c0d2;
+  --snow-sel-off-2: #8e9bb3;
+  --snow-row-alt: #f2f5fa;
+  --snow-ink-soft: #6a6a6a;
+}
+
+.theme-graphite {
+  --snow-source-bg: #dcdde0;
+  --snow-source-head: #7d8087;
+  --snow-sel-1: #939dae;
+  --snow-sel-2: #5b667b;
+  --snow-sel-edge: #48526a;
+  --snow-sel-off-1: #c2c5cc;
+  --snow-sel-off-2: #9ea3ad;
+  --snow-row-alt: #f4f4f5;
+}
+
+/* Derived tokens: these follow the Blue or Graphite values above. */
+:root,
+.snow {
+  /* Two-tone "gel" fill with the hard highlight edge at the midline. */
+  --snow-gel: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--snow-sel-1) 55%, white) 0%,
+    var(--snow-sel-1) 50%,
+    var(--snow-sel-2) 51%,
+    color-mix(in srgb, var(--snow-sel-2) 70%, white) 100%
+  );
+  --snow-gel-flat: linear-gradient(to bottom, var(--snow-sel-1), var(--snow-sel-2));
+  --snow-btn: linear-gradient(to bottom, #fdfdfd 0%, #f0f0f0 49%, #dadada 51%, #ececec 100%);
+  --snow-btn-edge: #8b8b8b;
+  --snow-red-gel: linear-gradient(to bottom, #f6aaa4 0%, #e5655c 50%, #cf3126 51%, #e56a5f 100%);
+  --snow-red-edge: #9a2018;
+  --snow-focus: color-mix(in srgb, var(--snow-sel-1) 70%, transparent);
+  --snow-bevel: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --snow-menu-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.22);
+}
+
+@theme inline {
+  --font-sans: var(--font-ui);
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "snow-ui",
+  "homepage": "https://chrismoritz.github.io/snowleopard.css/",
+  "items": [
+    {
+      "name": "snow-theme",
+      "type": "registry:file",
+      "title": "Snow Leopard theme",
+      "description": "Mac OS X 10.6 design tokens (Blue and Graphite) for Tailwind v4.",
+      "files": [
+        { "path": "src/styles/snow-theme.css", "type": "registry:file", "target": "~/styles/snow-theme.css" }
+      ]
+    },
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "title": "cn helper",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [{ "path": "src/lib/utils.ts", "type": "registry:lib" }]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Aqua push button with default (blue gel), secondary, destructive, ghost, and link variants.",
+      "dependencies": ["class-variance-authority", "radix-ui"],
+      "registryDependencies": ["snow-theme", "utils"],
+      "files": [{ "path": "src/components/ui/button.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "Mac pop-up button built on Radix Select.",
+      "dependencies": ["radix-ui"],
+      "registryDependencies": ["snow-theme", "utils"],
+      "files": [{ "path": "src/components/ui/select.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "command",
+      "type": "registry:ui",
+      "title": "Command",
+      "description": "Spotlight-style command palette built on cmdk and Radix Dialog.",
+      "dependencies": ["cmdk", "radix-ui"],
+      "registryDependencies": ["snow-theme", "utils"],
+      "files": [{ "path": "src/components/ui/command.tsx", "type": "registry:ui" }]
+    }
+  ]
+}

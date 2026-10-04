@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@import "../../packages/snow-ui/src/styles/snow-theme.css";
+
+/* Symlinked workspace sources aren't scanned automatically. */
+@source "../../packages/snow-ui/src";
+
+html { min-height: 100%; background: #070b24; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+  background:
+    radial-gradient(ellipse at 15% 20%, rgba(106, 168, 255, 0.55), transparent 55%),
+    radial-gradient(ellipse at 85% 55%, rgba(176, 104, 240, 0.5), transparent 55%),
+    radial-gradient(ellipse at 40% 95%, rgba(93, 224, 232, 0.3), transparent 50%),
+    #070b24;
+}
