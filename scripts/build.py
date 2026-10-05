@@ -11,6 +11,7 @@ pages = {
     "finder.template.html": "demo/finder.html",
     "web-patterns.template.html": "demo/web-patterns.html",
     "saas.template.html": "demo/saas.html",
+    "browser.template.html": "demo/browser.html",
     "index.template.html": "index.html",  # GitHub Pages landing page
 }
 for src, dst in pages.items():

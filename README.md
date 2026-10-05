@@ -53,13 +53,17 @@ For Graphite, add `theme-graphite` to the same element.
 
 The [live demo](https://chrismoritz.github.io/snowleopard.css/) opens on **Web patterns** (40 patterns across
 navigation, forms, feedback, content, overlays, inputs, data, and layout) with switches to the **Finder simulator**
-and a long **SaaS home page** (hero, features, pricing, testimonials, FAQ, and footer, all with made-up content).
+a long **SaaS home page** (hero, features, pricing, testimonials, FAQ, and footer), and **Compass**, a
+simulated Camino-inspired browser with tabs, a tab overview, a bookmark bar, find in page, downloads, and a
+Keychain-style sheet. All content is made up.
 You can also open each on its own:
 [web patterns](https://chrismoritz.github.io/snowleopard.css/demo/web-patterns.html),
 [Finder](https://chrismoritz.github.io/snowleopard.css/demo/finder.html),
-[SaaS home page](https://chrismoritz.github.io/snowleopard.css/demo/saas.html). Deep-link to a tab with
-[`#finder`](https://chrismoritz.github.io/snowleopard.css/#finder) or
-[`#saas`](https://chrismoritz.github.io/snowleopard.css/#saas).
+[SaaS home page](https://chrismoritz.github.io/snowleopard.css/demo/saas.html),
+[browser](https://chrismoritz.github.io/snowleopard.css/demo/browser.html). Deep-link to a tab with
+[`#finder`](https://chrismoritz.github.io/snowleopard.css/#finder),
+[`#saas`](https://chrismoritz.github.io/snowleopard.css/#saas), or
+[`#browser`](https://chrismoritz.github.io/snowleopard.css/#browser).
 
 To build the pages locally and open them in a browser:
 
@@ -68,6 +72,7 @@ python3 scripts/build.py
 open demo/finder.html
 open demo/web-patterns.html
 open demo/saas.html
+open demo/browser.html
 ```
 
 ## React components (preview)
@@ -85,6 +90,11 @@ gallery. The plain CSS above doesn't depend on any of this.
 | `demo/*.html`, `index.html` | Built, self-contained demos and the GitHub Pages page that switches between them (generated). |
 | `vendor/aqua.css` | Pinned copy of aqua.css, used only to build the demos. |
 | `scripts/build.py` | Inlines the CSS into the demo templates. |
+
+## Credits
+
+The Compass demo is inspired by [Camino](https://en.wikipedia.org/wiki/Camino_(web_browser)), the Mac-native
+Gecko browser (2002 to 2013). It doesn't use Camino's name, logo, code, or artwork.
 
 ## Notes
 

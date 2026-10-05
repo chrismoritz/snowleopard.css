@@ -1,0 +1,750 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Compass: a Camino-inspired browser (snow.css sample)</title>
+<meta name="description" content="A simulated Mac browser drawn in Mac OS X 10.6 chrome with snow.css: tabs, tab overview, bookmark bar, find bar, downloads, and a Keychain-style sheet. Inspired by Camino.">
+<style>/*AQUA_CSS*/</style>
+<style>/*SNOW_CSS*/</style>
+<style>
+:root { box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); }
+html { height: 100%; }
+body { margin: 0; min-height: 100%; background: #070b24; }
+.stage { position: relative; z-index: 1; width: min(1180px, 100% - 24px); margin: 0 auto; padding: 38px 0 14px; }
+.window.browser { display: flex; flex-direction: column; height: calc(100dvh - 38px - 16px); min-height: 520px; overflow: visible; }
+.window.browser > .snow-chrome { flex: none; }
+.snow-chrome .title-bar { cursor: default; }
+
+/* Toolbar */
+.snow .snow-toolbar { flex-wrap: nowrap; gap: 8px; padding: 3px 10px 7px; }
+.snow-toolbar .tb { min-width: 0; width: 28px; height: 23px; padding: 0; font-size: 14px; }
+.snow-toolbar .tb svg { width: 14px; height: 14px; }
+.loc { position: relative; flex: 1; min-width: 80px; display: flex; align-items: center; height: 23px; background: #fff; border: 1px solid #757575; border-top-color: #5c5c5c; border-radius: 4px; box-shadow: inset 0 1px 2px rgba(0, 0, 0, .3); overflow: visible; }
+.loc .prog { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 3px 0 0 3px; background: linear-gradient(rgba(143, 190, 245, .55), rgba(70, 135, 215, .55)); pointer-events: none; transition: width .12s linear, opacity .25s; }
+.loc .prog.done { opacity: 0; }
+.loc .ic { position: relative; flex: none; width: 22px; height: 100%; display: grid; place-items: center; cursor: grab; }
+.loc .ic svg { width: 14px; height: 14px; }
+.snow .loc input { position: relative; flex: 1; min-width: 0; height: 100%; padding: 0 4px; border: 0; background: transparent; box-shadow: none; font-size: 12px; outline: none; }
+.snow .loc .star { position: relative; flex: none; min-width: 0; width: 22px; height: 100%; padding: 0; border: 0; background: none; box-shadow: none; font-size: 14px; color: #999; cursor: default; }
+.snow .loc .star[aria-pressed="true"] { color: #e5a721; }
+.suggest { position: absolute; z-index: 30; left: -1px; right: -1px; top: calc(100% + 2px); margin: 0; padding: 3px 0; list-style: none; background: #fff; border: 1px solid rgba(0, 0, 0, .45); border-radius: 0 0 5px 5px; box-shadow: 0 6px 16px rgba(0, 0, 0, .4); }
+.suggest[hidden] { display: none; }
+.suggest li { display: flex; align-items: center; gap: 8px; padding: 3px 10px; font-size: 12px; cursor: default; }
+.suggest li small { margin-left: auto; color: #777; }
+.suggest li[aria-selected="true"] { color: #fff; background: linear-gradient(var(--snow-sel-1), var(--snow-sel-2)); }
+.suggest li[aria-selected="true"] small { color: rgba(255, 255, 255, .8); }
+.snow-toolbar .aqua-search-field { flex: none; width: 150px; }
+
+/* Favicons */
+.fav { flex: none; display: inline-grid; place-items: center; width: 14px; height: 14px; border-radius: 3px; font: 700 9px/1 sans-serif; font-style: normal; color: #fff; text-shadow: 0 -1px 0 rgba(0, 0, 0, .35); background: linear-gradient(rgba(255, 255, 255, .45), transparent 55%), var(--c, #888); border: 1px solid rgba(0, 0, 0, .35); }
+.fav.lg { width: 18px; height: 18px; font-size: 11px; }
+
+/* Page area, bookmark bar, tabs */
+.page-area { flex: 1; min-height: 0; display: flex; flex-direction: column; position: relative; }
+.page-area > .snow-scrim { z-index: 40; }
+.page-area > .snow-sheet { z-index: 41; }
+.page-area > .snow-sheet { width: min(470px, calc(100% - 20px)); }
+.snow-sheet .btns button { height: auto; min-height: 23px; padding: 2px 12px; white-space: nowrap; }
+.bookbar { flex: none; display: flex; align-items: center; gap: 2px; height: 24px; padding: 0 8px; overflow: visible; background: linear-gradient(#f2f2f2, #d8d8d8); border-top: 1px solid #fff; border-bottom: 1px solid #8e8e8e; }
+.bookbar[hidden] { display: none; }
+.bookbar.drop { box-shadow: inset 0 0 0 2px var(--snow-sel-1); }
+.snow .bm { display: inline-flex; align-items: center; gap: 5px; height: 19px; min-width: 0; max-width: 150px; padding: 0 7px; font-size: 12px; color: #222; background: none; border: 1px solid transparent; border-radius: 10px; box-shadow: none; white-space: nowrap; cursor: default; }
+.snow .bm:hover, .snow .bm[aria-expanded="true"] { background: linear-gradient(rgba(0, 0, 0, .06), rgba(0, 0, 0, .14)); border-color: rgba(0, 0, 0, .25); }
+.snow .bm span.t { overflow: hidden; text-overflow: ellipsis; }
+.bmwrap { position: relative; }
+.bmwrap .snow-menu { top: calc(100% + 1px); min-width: 210px; }
+.tabbar { flex: none; display: flex; align-items: flex-end; gap: 4px; padding: 4px 6px 0; background: linear-gradient(#cfcfcf, #bdbdbd); border-bottom: 1px solid #6f6f6f; }
+.tabbar .snow-doctabs { flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; border: 0; background: none; }
+.tabbar .snow-doctabs::-webkit-scrollbar { display: none; }
+.snow-doctabs [role="tab"] { flex: 1 1 0; min-width: 96px; max-width: 220px; }
+.snow-doctabs [role="tab"] .t { display: block; }
+.snow-doctabs [role="tab"].drop-before { box-shadow: inset 3px 0 0 var(--snow-sel-2); }
+.snow-doctabs [role="tab"].dragging { opacity: .45; }
+.snow-doctabs [role="tab"] .fav { margin-right: 5px; }
+.snow-doctabs [role="tab"] .spin { width: 12px; height: 12px; margin-right: 5px; border: 2px solid #9ab; border-top-color: var(--snow-sel-2); border-radius: 50%; animation: spin .7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.snow .tabbar .ov { flex: none; align-self: center; min-width: 0; width: 26px; height: 20px; padding: 0; margin-bottom: 3px; }
+.snow .tabbar .ov svg { width: 13px; height: 13px; }
+.popbar { flex: none; display: flex; align-items: center; gap: 10px; margin: 0; border-radius: 0; border-width: 0 0 1px; }
+.popbar[hidden] { display: none; }
+.popbar > div { flex: 1; }
+
+/* Viewport */
+.viewport { position: relative; flex: 1; min-height: 0; background: #fff; overflow: hidden; border-bottom: 1px solid #8e8e8e; }
+.viewport > .pg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: auto; border: 0; background: #fff; }
+.viewport > .pg[hidden] { display: none; }
+.viewport > iframe.pg { background: #070b24; }
+.findbar { flex: none; display: flex; align-items: center; gap: 8px; padding: 4px 10px; background: linear-gradient(#eee, #d3d3d3); border-bottom: 1px solid #8e8e8e; font-size: 12px; }
+.findbar[hidden] { display: none; }
+.findbar .msg { min-width: 120px; color: #444; }
+.findbar .msg.bad { color: #b4231a; font-weight: 700; }
+.findbar .spacer { flex: 1; }
+.snow .findbar .x { min-width: 0; width: 20px; height: 20px; padding: 0; }
+.snow-status { flex: none; justify-content: space-between; padding: 0 10px; }
+.snow-status[hidden] { display: none; }
+.snow-status .st { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Tab overview */
+.overview { position: absolute; z-index: 20; inset: 0; display: flex; flex-direction: column; background: rgba(12, 16, 40, .86); color: #fff; backdrop-filter: blur(3px); }
+.overview[hidden] { display: none; }
+.overview header { display: flex; align-items: center; gap: 10px; padding: 12px 18px 0; text-shadow: 0 1px 2px rgba(0, 0, 0, .6); }
+.overview header h2 { flex: 1; margin: 0; font-size: 15px; }
+.ov-grid { flex: 1; overflow: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; padding: 16px 18px 20px; align-content: start; }
+.ov-card { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 8px; text-align: left; color: #fff; background: rgba(255, 255, 255, .08); border: 2px solid transparent; border-radius: 8px; cursor: default; }
+.snow .ov-card { height: auto; min-width: 0; font: inherit; font-size: 12px; box-shadow: none; text-shadow: 0 1px 2px rgba(0, 0, 0, .6); }
+.ov-card[aria-current="true"] { border-color: var(--snow-sel-1); background: rgba(255, 255, 255, .16); }
+.ov-card:hover, .ov-card:focus-visible { background: rgba(255, 255, 255, .2); outline: none; }
+.ov-card:focus-visible { border-color: #fff; }
+.thumb { align-self: stretch; width: 100%; height: 108px; display: flex; flex-direction: column; overflow: hidden; background: #fff; border: 1px solid rgba(0, 0, 0, .5); border-radius: 3px; box-shadow: 0 3px 8px rgba(0, 0, 0, .5); }
+.thumb i { display: block; height: 18px; background: linear-gradient(rgba(255, 255, 255, .35), transparent), var(--c, #888); }
+.thumb b { display: block; height: 7px; margin: 7px 10px 0; background: #d8d8d8; border-radius: 4px; }
+.thumb b:nth-child(3) { width: 60%; } .thumb b:nth-child(5) { width: 75%; } .thumb b:nth-child(6) { width: 45%; }
+.ov-card .tt { width: 100%; overflow: hidden; display: flex; align-items: center; gap: 6px; min-width: 0; }
+.ov-card .tt span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.snow .ov-card .cl { position: absolute; top: 2px; right: 2px; min-width: 0; width: 20px; height: 20px; padding: 0; border-radius: 50%; font-size: 13px; line-height: 1; color: #fff; background: rgba(0, 0, 0, .6); border: 1px solid rgba(255, 255, 255, .5); }
+
+/* Downloads panel */
+.downloads { position: absolute; z-index: 15; right: 12px; bottom: 12px; width: min(340px, calc(100% - 24px)); max-height: 60%; display: flex; flex-direction: column; }
+.downloads[hidden] { display: none; }
+.downloads .window-body { padding: 6px; background: #ececec; overflow: auto; }
+.dl { padding: 6px 8px; font-size: 12px; background: #fff; border: 1px solid #b4b4b4; border-radius: 4px; margin-bottom: 6px; }
+.dl:last-child { margin-bottom: 0; }
+.dl .row { display: flex; align-items: center; gap: 8px; }
+.dl .nm { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700; }
+.dl .meta { margin-top: 3px; color: #666; font-size: 11px; }
+.dl .progress-bar { width: 100%; margin-top: 4px; }
+.snow .dl button { min-width: 0; height: 19px; padding: 0 8px; font-size: 11px; }
+.empty-dl { padding: 14px; text-align: center; color: #666; font-size: 12px; }
+
+/* Simulated pages */
+.sim { color: #1a1a1a; font: 15px/1.55 "Lucida Grande", "Lucida Sans Unicode", "DejaVu Sans", Verdana, sans-serif; }
+.sim .pgcol { max-width: 780px; margin: 0 auto; padding: 26px 24px 60px; }
+.sim h1 { margin: 0 0 8px; font-size: 30px; line-height: 1.2; }
+.sim h2 { margin: 22px 0 6px; font-size: 20px; }
+.sim p { margin: 0 0 12px; }
+.sim a { color: #0b5fc4; }
+.sim .muted { color: #666; font-size: 13px; }
+.sim code, .sim pre { font: 13px Menlo, Monaco, Consolas, "DejaVu Sans Mono", monospace; }
+.sim pre { padding: 10px 12px; overflow-x: auto; background: #f4f6f8; border: 1px solid #d0d5da; border-radius: 4px; }
+.sim code { padding: 0 4px; background: #f0f0f0; border-radius: 3px; }
+.sim .masthead { padding: 14px 24px; color: #fff; background: linear-gradient(#444, #1d1d1d); }
+.sim .masthead b { font: 700 24px Georgia, serif; letter-spacing: .02em; }
+.sim .masthead a { color: #fff; text-decoration: none; }
+.sim .img { height: 160px; margin: 0 0 14px; border-radius: 4px; background: linear-gradient(135deg, #6fa6e0, #3877c8 50%, #1f3a7a); }
+.sim .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin: 14px 0; }
+.sim .cards a { display: block; padding: 12px; color: inherit; text-decoration: none; background: #f6f7f9; border: 1px solid #d4d8de; border-radius: 6px; }
+.sim .cards a:hover { border-color: var(--snow-sel-2); background: #eef4fc; }
+.sim .cards b { display: block; color: #0b5fc4; }
+.sim .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 14px; margin-top: 12px; }
+.sim .tiles a { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 8px; text-align: center; text-decoration: none; color: #222; font-size: 12px; border-radius: 8px; }
+.sim .tiles a:hover { background: #eef2f7; }
+.sim .tiles .fav { width: 40px; height: 40px; font-size: 20px; border-radius: 9px; }
+.sim form.row { display: flex; gap: 8px; margin: 14px 0; }
+.sim form.row input { flex: 1; font-size: 14px; height: 28px; }
+.sim .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+.sim .brand svg { width: 52px; height: 52px; color: #2f66b5; }
+.sim .err { text-align: center; padding-top: 50px; }
+.sim .err svg { width: 80px; height: 80px; }
+.sim .err h1 { font-size: 24px; }
+.sim .err .row { display: flex; justify-content: center; gap: 10px; margin: 16px 0; }
+.sim .err details { max-width: 520px; margin: 14px auto; text-align: left; font-size: 13px; }
+.sim .login { max-width: 340px; margin: 30px auto; padding: 20px; background: linear-gradient(#fafafa, #ececec); border: 1px solid #b4b4b4; border-radius: 8px; box-shadow: 0 1px 3px rgba(0, 0, 0, .2); }
+.sim .login label { display: block; margin: 8px 0 3px; font-size: 12px; font-weight: 700; }
+.sim .login input { width: 100%; }
+.sim .login button { margin-top: 14px; }
+mark.hit { background: #fff3a3; color: inherit; padding: 0; }
+mark.hit.cur { background: #ff9d3a; }
+
+@media (max-width: 760px) {
+  .stage { width: 100%; padding-top: 30px; }
+  .window.browser { height: calc(100dvh - 30px); border-radius: 0; }
+  .snow-toolbar .aqua-search-field, .snow-toolbar .home { display: none; }
+  .snow-doctabs [role="tab"] { min-width: 72px; }
+  .hide-sm { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .loc .prog { transition: none; } .snow-doctabs [role="tab"] .spin { animation: none; } }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="gWarn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe98a"/><stop offset="1" stop-color="#f0a818"/></linearGradient>
+    <linearGradient id="gBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ccdf5"/><stop offset="1" stop-color="#3877c8"/></linearGradient>
+    <linearGradient id="gBack" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5d9bd8"/><stop offset="1" stop-color="#3c78b8"/></linearGradient>
+  </defs>
+  <symbol id="i-snow" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M12 2v20M3.3 7l17.4 10M3.3 17 20.7 7"/><path d="M9.5 3.8 12 6.2l2.5-2.4M9.5 20.2 12 17.8l2.5 2.4"/></g></symbol>
+  <symbol id="i-compass" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="url(#gBlue)" stroke="#2c61ab" stroke-width="2"/><circle cx="24" cy="24" r="15" fill="#fff" fill-opacity=".92" stroke="#2c61ab" stroke-width="1"/><path d="m32 16-6 11-11 5 6-11z" fill="#e5473b" stroke="#fff" stroke-width="1" stroke-linejoin="round"/><path d="m32 16-4.500 8.200-2.200-2.200z" fill="#2c61ab"/><circle cx="24" cy="24" r="2" fill="#fff"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.500" fill="url(#gBlue)" stroke="#2c61ab"/><path d="M1.800 8h12.400M8 1.500c-3 3-3 10 0 13M8 1.500c3 3 3 10 0 13" fill="none" stroke="#fff" stroke-opacity=".85"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 16 16"><rect x="3" y="7" width="10" height="7.500" rx="1.500" fill="#e7b73a" stroke="#8a6a10"/><path d="M5.200 7V5a2.800 2.800 0 0 1 5.600 0v2" fill="none" stroke="#6f6f6f" stroke-width="1.600"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.400"><rect x="2" y="2.500" width="5" height="4.500"/><rect x="9" y="2.500" width="5" height="4.500"/><rect x="2" y="9" width="5" height="4.500"/><rect x="9" y="9" width="5" height="4.500"/></g></symbol>
+  <symbol id="i-back" viewBox="0 0 16 16"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-fwd" viewBox="0 0 16 16"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-reload" viewBox="0 0 16 16"><path d="M13 8a5 5 0 1 1-1.500-3.500M13 2.500v3h-3" fill="none" stroke="currentColor" stroke-width="1.800"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 16 16"><path d="m4 4 8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-home" viewBox="0 0 16 16"><path d="M2 8 8 2.500 14 8M4 7v6.500h8V7" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linejoin="round"/></symbol>
+  <symbol id="i-caution" viewBox="0 0 64 64"><path d="M32 6 61 57H3z" fill="url(#gWarn)" stroke="#9a6a08" stroke-width="2.500" stroke-linejoin="round"/><path d="M32 24v17" stroke="#5a3d00" stroke-width="5" stroke-linecap="round"/><circle cx="32" cy="48" r="3" fill="#5a3d00"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 48 48"><path d="M4 12a3 3 0 0 1 3-3h10l4 4h20a3 3 0 0 1 3 3v22a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z" fill="url(#gBack)"/><path d="M4 19a3 3 0 0 1 3-3h34a3 3 0 0 1 3 3v18a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z" fill="url(#gBlue)" stroke="#3a76b4" stroke-width=".8"/></symbol>
+</svg>
+
+<div class="snow snow-desktop" id="root" data-aqua-era="10-6">
+  <div class="snow-ribbon" style="left:-10%;top:14%;width:80%;height:90px;background:linear-gradient(90deg,transparent,#6aa8ff,transparent);transform:rotate(-14deg)"></div>
+  <div class="snow-ribbon" style="right:-15%;top:46%;width:85%;height:70px;background:linear-gradient(90deg,transparent,#b068f0,transparent);transform:rotate(9deg)"></div>
+
+  <nav class="menu-bar" aria-label="Menu bar">
+    <ul id="menus">
+      <li><span class="menu-title menu-apple" aria-label="snow.css"><svg viewBox="0 0 24 24"><use href="#i-snow"/></svg></span></li>
+      <li class="active"><span class="menu-title" tabindex="0">Compass</span>
+        <ul class="menu-dropdown">
+          <li data-cmd="about" tabindex="0">About Compass</li><li class="separator"></li>
+          <li data-cmd="prefs" tabindex="0">Preferences…<span class="shortcut">⌘,</span></li><li class="separator"></li>
+          <li data-cmd="quit" tabindex="0">Quit Compass<span class="shortcut">⌘Q</span></li>
+        </ul></li>
+      <li><span class="menu-title" tabindex="0">File</span>
+        <ul class="menu-dropdown">
+          <li data-cmd="newtab" tabindex="0">New Tab<span class="shortcut">⌥T</span></li>
+          <li data-cmd="closetab" tabindex="0">Close Tab<span class="shortcut">⌥W</span></li>
+          <li data-cmd="reopen" tabindex="0">Reopen Closed Tab<span class="shortcut">⌥⇧T</span></li><li class="separator"></li>
+          <li data-cmd="locate" tabindex="0">Open Location…<span class="shortcut">⌥L</span></li>
+          <li data-cmd="restore" id="m-restore" tabindex="0">Restore Previous Session</li><li class="separator"></li>
+          <li data-cmd="savepage" tabindex="0">Save Page As…</li>
+        </ul></li>
+      <li><span class="menu-title" tabindex="0">View</span>
+        <ul class="menu-dropdown">
+          <li data-cmd="reload" tabindex="0">Reload Page<span class="shortcut">⌥R</span></li>
+          <li data-cmd="stop" tabindex="0">Stop<span class="shortcut">⌥.</span></li><li class="separator"></li>
+          <li data-cmd="zoomin" tabindex="0">Make Text Bigger<span class="shortcut">⌥+</span></li>
+          <li data-cmd="zoomout" tabindex="0">Make Text Smaller<span class="shortcut">⌥−</span></li>
+          <li data-cmd="zoom0" tabindex="0">Actual Size<span class="shortcut">⌥0</span></li><li class="separator"></li>
+          <li data-cmd="overview" tabindex="0">Show Tab Overview<span class="shortcut">⌥O</span></li>
+          <li data-cmd="find" tabindex="0">Find in Page<span class="shortcut">⌥F</span></li><li class="separator"></li>
+          <li data-cmd="togglebar" id="m-bar" tabindex="0">Hide Bookmark Bar</li>
+          <li data-cmd="togglestatus" id="m-status" tabindex="0">Hide Status Bar</li>
+        </ul></li>
+      <li><span class="menu-title" tabindex="0">History</span>
+        <ul class="menu-dropdown" id="menu-history"></ul></li>
+      <li><span class="menu-title" tabindex="0">Bookmarks</span>
+        <ul class="menu-dropdown" id="menu-bm"></ul></li>
+      <li><span class="menu-title" tabindex="0">Window</span>
+        <ul class="menu-dropdown">
+          <li data-cmd="downloads" tabindex="0">Downloads<span class="shortcut">⌥J</span></li><li class="separator"></li>
+          <li data-cmd="appearance" tabindex="0">Switch Blue / Graphite</li>
+        </ul></li>
+      <li><span class="menu-title" tabindex="0">Help</span>
+        <ul class="menu-dropdown">
+          <li data-cmd="help" tabindex="0">Keyboard Shortcuts</li>
+          <li data-cmd="try" tabindex="0">Try the Test Pages</li>
+        </ul></li>
+    </ul>
+    <div class="menu-bar-status"><span class="menu-bar-clock" id="clock"></span></div>
+  </nav>
+
+  <div class="snow-toasts" id="toasts" aria-live="polite"></div>
+
+  <main class="stage">
+    <section class="window browser" id="win" aria-label="Compass browser window">
+      <div class="snow-chrome">
+        <div class="title-bar">
+          <div class="title-bar-controls"><button aria-label="Close" data-cmd="closetab"></button><button aria-label="Minimize" data-cmd="mini"></button><button aria-label="Zoom" data-cmd="zoomwin"></button></div>
+          <div class="title-bar-text" id="wtitle">Compass</div>
+        </div>
+        <div class="snow-toolbar" role="toolbar" aria-label="Browser">
+          <div class="snow-seg" role="group" aria-label="History">
+            <button class="tb" id="b-back" aria-label="Back" data-cmd="back" disabled><svg viewBox="0 0 16 16"><use href="#i-back"/></svg></button>
+            <button class="tb" id="b-fwd" aria-label="Forward" data-cmd="forward" disabled><svg viewBox="0 0 16 16"><use href="#i-fwd"/></svg></button>
+          </div>
+          <button class="tb" id="b-reload" aria-label="Reload" data-cmd="reload"><svg viewBox="0 0 16 16"><use href="#i-reload"/></svg></button>
+          <button class="tb home" aria-label="Home" data-cmd="home"><svg viewBox="0 0 16 16"><use href="#i-home"/></svg></button>
+          <div class="loc" id="loc">
+            <div class="prog done" id="prog"></div>
+            <span class="ic" id="loc-ic" draggable="true" title="Drag to the bookmark bar to add a bookmark"><svg viewBox="0 0 16 16" id="loc-svg"><use href="#i-globe"/></svg></span>
+            <input type="text" id="url" role="combobox" aria-expanded="false" aria-controls="suggest" aria-autocomplete="list" aria-label="Location" autocomplete="off" autocapitalize="off" spellcheck="false">
+            <button class="star" id="star" aria-label="Bookmark this page" aria-pressed="false" data-cmd="bookmark">★</button>
+            <ul class="suggest" id="suggest" role="listbox" hidden></ul>
+          </div>
+          <input type="search" class="aqua-search-field" id="q" placeholder="Search" aria-label="Search the web">
+        </div>
+      </div>
+
+      <div class="snow-sheetwrap page-area" id="sheetwrap">
+        <div class="bookbar" id="bookbar" role="toolbar" aria-label="Bookmarks"></div>
+        <div class="tabbar">
+          <div class="snow-doctabs" role="tablist" aria-label="Open pages" id="tabs"></div>
+          <button class="ov" id="b-ov" aria-label="Show tab overview" data-cmd="overview" data-tip="Tab overview"><svg viewBox="0 0 16 16"><use href="#i-grid"/></svg></button>
+        </div>
+        <div class="snow-banner warn popbar" id="popbar" role="status" hidden>
+          <div><b>Pop-up blocked</b><span id="pop-t">Compass blocked a pop-up window.</span></div>
+          <button id="pop-allow">Show</button><button id="pop-x">Dismiss</button>
+        </div>
+        <div class="viewport" id="viewport">
+          <div class="overview" id="overview" role="dialog" aria-modal="true" aria-label="Tab overview" hidden>
+            <header><h2>Tab overview</h2><button id="ov-new">New tab</button><button id="ov-done" class="default">Done</button></header>
+            <div class="ov-grid" id="ov-grid"></div>
+          </div>
+          <section class="window downloads" id="dlwin" aria-label="Downloads" hidden>
+            <div class="snow-chrome"><div class="title-bar">
+              <div class="title-bar-controls"><button aria-label="Close" id="dl-x"></button><button aria-label="Minimize" tabindex="-1"></button><button aria-label="Zoom" tabindex="-1"></button></div>
+              <div class="title-bar-text">Downloads</div></div></div>
+            <div class="window-body" id="dl-list"></div>
+          </section>
+        </div>
+        <div class="findbar" id="findbar" role="search" aria-label="Find in page" hidden>
+          <button class="x" id="f-x" aria-label="Close find bar">×</button>
+          <label for="f-q" class="sr-only">Find</label>
+          <input type="search" class="aqua-search-field" id="f-q" placeholder="Find in page" autocomplete="off" style="width:200px">
+          <button id="f-prev" aria-label="Previous match">‹</button><button id="f-next" aria-label="Next match">›</button>
+          <span class="msg" id="f-msg" role="status"></span><span class="spacer"></span>
+        </div>
+        <div class="snow-status" id="status"><span class="st" id="st">Done</span><span id="zoomst"></span></div>
+
+        <div class="snow-scrim"></div>
+        <div class="snow-sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-t">
+          <h3 id="sheet-t"></h3><p id="sheet-p" style="margin:0;font-size:12px;line-height:1.45"></p>
+          <div class="btns" id="sheet-b"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  var root = $('#root'), viewport = $('#viewport'), urlIn = $('#url');
+
+  /* ---------- Toasts (Growl-style) ---------- */
+  var GLYPH = { info: 'i', success: '✓', warn: '!', error: '×' };
+  function toast(kind, title, msg) {
+    var el = document.createElement('div'); el.className = 'snow-hud ' + kind; el.setAttribute('role', kind === 'error' ? 'alert' : 'status');
+    el.innerHTML = '<span class="ico" aria-hidden="true">' + GLYPH[kind] + '</span><div><h4></h4><p></p></div><button class="x" aria-label="Dismiss">×</button>';
+    $('h4', el).textContent = title; $('p', el).textContent = msg;
+    function close() { if (el.parentNode) { el.classList.add('is-out'); setTimeout(function () { el.remove(); }, 220); } }
+    $('.x', el).addEventListener('click', close); $('#toasts').appendChild(el); setTimeout(close, 4500);
+  }
+  function tick() { var n = new Date(); $('#clock').textContent = n.toLocaleDateString(undefined, { weekday: 'short' }) + ' ' + n.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' }); }
+  tick(); setInterval(tick, 20000);
+
+  /* ---------- Sites ---------- */
+  var SITES = {
+    'northwind.example': { t: 'Northwind: plan, track, and ship work together', kind: 'iframe', src: 'saas.html', c: '#2f66b5', l: 'N' },
+    'patterns.example': { t: 'snow.css web patterns', kind: 'iframe', src: 'web-patterns.html', c: '#8a4fc2', l: 'P' },
+    'finder.example': { t: 'Finder simulator', kind: 'iframe', src: 'finder.html', c: '#3877c8', l: 'F' },
+    'news.example': { t: 'The Morning Ledger', kind: 'sim', c: '#555', l: 'M' },
+    'docs.example': { t: 'snow.css documentation', kind: 'sim', c: '#2a8a28', l: 'D' },
+    'login.example': { t: 'Sign in · Northwind account', kind: 'sim', c: '#c46a22', l: 'A' },
+    'popups.example': { t: 'Pop-up blocker test', kind: 'sim', c: '#d1475f', l: '!' },
+    'studio-mac.local': { t: 'Studio wiki (Bonjour)', kind: 'sim', c: '#2a9c8c', l: 'S' },
+    'files.example': { t: 'Downloads', kind: 'download', c: '#777', l: '↓' },
+    'expired.example': { t: 'Expired certificate test', kind: 'cert', c: '#b4231a', l: 'X' }
+  };
+  var ARTICLES = {
+    '/article/1': ['City opens its first quiet street', 'Cars give way to cyclists and cafés on a six-block pilot.'],
+    '/article/2': ['The long read: how a small team shipped a big idea', 'Six people, nine months, and a lot of whiteboards.'],
+    '/article/3': ['Weekend weather: clearing by Saturday', 'Cooler air arrives with a bright, breezy finish to the week.']
+  };
+
+  function normalize(input) {
+    var v = String(input || '').trim();
+    if (!v) return '';
+    if (/^compass:\/\//i.test(v)) return v.toLowerCase().replace(/\/$/, '');
+    if (/\s/.test(v) || (v.indexOf('.') < 0 && !/^localhost/.test(v))) return 'compass://search?q=' + encodeURIComponent(v);
+    v = v.replace(/^https?:\/\//i, '').replace(/#.*$/, '');
+    var m = v.match(/^([^\/?]+)(.*)$/); var host = m[1].toLowerCase(), rest = m[2].replace(/\/+$/, '');
+    return host + rest;
+  }
+  function resolve(url) {
+    if (url === 'compass://start') return { kind: 'start', t: 'Start page', c: '#3877c8', l: '⌂', host: 'compass://start', path: '' };
+    if (/^compass:\/\/search/.test(url)) { var q = decodeURIComponent((url.split('q=')[1] || '')); return { kind: 'search', q: q, t: 'Search: ' + q, c: '#777', l: '?', host: 'compass://search', path: '' }; }
+    var m = url.match(/^([^\/?]+)([^?]*)/), host = m ? m[1] : url, path = m ? m[2] : '';
+    var s = SITES[host];
+    if (!s) return { kind: 'dns', t: 'Server not found', c: '#999', l: '!', host: host, path: path };
+    var r = { kind: s.kind, t: s.t, c: s.c, l: s.l, host: host, path: path, src: s.src };
+    if (host === 'news.example' && ARTICLES[path]) r.t = ARTICLES[path][0] + ' · The Morning Ledger';
+    if (host === 'login.example' && path === '/account') r.t = 'Your account · Northwind';
+    if (host === 'popups.example' && path === '/popup') { r.t = 'Pop-up window'; r.l = '↗'; }
+    if (host === 'expired.example' && excepted[host]) r.kind = 'sim';
+    return r;
+  }
+  function shown(url) { return /^compass:/.test(url) ? url : 'https://' + url + (url.indexOf('/') < 0 && url.indexOf('?') < 0 ? '/' : ''); }
+  function favHtml(rt, cls) { return rt.kind === 'start' ? '<svg class="fav ' + (cls || '') + '" viewBox="0 0 48 48" width="14" height="14" style="border:0;background:none"><use href="#i-compass"/></svg>' : '<i class="fav ' + (cls || '') + '" style="--c:' + rt.c + '">' + esc(rt.l) + '</i>'; }
+
+  /* ---------- State ---------- */
+  var tabs = [], active = null, closed = [], nextId = 1, excepted = {}, creds = null, zooms = [50, 67, 80, 90, 100, 110, 120, 133, 150, 170, 200], downloads = [], dlId = 0, session = null;
+  var bookmarks = [
+    { t: 'Start', u: 'compass://start' }, { t: 'Northwind', u: 'northwind.example' }, { t: 'Web patterns', u: 'patterns.example' }, { t: 'Finder', u: 'finder.example' },
+    { f: 'Reading', c: [{ t: 'The Morning Ledger', u: 'news.example' }, { t: 'The long read', u: 'news.example/article/2' }, { t: 'Documentation', u: 'docs.example' }] },
+    { f: 'Test pages', c: [{ t: 'Sign in (Keychain sheet)', u: 'login.example' }, { t: 'Pop-up blocker', u: 'popups.example' }, { t: 'Expired certificate', u: 'expired.example' }, { t: 'Download a file', u: 'files.example/report.pdf' }, { t: 'Missing server', u: 'nothing-here.example' }] },
+    { f: 'Bonjour', c: [{ t: 'Studio wiki (studio-mac.local)', u: 'studio-mac.local' }] }
+  ];
+  function flatBm(list, out) { (list || bookmarks).forEach(function (b) { if (b.f) flatBm(b.c, out); else out.push(b); }); return out; }
+  function isBm(u) { return flatBm(null, []).some(function (b) { return b.u === u; }); }
+  try { var raw = localStorage.getItem('compass.session'); if (raw) session = JSON.parse(raw); } catch (e) { session = null; }
+  function saveSession() { try { localStorage.setItem('compass.session', JSON.stringify({ urls: tabs.map(function (t) { return t.url; }), active: tabs.indexOf(active) })); } catch (e) {} }
+
+  /* ---------- Tabs ---------- */
+  function newTab(url, o) {
+    o = o || {}; var t = { id: nextId++, title: 'New Tab', url: '', hist: [], i: -1, el: null, zoom: 100, loading: false, prog: 0, timer: null, rt: resolve('compass://start'), pop: null };
+    var at = o.after ? tabs.indexOf(o.after) + 1 : tabs.length; tabs.splice(at, 0, t);
+    if (o.activate !== false) activate(t, true);
+    navigate(t, url || 'compass://start'); drawTabs(); return t;
+  }
+  function activate(t, noDraw) {
+    if (!t) return; active = t; closeFind(true);
+    tabs.forEach(function (x) { if (x.el) x.el.hidden = x !== t; });
+    chrome(); if (!noDraw) drawTabs(); saveSession();
+  }
+  function closeTab(t) {
+    var i = tabs.indexOf(t); if (i < 0) return;
+    closed.unshift({ url: t.url, title: t.title, hist: t.hist.slice(), i: t.i, c: t.rt.c, l: t.rt.l }); closed = closed.slice(0, 8);
+    cancelLoad(t); if (t.el) t.el.remove(); tabs.splice(i, 1);
+    if (!tabs.length) { newTab('compass://start'); drawMenus(); return; }
+    if (active === t) activate(tabs[Math.min(i, tabs.length - 1)], true);
+    drawTabs(); drawOverview(); drawMenus(); chrome(); saveSession();
+  }
+  function drawTabs() {
+    var h = tabs.map(function (t) {
+      var sel = t === active;
+      return '<div role="tab" id="tab' + t.id + '" aria-selected="' + sel + '" tabindex="' + (sel ? 0 : -1) + '" draggable="true" data-id="' + t.id + '">' +
+        (t.loading ? '<span class="spin" aria-hidden="true"></span>' : favHtml(t.rt)) + '<span class="t">' + esc(t.title) + '</span><button class="x" aria-label="Close ' + esc(t.title) + '" tabindex="-1" data-x="' + t.id + '">×</button></div>';
+    }).join('') + '<button class="add" aria-label="New tab" data-cmd="newtab">+</button>';
+    $('#tabs').innerHTML = h;
+    var s = $('[role=tab][aria-selected=true]', $('#tabs')); if (s && s.scrollIntoView) { var r = s.getBoundingClientRect(), p = $('#tabs').getBoundingClientRect(); if (r.left < p.left || r.right > p.right) $('#tabs').scrollLeft += (r.left < p.left ? r.left - p.left : r.right - p.right); }
+  }
+  function byId(id) { for (var i = 0; i < tabs.length; i++) if (tabs[i].id === +id) return tabs[i]; }
+  $('#tabs').addEventListener('click', function (e) {
+    var x = e.target.closest('[data-x]'), t = e.target.closest('[role=tab]');
+    if (x) { e.stopPropagation(); closeTab(byId(x.getAttribute('data-x'))); return; }
+    if (t) activate(byId(t.getAttribute('data-id')));
+  });
+  $('#tabs').addEventListener('auxclick', function (e) { var t = e.target.closest('[role=tab]'); if (t && e.button === 1) { e.preventDefault(); closeTab(byId(t.getAttribute('data-id'))); } });
+  $('#tabs').addEventListener('dblclick', function (e) { if (e.target === $('#tabs')) newTab(); });
+  $('#tabs').addEventListener('keydown', function (e) {
+    var t = e.target.closest('[role=tab]'); if (!t) return; var i = tabs.indexOf(byId(t.getAttribute('data-id')));
+    var go = function (j) { activate(tabs[(j + tabs.length) % tabs.length]); var n = $('[role=tab][aria-selected=true]', $('#tabs')); if (n) n.focus(); };
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(i + 1); } else if (e.key === 'ArrowLeft') { e.preventDefault(); go(i - 1); }
+    else if (e.key === 'Home') { e.preventDefault(); go(0); } else if (e.key === 'End') { e.preventDefault(); go(tabs.length - 1); }
+    else if (e.key === 'Delete' || e.key === 'Backspace') { e.preventDefault(); closeTab(byId(t.getAttribute('data-id'))); var n2 = $('[role=tab][aria-selected=true]', $('#tabs')); if (n2) n2.focus(); }
+  });
+  // Drag to reorder (and drag to the bookmark bar)
+  var dragTab = null;
+  $('#tabs').addEventListener('dragstart', function (e) {
+    var t = e.target.closest('[role=tab]'); if (!t) return; dragTab = byId(t.getAttribute('data-id')); t.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'copyMove'; e.dataTransfer.setData('text/x-compass-tab', String(dragTab.id)); e.dataTransfer.setData('text/plain', dragTab.url);
+  });
+  $('#tabs').addEventListener('dragover', function (e) {
+    if (!dragTab) return; e.preventDefault(); e.dataTransfer.dropEffect = 'move';
+    var over = e.target.closest('[role=tab]'); $$('[role=tab]', $('#tabs')).forEach(function (x) { x.classList.remove('drop-before'); }); if (over && over.getAttribute('data-id') !== String(dragTab.id)) over.classList.add('drop-before');
+  });
+  $('#tabs').addEventListener('drop', function (e) {
+    if (!dragTab) return; e.preventDefault(); var over = e.target.closest('[role=tab]'), from = tabs.indexOf(dragTab);
+    tabs.splice(from, 1); var to = over ? tabs.indexOf(byId(over.getAttribute('data-id'))) : tabs.length; tabs.splice(to < 0 ? tabs.length : to, 0, dragTab); dragTab = null; drawTabs(); drawOverview(); saveSession();
+  });
+  $('#tabs').addEventListener('dragend', function () { dragTab = null; $$('[role=tab]', $('#tabs')).forEach(function (x) { x.classList.remove('dragging', 'drop-before'); }); });
+
+  /* ---------- Loading and navigation ---------- */
+  function cancelLoad(t) { if (t.timer) { clearInterval(t.timer.iv); clearTimeout(t.timer.to); t.timer = null; } t.loading = false; t.prog = 0; }
+  function navigate(t, input, o) {
+    o = o || {}; var url = normalize(input); if (!url) return;
+    var rt = resolve(url);
+    if (rt.kind === 'download') { startDownload(rt.path.replace(/^\//, '') || 'download.bin'); return; }
+    cancelLoad(t); closeFind(true); hidePop(t); statusOverride = null;
+    if (o.push !== false) { t.hist = t.hist.slice(0, t.i + 1); t.hist.push(url); t.i = t.hist.length - 1; }
+    t.url = url; t.rt = rt; t.title = rt.kind === 'start' ? 'Start page' : rt.t; t.loading = true; t.prog = 0.08;
+    mount(t, rt);
+    var dur = reduce ? 0 : (rt.kind === 'iframe' ? 700 : rt.kind === 'dns' ? 900 : 380), t0 = Date.now();
+    var iv = setInterval(function () { t.prog = Math.min(0.9, t.prog + (0.95 - t.prog) * 0.22); if (t === active) chrome(); }, 60);
+    var finish = function () { if (!t.timer) return; clearInterval(t.timer.iv); clearTimeout(t.timer.to); t.timer = null; t.loading = false; t.prog = 1; if (t === active) chrome(); drawTabs(); drawOverview(); saveSession(); setTimeout(function () { if (!t.loading) { t.prog = 0; if (t === active) chrome(); } }, 260); };
+    t.timer = { iv: iv, finish: finish };
+    var wait = function () { var ready = Date.now() - t0 >= dur && (rt.kind !== 'iframe' || t.loaded || Date.now() - t0 > 4000); if (ready) finish(); else if (t.timer) t.timer.to = setTimeout(wait, 80); };
+    if (rt.kind === 'iframe' && t.el) t.el.addEventListener('load', function () { t.loaded = true; });
+    if (dur === 0) finish(); else t.timer.to = setTimeout(wait, dur);
+    if (t === active) chrome(); drawTabs(); drawMenus();
+  }
+  function mount(t, rt) {
+    if (t.el) t.el.remove(); t.loaded = false; var el;
+    if (rt.kind === 'iframe') { el = document.createElement('iframe'); el.className = 'pg'; el.title = rt.t; el.setAttribute('src', rt.src); }
+    else { el = document.createElement('div'); el.className = 'pg sim'; el.innerHTML = page(rt, t); }
+    el.hidden = t !== active; el.style.zoom = t.zoom / 100; viewport.insertBefore(el, $('#overview')); t.el = el;
+    if (t.pop && t === active) showPop(t);
+  }
+
+  /* ---------- Simulated pages ---------- */
+  function A(u, text, extra) { return '<a href="#" data-go="' + esc(u) + '"' + (extra || '') + '>' + text + '</a>'; }
+  function page(rt, t) {
+    var h = rt.host, p = rt.path;
+    if (rt.kind === 'start') {
+      var tiles = flatBm(null, []).slice(0, 12).map(function (b) { var r = resolve(normalize(b.u)); return A(b.u, favHtml(r) + '<span>' + esc(b.t) + '</span>'); }).join('');
+      return '<div class="pgcol"><div class="brand"><svg viewBox="0 0 48 48"><use href="#i-compass"/></svg><div><h1 style="margin:0">Compass</h1><div class="muted">A simulated browser, inspired by Camino</div></div></div>' +
+        '<form class="row" data-search><input type="search" class="aqua-search-field" placeholder="Search or enter a web address" aria-label="Search or enter a web address"><button class="default" type="submit">Go</button></form>' +
+        '<h2>Bookmarks</h2><div class="tiles">' + tiles + '</div>' +
+        '<h2>Try this</h2><p class="muted">Drag a tab to reorder it. Press <code>Option-O</code> for the tab overview, <code>Option-F</code> to find text, and visit the <b>Test pages</b> folder for a Keychain sheet, a pop-up blocker, downloads, and error pages.</p></div>';
+    }
+    if (rt.kind === 'search') {
+      var words = rt.q.toLowerCase().split(/\s+/), hits = flatBm(null, []).filter(function (b) { return words.some(function (w) { return (b.t + ' ' + b.u).toLowerCase().indexOf(w) > -1; }); });
+      return '<div class="pgcol"><h1>Results for “' + esc(rt.q) + '”</h1><p class="muted">This is a simulated search. Results come from your bookmarks.</p>' +
+        (hits.length ? '<div class="cards">' + hits.map(function (b) { return A(b.u, '<b>' + esc(b.t) + '</b>' + esc(shown(normalize(b.u))), ''); }).join('') + '</div>' : '<p>No results. Try a word from a bookmark, like “news” or “patterns”.</p>') + '</div>';
+    }
+    if (rt.kind === 'dns') return '<div class="pgcol err"><svg viewBox="0 0 64 64"><use href="#i-caution"/></svg><h1>Compass can’t find the server</h1><p>The server at <b>' + esc(h) + '</b> could not be found.</p>' +
+      '<ul style="display:inline-block;text-align:left"><li>Check the address for typing errors.</li><li>Check that your network connection is working.</li></ul><div class="row"><button data-retry>Try Again</button>' + '<button class="default" data-home>Go to the Start Page</button></div></div>';
+    if (rt.kind === 'cert') return '<div class="pgcol err"><svg viewBox="0 0 64 64"><use href="#i-caution"/></svg><h1>This connection is untrusted</h1><p>You asked Compass to connect securely to <b>' + esc(h) + '</b>, but its certificate expired last month.</p>' +
+      '<div class="row"><button class="default" data-home>Get me out of here</button></div><details><summary>I understand the risks</summary><p style="margin-top:8px">Adding an exception tells Compass to trust this site anyway. Only do this for sites you know.</p><button data-except="' + esc(h) + '">Add Exception…</button></details></div>';
+    if (h === 'news.example') {
+      var back = A('news.example', '← Front page');
+      if (ARTICLES[p]) return '<div class="masthead"><b>' + A('news.example', 'The Morning Ledger') + '</b></div><div class="pgcol"><p class="muted">' + back + '</p><h1>' + esc(ARTICLES[p][0]) + '</h1><p class="muted">By Sam Rivera · 4 min read</p><div class="img"></div><p>' + esc(ARTICLES[p][1]) + '</p>' +
+        '<p>Residents say the change was louder in the planning meetings than on the street itself. By mid-morning the first cafés had moved tables onto the pavement, and children chalked a hopscotch grid across what used to be a lane of traffic.</p><p>City staff plan to count visitors for three months before deciding whether to make the pilot permanent. Early numbers, they say, are “encouraging, with caveats about the weather.”</p><h2>What happens next</h2><p>A public review is scheduled for the spring. Until then, deliveries will use side streets between 6 and 9 in the morning.</p><p>' + A('news.example/article/' + (p === '/article/1' ? 2 : 1), 'Read the next story →') + '</p></div>';
+      return '<div class="masthead"><b>The Morning Ledger</b></div><div class="pgcol"><h1>Today’s stories</h1><p class="muted">All names and events are fictional.</p><div class="img"></div><div class="cards">' +
+        Object.keys(ARTICLES).map(function (k) { return A('news.example' + k, '<b>' + esc(ARTICLES[k][0]) + '</b>' + esc(ARTICLES[k][1])); }).join('') + '</div></div>';
+    }
+    if (h === 'docs.example') return '<div class="pgcol"><h1>snow.css documentation</h1><p class="muted">Version 0.1.0 · MIT license</p><p>snow.css is a Mac OS X 10.6 layer for the web, built on aqua.css. Wrap your UI in an element with the <code>snow</code> class and the 10.6 era attribute.</p><pre>&lt;div class="snow" data-aqua-era="10-6"&gt;\n  &lt;section class="window"&gt; … &lt;/section&gt;\n&lt;/div&gt;</pre>' +
+      '<p>' + A('files.example/snow-css.zip', 'Download snow-css.zip') + ' (a simulated download)</p><h2>Windows and chrome</h2><p>The unified title bar and toolbar use a gray gradient with a dark bottom edge. Traffic lights sit at the left, and the toolbar holds segmented buttons and a search field.</p><h2>Tabs</h2><p>Document tabs reorder by dragging. The selected tab joins the page below it with no bottom border, and each tab has a close button that appears on hover.</p><h2>Find in page</h2><p>Press <code>⌥F</code> to open the find bar. Matches are highlighted in yellow and the current match is orange. The word window appears several times on this page, and so does the word tabs.</p><h2>Appearance</h2><p>Blue is the default. Graphite swaps the selection gradient for a calm steel gray through CSS variables.</p><h2>Keyboard</h2><p>Every control is reachable with the keyboard, tabs use a roving tabindex, and focus rings follow the system look.</p><p>' + A('compass://start', 'Back to the start page') + '</p></div>';
+    if (h === 'login.example') {
+      if (p === '/account') return '<div class="pgcol"><h1>Welcome back' + (creds ? ', ' + esc(creds.user) : '') + '</h1><p>You are signed in to Northwind. This account page is only a demo.</p><p>' + A('login.example', 'Sign out') + '</p></div>';
+      return '<div class="login"><h1 style="font-size:20px">Sign in</h1><p class="muted" style="margin:0 0 6px">Northwind account (sample)</p><form data-login><label for="lu">Username</label><input type="text" id="lu" autocomplete="username" value="' + (creds ? esc(creds.user) : '') + '"><label for="lp">Password</label><input type="password" id="lp" autocomplete="current-password" value="' + (creds ? '••••••••' : '') + '"><button class="default" type="submit">Sign in</button></form><p class="muted" style="margin-top:12px">After you sign in, Compass offers to remember the password in a sheet, like the Keychain.</p></div>';
+    }
+    if (h === 'popups.example') {
+      if (p === '/popup') return '<div class="pgcol"><h1>This is the pop-up window</h1><p>Compass opened it in a tab because you chose Show.</p></div>';
+      return '<div class="pgcol"><h1>Pop-up blocker test</h1><p>Pages can try to open extra windows. Compass blocks them and tells you with a bar under the tabs.</p><p><button class="default" data-popup>Open a pop-up window</button></p></div>';
+    }
+    if (h === 'studio-mac.local') return '<div class="pgcol"><h1>Studio wiki</h1><p class="muted">Found over Bonjour on your local network</p><p>This simulated page lives on a Mac named studio-mac. Bonjour bookmarks let you browse shared pages without typing an address.</p><ul><li>Design notes</li><li>Launch checklist</li><li>Team calendar</li></ul></div>';
+    if (h === 'expired.example') return '<div class="pgcol"><h1>Expired certificate test</h1><p>You added an exception for this site, so Compass loaded it. The lock icon is missing on purpose.</p><p>' + A('compass://start', 'Back to the start page') + '</p></div>';
+    return '<div class="pgcol"><h1>' + esc(rt.t) + '</h1></div>';
+  }
+  viewport.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-go]'), t = active; if (!t) return;
+    if (el) { e.preventDefault(); var u = el.getAttribute('data-go'); if (e.metaKey || e.ctrlKey || e.shiftKey) newTab(u, { activate: false, after: t }); else navigate(t, u); return; }
+    if (e.target.closest('[data-retry]')) { navigate(t, t.url, { push: false }); return; }
+    if (e.target.closest('[data-home]')) { navigate(t, 'compass://start'); return; }
+    var ex = e.target.closest('[data-except]'); if (ex) { excepted[ex.getAttribute('data-except')] = true; toast('warn', 'Exception added', 'Compass will trust this site for the rest of the session.'); navigate(t, t.url, { push: false }); return; }
+    if (e.target.closest('[data-popup]')) { t.pop = 'popups.example'; showPop(t); return; }
+  });
+  viewport.addEventListener('submit', function (e) {
+    var t = active; if (e.target.closest('[data-search]')) { e.preventDefault(); var v = $('input', e.target).value; if (v.trim()) navigate(t, v); return; }
+    if (e.target.closest('[data-login]')) { e.preventDefault(); var user = $('#lu', t.el).value.trim() || 'ada'; if (creds && creds.user === user) { navigate(t, 'login.example/account'); return; }
+      sheet('Do you want Compass to remember the password for “' + user + '” on login.example?', 'The password is saved in your Keychain, so you can sign in without typing it. (This is a simulation. Nothing is stored.)',
+        [{ l: 'Never for This Site', cb: function () { navigate(t, 'login.example/account'); } }, { l: 'Not Now', cb: function () { navigate(t, 'login.example/account'); } }, { l: 'Remember Password', d: 1, cb: function () { creds = { user: user }; toast('success', 'Password saved', 'Saved to your Keychain for login.example.'); navigate(t, 'login.example/account'); } }]); }
+  });
+  viewport.addEventListener('mouseover', function (e) { var a = e.target.closest('[data-go]'); if (a) setStatus(shown(normalize(a.getAttribute('data-go')))); });
+  viewport.addEventListener('mouseout', function (e) { if (e.target.closest('[data-go]')) setStatus(null); });
+  viewport.addEventListener('dragstart', function (e) { var a = e.target.closest('[data-go]'); if (a) { var u = a.getAttribute('data-go'); e.dataTransfer.setData('text/x-compass-url', u); e.dataTransfer.setData('text/x-compass-title', a.textContent.trim()); e.dataTransfer.setData('text/plain', shown(normalize(u))); } });
+
+  /* ---------- Pop-up blocker ---------- */
+  function showPop(t) { $('#pop-t').textContent = ' Compass blocked a pop-up window from ' + t.pop + '.'; $('#popbar').hidden = false; }
+  function hidePop(t) { if (t) t.pop = null; $('#popbar').hidden = true; }
+  $('#pop-allow').addEventListener('click', function () { var t = active; hidePop(t); newTab('popups.example/popup', { after: t }); });
+  $('#pop-x').addEventListener('click', function () { hidePop(active); });
+
+  /* ---------- Chrome (toolbar, status, title) ---------- */
+  var statusOverride = null;
+  function setStatus(s) { statusOverride = s; chrome(); }
+  function chrome() {
+    var t = active; if (!t) return;
+    if (document.activeElement !== urlIn) urlIn.value = shown(t.url);
+    $('#b-back').disabled = t.i <= 0; $('#b-fwd').disabled = t.i >= t.hist.length - 1;
+    var rl = $('#b-reload'); rl.setAttribute('aria-label', t.loading ? 'Stop' : 'Reload'); rl.setAttribute('data-cmd', t.loading ? 'stop' : 'reload'); $('use', rl).setAttribute('href', t.loading ? '#i-stop' : '#i-reload');
+    var pr = $('#prog'); pr.style.width = Math.round(t.prog * 100) + '%'; pr.classList.toggle('done', !t.loading);
+    var secure = !/^compass:/.test(t.url) && t.rt.kind !== 'dns' && t.rt.kind !== 'cert' && t.rt.host !== 'expired.example';
+    $('use', $('#loc-svg')).setAttribute('href', secure && t.rt.kind !== 'start' ? '#i-lock' : '#i-globe');
+    var bm = isBm(t.url); $('#star').setAttribute('aria-pressed', bm); $('#star').setAttribute('aria-label', bm ? 'Remove bookmark' : 'Bookmark this page');
+    $('#wtitle').textContent = t.title === 'New Tab' ? 'Compass' : t.title; document.title = t.title + ' · Compass';
+    $('#st').textContent = statusOverride || (t.loading ? 'Loading ' + shown(t.url) + '…' : (t.rt.kind === 'dns' ? 'Server not found' : 'Done'));
+    $('#zoomst').textContent = t.zoom !== 100 ? 'Text size ' + t.zoom + '%' : '';
+    if (t.pop) showPop(t); else $('#popbar').hidden = true;
+  }
+
+  /* ---------- Location bar and suggestions ---------- */
+  var sug = [], sugI = -1;
+  function drawSuggest() {
+    var q = urlIn.value.trim().toLowerCase(), pool = [], seen = {};
+    flatBm(null, []).forEach(function (b) { pool.push({ t: b.t, u: normalize(b.u) }); });
+    tabs.forEach(function (t) { t.hist.forEach(function (u) { pool.push({ t: resolve(u).t, u: u }); }); });
+    sug = pool.filter(function (p) { if (seen[p.u] || p.u.indexOf('compass://') === 0) return false; seen[p.u] = 1; return q && (p.u.indexOf(q) > -1 || p.t.toLowerCase().indexOf(q) > -1); }).slice(0, 6);
+    sugI = -1; var ul = $('#suggest');
+    ul.innerHTML = sug.map(function (s, i) { var r = resolve(s.u); return '<li role="option" id="sg' + i + '" aria-selected="false" data-i="' + i + '">' + favHtml(r) + '<span>' + esc(s.t) + '</span><small>' + esc(s.u) + '</small></li>'; }).join('');
+    ul.hidden = !sug.length; urlIn.setAttribute('aria-expanded', !!sug.length);
+  }
+  function markSug() { $$('#suggest li').forEach(function (li, i) { li.setAttribute('aria-selected', i === sugI); }); if (sugI >= 0) urlIn.setAttribute('aria-activedescendant', 'sg' + sugI); else urlIn.removeAttribute('aria-activedescendant'); }
+  function closeSuggest() { $('#suggest').hidden = true; urlIn.setAttribute('aria-expanded', 'false'); sugI = -1; }
+  urlIn.addEventListener('focus', function () { urlIn.select(); });
+  urlIn.addEventListener('input', drawSuggest);
+  urlIn.addEventListener('blur', function () { setTimeout(function () { closeSuggest(); if (document.activeElement !== urlIn) chrome(); }, 120); });
+  urlIn.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowDown' && sug.length) { e.preventDefault(); sugI = (sugI + 1) % sug.length; markSug(); }
+    else if (e.key === 'ArrowUp' && sug.length) { e.preventDefault(); sugI = (sugI - 1 + sug.length) % sug.length; markSug(); }
+    else if (e.key === 'Enter') { e.preventDefault(); var v = sugI >= 0 ? sug[sugI].u : urlIn.value; closeSuggest(); navigate(active, v); urlIn.blur(); chrome(); }
+    else if (e.key === 'Escape') { closeSuggest(); urlIn.value = shown(active.url); urlIn.select(); }
+  });
+  $('#suggest').addEventListener('mousedown', function (e) { e.preventDefault(); var li = e.target.closest('li'); if (li) { var u = sug[+li.getAttribute('data-i')].u; closeSuggest(); navigate(active, u); urlIn.blur(); chrome(); } });
+  $('#q').addEventListener('keydown', function (e) { if (e.key === 'Enter' && this.value.trim()) { e.preventDefault(); navigate(active, 'compass://search?q=' + encodeURIComponent(this.value.trim())); this.value = ''; } });
+  $('#loc-ic').addEventListener('dragstart', function (e) { var t = active; e.dataTransfer.effectAllowed = 'copy'; e.dataTransfer.setData('text/x-compass-url', t.url); e.dataTransfer.setData('text/x-compass-title', t.title); e.dataTransfer.setData('text/plain', shown(t.url)); });
+
+  /* ---------- Bookmarks ---------- */
+  function addBookmark(u, title) { if (isBm(u)) { toast('info', 'Already bookmarked', title); return; } bookmarks.push({ t: title || u, u: u }); drawBookbar(); drawMenus(); chrome(); toast('success', 'Bookmark added', title || u); }
+  function removeBookmark(u, list) { list = list || bookmarks; for (var i = list.length - 1; i >= 0; i--) { if (list[i].f) removeBookmark(u, list[i].c); else if (list[i].u === u) list.splice(i, 1); } }
+  function drawBookbar() {
+    $('#bookbar').innerHTML = bookmarks.map(function (b, i) {
+      if (b.f) return '<span class="bmwrap"><button class="bm" aria-haspopup="menu" aria-expanded="false" data-f="' + i + '"><svg class="fav" viewBox="0 0 48 48" width="14" height="14" style="border:0;background:none"><use href="#i-folder"/></svg><span class="t">' + esc(b.f) + '</span> ▾</button><ul class="snow-menu" role="menu" hidden>' + b.c.map(function (c) { return '<li role="none"><button role="menuitem" data-u="' + esc(c.u) + '">' + esc(c.t) + '</button></li>'; }).join('') + '</ul></span>';
+      var r = resolve(normalize(b.u)); return '<button class="bm" data-u="' + esc(b.u) + '" title="' + esc(b.t) + '">' + favHtml(r) + '<span class="t">' + esc(b.t) + '</span></button>';
+    }).join('');
+  }
+  function closeFolders() { $$('#bookbar .snow-menu').forEach(function (m) { m.removeAttribute('data-open'); m.hidden = true; }); $$('#bookbar [data-f]').forEach(function (b) { b.setAttribute('aria-expanded', 'false'); }); }
+  $('#bookbar').addEventListener('click', function (e) {
+    var f = e.target.closest('[data-f]'), u = e.target.closest('[data-u]');
+    if (f) { var m = f.nextElementSibling, open = f.getAttribute('aria-expanded') !== 'true'; closeFolders(); if (open) { m.hidden = false; m.setAttribute('data-open', ''); f.setAttribute('aria-expanded', 'true'); var first = $('button', m); if (first) first.focus(); } e.stopPropagation(); return; }
+    if (u) { var url = u.getAttribute('data-u'); closeFolders(); if (e.metaKey || e.ctrlKey) newTab(url, { activate: false, after: active }); else navigate(active, url); }
+  });
+  $('#bookbar').addEventListener('auxclick', function (e) { var u = e.target.closest('[data-u]'); if (u && e.button === 1) { e.preventDefault(); newTab(u.getAttribute('data-u'), { activate: false, after: active }); } });
+  $('#bookbar').addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeFolders(); } var m = e.target.closest('.snow-menu'); if (m && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) { e.preventDefault(); var its = $$('button', m), i = its.indexOf(document.activeElement); its[(i + (e.key === 'ArrowDown' ? 1 : -1) + its.length) % its.length].focus(); } });
+  document.addEventListener('click', function (e) { if (!e.target.closest('.bmwrap')) closeFolders(); });
+  var bb = $('#bookbar');
+  bb.addEventListener('dragover', function (e) { var ty = Array.prototype.slice.call(e.dataTransfer.types || []); if (ty.indexOf('text/x-compass-url') > -1 || ty.indexOf('text/x-compass-tab') > -1) { e.preventDefault(); e.dataTransfer.dropEffect = 'copy'; bb.classList.add('drop'); } });
+  bb.addEventListener('dragleave', function () { bb.classList.remove('drop'); });
+  bb.addEventListener('drop', function (e) {
+    e.preventDefault(); bb.classList.remove('drop'); var tid = e.dataTransfer.getData('text/x-compass-tab'), u = e.dataTransfer.getData('text/x-compass-url'), title = e.dataTransfer.getData('text/x-compass-title');
+    if (tid) { var t = byId(tid); if (t) addBookmark(t.url, t.title); } else if (u) addBookmark(u, title || u);
+  });
+
+  /* ---------- Menus ---------- */
+  function drawMenus() {
+    var recent = closed.slice(0, 6).map(function (c, i) { return '<li data-cmd="reopenat" data-i="' + i + '" tabindex="0">' + esc(c.title) + '</li>'; }).join('') || '<li class="disabled">No recently closed pages</li>';
+    $('#menu-history').innerHTML = '<li data-cmd="back" tabindex="0">Back<span class="shortcut">⌥[</span></li><li data-cmd="forward" tabindex="0">Forward<span class="shortcut">⌥]</span></li><li data-cmd="home" tabindex="0">Home<span class="shortcut">⌥H</span></li><li class="separator"></li><li class="disabled">Recently Closed Pages</li>' + recent + '<li class="separator"></li><li data-cmd="clearhist" tabindex="0">Clear History</li>';
+    var items = flatBm(null, []).map(function (b) { return '<li data-cmd="openbm" data-u="' + esc(b.u) + '" tabindex="0">' + esc(b.t) + '</li>'; }).join('');
+    $('#menu-bm').innerHTML = '<li data-cmd="bookmark" tabindex="0">Bookmark This Page<span class="shortcut">⌥D</span></li><li data-cmd="bookmarkall" tabindex="0">Bookmark All Tabs…</li><li class="separator"></li>' + items;
+    $('#m-restore').classList.toggle('disabled', !(session && session.urls && session.urls.length));
+  }
+  $('#menus').addEventListener('click', function (e) { var li = e.target.closest('[data-cmd]'); if (li && !li.classList.contains('disabled')) { run(li.getAttribute('data-cmd'), li); if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); } });
+  $('#menus').addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { var li = e.target.closest('[data-cmd]'); if (li && !li.classList.contains('disabled')) { e.preventDefault(); run(li.getAttribute('data-cmd'), li); } } });
+
+  /* ---------- Find in page ---------- */
+  var hits = [], hitI = -1, fb = $('#findbar'), fq = $('#f-q'), fmsg = $('#f-msg');
+  function clearMarks() { if (!active || !active.el || active.el.tagName === 'IFRAME') return; $$('mark.hit', active.el).forEach(function (m) { var p = m.parentNode; p.replaceChild(document.createTextNode(m.textContent), m); p.normalize(); }); hits = []; hitI = -1; }
+  function openFind() { if (!active) return; fb.hidden = false; fq.focus(); fq.select(); if (fq.value) doFind(); }
+  function closeFind(quiet) { if (fb.hidden && quiet) return; clearMarks(); fb.hidden = true; fmsg.textContent = ''; fmsg.className = 'msg'; if (!quiet) { var t = $('[role=tab][aria-selected=true]', $('#tabs')); if (t) t.focus(); } }
+  function doFind(dir) {
+    var q = fq.value; fmsg.className = 'msg'; if (!active || !active.el) return;
+    if (active.el.tagName === 'IFRAME') { try { var ok = active.el.contentWindow.find(q, false, dir === -1); fmsg.textContent = ok ? '' : 'Phrase not found'; fmsg.className = 'msg' + (ok ? '' : ' bad'); } catch (e) { fmsg.textContent = 'Find isn’t available in embedded pages here'; fmsg.className = 'msg bad'; } return; }
+    if (!dir) { clearMarks(); if (!q) { fmsg.textContent = ''; return; }
+      var w = document.createTreeWalker(active.el, NodeFilter.SHOW_TEXT, null), nodes = [], n; while ((n = w.nextNode())) { if (n.parentNode.closest('script,style,mark')) continue; nodes.push(n); }
+      var re = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+      nodes.forEach(function (node) { var txt = node.nodeValue, m, last = 0, frag = null; re.lastIndex = 0; while ((m = re.exec(txt))) { frag = frag || document.createDocumentFragment(); frag.appendChild(document.createTextNode(txt.slice(last, m.index))); var mk = document.createElement('mark'); mk.className = 'hit'; mk.textContent = m[0]; frag.appendChild(mk); last = m.index + m[0].length; if (!m[0].length) re.lastIndex++; } if (frag) { frag.appendChild(document.createTextNode(txt.slice(last))); node.parentNode.replaceChild(frag, node); } });
+      hits = $$('mark.hit', active.el); hitI = hits.length ? 0 : -1;
+    } else if (hits.length) { hitI = (hitI + dir + hits.length) % hits.length; }
+    hits.forEach(function (m, i) { m.classList.toggle('cur', i === hitI); }); if (hits[hitI]) hits[hitI].scrollIntoView({ block: 'center' });
+    fmsg.textContent = hits.length ? (hitI + 1) + ' of ' + hits.length + ' ' + (hits.length === 1 ? 'match' : 'matches') : (q ? 'Phrase not found' : ''); fmsg.className = 'msg' + (q && !hits.length ? ' bad' : '');
+  }
+  fq.addEventListener('input', function () { doFind(); });
+  fq.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doFind(e.shiftKey ? -1 : 1); } else if (e.key === 'Escape') { closeFind(); } });
+  $('#f-next').addEventListener('click', function () { doFind(1); }); $('#f-prev').addEventListener('click', function () { doFind(-1); }); $('#f-x').addEventListener('click', function () { closeFind(); });
+
+  /* ---------- Tab overview ---------- */
+  var ov = $('#overview'), ovOpener = null;
+  function drawOverview() {
+    $('#ov-grid').innerHTML = tabs.map(function (t) { return '<button class="ov-card" data-id="' + t.id + '" aria-current="' + (t === active) + '" aria-label="' + esc(t.title) + '"><span class="thumb" style="--c:' + t.rt.c + '"><i></i><b></b><b></b><b></b><b></b><b></b><b></b></span><span class="tt">' + favHtml(t.rt) + '<span>' + esc(t.title) + '</span></span><span class="cl" role="button" aria-label="Close ' + esc(t.title) + '" data-x="' + t.id + '">×</span></button>'; }).join('');
+  }
+  function openOverview() { ovOpener = document.activeElement; drawOverview(); ov.hidden = false; var c = $('.ov-card[aria-current=true]', ov) || $('.ov-card', ov); if (c) c.focus(); }
+  function closeOverview(refocus) { if (ov.hidden) return; ov.hidden = true; if (refocus && ovOpener && ovOpener.focus) ovOpener.focus(); }
+  $('#ov-grid').addEventListener('click', function (e) {
+    var x = e.target.closest('[data-x]'); if (x) { e.stopPropagation(); closeTab(byId(x.getAttribute('data-x'))); var c = $('.ov-card', ov); if (c) c.focus(); return; }
+    var c2 = e.target.closest('.ov-card'); if (c2) { activate(byId(c2.getAttribute('data-id'))); closeOverview(false); }
+  });
+  $('#ov-grid').addEventListener('keydown', function (e) {
+    var cards = $$('.ov-card', ov), i = cards.indexOf(document.activeElement); if (i < 0) return;
+    var per = Math.max(1, Math.floor($('#ov-grid').clientWidth / 206)), d = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: per, ArrowUp: -per }[e.key];
+    if (d) { e.preventDefault(); var j = Math.max(0, Math.min(cards.length - 1, i + d)); cards[j].focus(); }
+    if (e.key === 'Delete' || e.key === 'Backspace') { e.preventDefault(); closeTab(byId(cards[i].getAttribute('data-id'))); var n = $$('.ov-card', ov)[Math.min(i, tabs.length - 1)]; if (n) n.focus(); }
+  });
+  $('#ov-new').addEventListener('click', function () { newTab(); closeOverview(false); });
+  $('#ov-done').addEventListener('click', function () { closeOverview(true); });
+  ov.addEventListener('keydown', function (e) { if (e.key === 'Escape') { e.stopPropagation(); closeOverview(true); } if (e.key === 'Tab') { var f = $$('button', ov).filter(function (b) { return !b.disabled; }), i = f.indexOf(document.activeElement); e.preventDefault(); f[(i + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus(); } });
+
+  /* ---------- Downloads ---------- */
+  function fmtSize(n) { return n > 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.round(n / 1024) + ' KB'; }
+  function startDownload(name) {
+    var d = { id: ++dlId, name: name, size: 800000 + (name.length * 91337) % 4000000, p: 0, st: 'run' }; downloads.unshift(d);
+    toast('info', 'Download started', name); drawDownloads(); $('#dlwin').hidden = false;
+    d.iv = setInterval(function () { d.p = Math.min(100, d.p + (reduce ? 100 : 8 + (d.id * 7) % 9)); if (d.p >= 100) { clearInterval(d.iv); d.st = 'done'; toast('success', 'Download complete', name); } drawDownloads(); }, 220);
+  }
+  function drawDownloads() {
+    $('#dl-list').innerHTML = downloads.length ? downloads.map(function (d) {
+      return '<div class="dl" data-id="' + d.id + '"><div class="row"><span class="nm">' + esc(d.name) + '</span>' + (d.st === 'run' ? '<button data-cancel="' + d.id + '">Cancel</button>' : d.st === 'done' ? '<button data-show="' + d.id + '">Show in Finder</button>' : '') + '</div>' +
+        (d.st === 'run' ? '<div class="progress-bar animated" role="progressbar" aria-label="Downloading ' + esc(d.name) + '" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + Math.round(d.p) + '"><div class="progress-bar-fill" style="width:' + d.p + '%"></div></div>' : '') +
+        '<div class="meta">' + (d.st === 'run' ? Math.round(d.size * d.p / 100 / 1024) + ' KB of ' + fmtSize(d.size) : d.st === 'done' ? fmtSize(d.size) + ' · Completed' : 'Canceled') + '</div></div>';
+    }).join('') : '<div class="empty-dl">No downloads yet.</div>';
+  }
+  $('#dl-list').addEventListener('click', function (e) {
+    var c = e.target.closest('[data-cancel]'), s = e.target.closest('[data-show]');
+    if (c) { var d = downloads.filter(function (x) { return x.id === +c.getAttribute('data-cancel'); })[0]; if (d) { clearInterval(d.iv); d.st = 'cancel'; drawDownloads(); } }
+    if (s) toast('info', 'Show in Finder', 'This is a simulation, so the file does not exist.');
+  });
+  $('#dl-x').addEventListener('click', function () { $('#dlwin').hidden = true; });
+  drawDownloads();
+
+  /* ---------- Sheet (Keychain-style) ---------- */
+  var sheetWrap = $('#sheetwrap'), sheetOpener = null;
+  function sheet(title, msg, buttons) {
+    sheetOpener = document.activeElement; $('#sheet-t').textContent = title; $('#sheet-p').textContent = msg; var b = $('#sheet-b'); b.innerHTML = '';
+    buttons.forEach(function (x) { var el = document.createElement('button'); el.textContent = x.l; if (x.d) el.className = 'default pulse'; el.addEventListener('click', function () { sheetClose(); x.cb(); }); b.appendChild(el); });
+    sheetWrap.setAttribute('data-sheet', ''); setTimeout(function () { var d = $('.default', b) || $('button', b); if (d) d.focus(); }, reduce ? 0 : 230);
+  }
+  function sheetClose() { sheetWrap.removeAttribute('data-sheet'); if (sheetOpener && sheetOpener.focus) { try { sheetOpener.focus(); } catch (e) {} } }
+  $('#sheet').addEventListener('keydown', function (e) { if (e.key === 'Escape') sheetClose(); if (e.key === 'Tab') { var f = $$('button', $('#sheet')), i = f.indexOf(document.activeElement); e.preventDefault(); f[(i + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus(); } });
+
+  /* ---------- Commands ---------- */
+  function zoomBy(t, d) { var i = zooms.indexOf(t.zoom); if (i < 0) i = 4; i = Math.max(0, Math.min(zooms.length - 1, i + d)); t.zoom = d === 0 ? 100 : zooms[i]; if (t.el) t.el.style.zoom = t.zoom / 100; chrome(); }
+  function run(cmd, src) {
+    var t = active;
+    switch (cmd) {
+      case 'newtab': newTab(); setTimeout(function () { urlIn.focus(); }, 0); break;
+      case 'closetab': closeTab(t); break;
+      case 'reopen': if (closed.length) reopen(0); else toast('info', 'Nothing to reopen', 'No tabs have been closed.'); break;
+      case 'reopenat': reopen(+src.getAttribute('data-i')); break;
+      case 'locate': urlIn.focus(); urlIn.select(); break;
+      case 'back': if (t.i > 0) { t.i--; navigate(t, t.hist[t.i], { push: false }); } break;
+      case 'forward': if (t.i < t.hist.length - 1) { t.i++; navigate(t, t.hist[t.i], { push: false }); } break;
+      case 'home': navigate(t, 'compass://start'); break;
+      case 'reload': navigate(t, t.url, { push: false }); break;
+      case 'stop': if (t.timer) { t.timer.finish(); setStatus('Stopped'); setTimeout(function () { setStatus(null); }, 900); } break;
+      case 'zoomin': zoomBy(t, 1); break; case 'zoomout': zoomBy(t, -1); break; case 'zoom0': zoomBy(t, 0); break;
+      case 'overview': if (ov.hidden) openOverview(); else closeOverview(true); break;
+      case 'find': openFind(); break;
+      case 'togglebar': $('#bookbar').hidden = !$('#bookbar').hidden; $('#m-bar').textContent = $('#bookbar').hidden ? 'Show Bookmark Bar' : 'Hide Bookmark Bar'; break;
+      case 'togglestatus': $('#status').hidden = !$('#status').hidden; $('#m-status').textContent = $('#status').hidden ? 'Show Status Bar' : 'Hide Status Bar'; break;
+      case 'bookmark': if (isBm(t.url)) { removeBookmark(t.url); drawBookbar(); drawMenus(); chrome(); toast('info', 'Bookmark removed', t.title); } else addBookmark(t.url, t.title); break;
+      case 'bookmarkall': var f = { f: 'Tabs from today', c: tabs.filter(function (x) { return x.url.indexOf('compass://') !== 0; }).map(function (x) { return { t: x.title, u: x.url }; }) }; if (f.c.length) { bookmarks.push(f); drawBookbar(); drawMenus(); toast('success', 'Folder added', f.c.length + ' tabs saved to “Tabs from today”.'); } else toast('info', 'Nothing to save', 'Open a page first.'); break;
+      case 'openbm': navigate(t, src.getAttribute('data-u')); break;
+      case 'clearhist': tabs.forEach(function (x) { x.hist = [x.url]; x.i = 0; }); closed = []; drawMenus(); chrome(); toast('info', 'History cleared', 'Back and forward lists were emptied.'); break;
+      case 'downloads': $('#dlwin').hidden = !$('#dlwin').hidden; break;
+      case 'savepage': startDownload((t.title.replace(/[^\w ]+/g, '').trim() || 'page') + '.html'); break;
+      case 'restore': if (session && session.urls) { tabs.slice().forEach(function (x) { cancelLoad(x); if (x.el) x.el.remove(); }); tabs = []; session.urls.forEach(function (u) { newTab(u, { activate: false }); }); activate(tabs[Math.max(0, Math.min(session.active, tabs.length - 1))]); toast('success', 'Session restored', session.urls.length + ' tabs reopened.'); } break;
+      case 'appearance': root.classList.toggle('theme-graphite'); break;
+      case 'about': toast('info', 'Compass 0.1 (sample)', 'A simulated browser inspired by Camino. Not a real browser.'); break;
+      case 'prefs': toast('info', 'Preferences', 'There are no preferences in this demo. Like Camino, it keeps things simple.'); break;
+      case 'quit': toast('warn', 'Quit Compass', 'Not really. This is a demo, so the window stays open.'); break;
+      case 'mini': case 'zoomwin': toast('info', 'Window controls', 'These are decorative in this demo.'); break;
+      case 'help': toast('info', 'Shortcuts', '⌥T new tab, ⌥W close, ⌥L location, ⌥O overview, ⌥F find, ⌥D bookmark, ⌥J downloads, ⌥+ ⌥− ⌥0 text size, ⌥[ ⌥] back and forward, ⌥1–9 jump to tab.'); break;
+      case 'try': navigate(t, 'login.example'); toast('info', 'Test pages', 'Open the Test pages folder on the bookmark bar for more.'); break;
+    }
+  }
+  function reopen(i) { var c = closed.splice(i, 1)[0]; if (!c) return; var t = newTab(c.url); t.hist = c.hist.slice(); t.i = c.i; drawMenus(); chrome(); }
+  document.addEventListener('click', function (e) { var b = e.target.closest('[data-cmd]'); if (b && !b.closest('#menus') && !b.disabled) run(b.getAttribute('data-cmd'), b); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { if (!ov.hidden) return; if (!fb.hidden && document.activeElement !== fq) closeFind(); }
+    if (!e.altKey || e.ctrlKey || e.metaKey) return;
+    var map = { KeyT: e.shiftKey ? 'reopen' : 'newtab', KeyW: 'closetab', KeyL: 'locate', KeyR: 'reload', KeyF: 'find', KeyO: 'overview', KeyD: 'bookmark', KeyJ: 'downloads', KeyH: 'home', Equal: 'zoomin', Minus: 'zoomout', Digit0: 'zoom0', BracketLeft: 'back', BracketRight: 'forward', Period: 'stop' };
+    var c = map[e.code]; if (c) { e.preventDefault(); run(c); return; }
+    var dm = /^Digit([1-9])$/.exec(e.code); if (dm && tabs[+dm[1] - 1]) { e.preventDefault(); activate(tabs[+dm[1] - 1]); }
+  });
+
+  /* ---------- Start ---------- */
+  drawBookbar(); drawMenus();
+  newTab('compass://start');
+  var hash = location.hash.slice(1);
+  if (hash === 'tour') { newTab('news.example', { activate: false }); newTab('northwind.example', { activate: false }); newTab('docs.example', { activate: false }); }
+  window.compassDebug = { tabs: function () { return tabs; } };
+})();
+</script>
+</body>
+</html>
